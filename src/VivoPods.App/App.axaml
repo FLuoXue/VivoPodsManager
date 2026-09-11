@@ -1,0 +1,44 @@
+<Application xmlns="https://github.com/avaloniaui" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" x:Class="VivoPods.App.App" RequestedThemeVariant="Default">
+  <Application.Resources>
+    <ResourceDictionary>
+      <ResourceDictionary.ThemeDictionaries>
+        <ResourceDictionary x:Key="Light">
+          <SolidColorBrush x:Key="PageBrush">#F6F7FB</SolidColorBrush>
+          <SolidColorBrush x:Key="CardBrush">#FFFFFF</SolidColorBrush>
+          <SolidColorBrush x:Key="SideBrush">#FCFCFE</SolidColorBrush>
+          <SolidColorBrush x:Key="TextBrush">#202538</SolidColorBrush>
+          <SolidColorBrush x:Key="MutedBrush">#7B8194</SolidColorBrush>
+          <SolidColorBrush x:Key="LineBrush">#EAECF3</SolidColorBrush>
+          <SolidColorBrush x:Key="TintBrush">#EDF0FF</SolidColorBrush>
+        </ResourceDictionary>
+        <ResourceDictionary x:Key="Dark">
+          <SolidColorBrush x:Key="PageBrush">#171A23</SolidColorBrush>
+          <SolidColorBrush x:Key="CardBrush">#222633</SolidColorBrush>
+          <SolidColorBrush x:Key="SideBrush">#1C1F2A</SolidColorBrush>
+          <SolidColorBrush x:Key="TextBrush">#EDF0FC</SolidColorBrush>
+          <SolidColorBrush x:Key="MutedBrush">#A1A9BF</SolidColorBrush>
+          <SolidColorBrush x:Key="LineBrush">#353B4F</SolidColorBrush>
+          <SolidColorBrush x:Key="TintBrush">#303858</SolidColorBrush>
+        </ResourceDictionary>
+      </ResourceDictionary.ThemeDictionaries>
+      <SolidColorBrush x:Key="AccentBrush">#526BEE</SolidColorBrush>
+    </ResourceDictionary>
+  </Application.Resources>
+  <Application.Styles>
+    <FluentTheme />
+    <Style Selector="Window"><Setter Property="FontFamily" Value="Microsoft YaHei UI, Segoe UI"/><Setter Property="FontSize" Value="13"/><Setter Property="Foreground" Value="{DynamicResource TextBrush}"/><Setter Property="Background" Value="{DynamicResource PageBrush}"/></Style>
+    <Style Selector="TextBlock"><Setter Property="Foreground" Value="{DynamicResource TextBrush}"/></Style>
+    <Style Selector="TextBlock.muted"><Setter Property="Foreground" Value="{DynamicResource MutedBrush}"/><Setter Property="FontSize" Value="12"/></Style>
+    <Style Selector="TextBlock.section"><Setter Property="FontSize" Value="17"/><Setter Property="FontWeight" Value="SemiBold"/></Style>
+    <Style Selector="Border.card"><Setter Property="Background" Value="{DynamicResource CardBrush}"/><Setter Property="BorderBrush" Value="{DynamicResource LineBrush}"/><Setter Property="BorderThickness" Value="1"/><Setter Property="CornerRadius" Value="18"/><Setter Property="Padding" Value="24"/></Style>
+    <Style Selector="Button"><Setter Property="CornerRadius" Value="9"/><Setter Property="Padding" Value="16,10"/><Setter Property="Cursor" Value="Hand"/><Setter Property="Background" Value="{DynamicResource TintBrush}"/><Setter Property="Foreground" Value="{DynamicResource TextBrush}"/></Style>
+    <Style Selector="Button.primary"><Setter Property="Background" Value="{DynamicResource AccentBrush}"/><Setter Property="Foreground" Value="White"/></Style>
+    <Style Selector="Button.quiet"><Setter Property="Background" Value="Transparent"/><Setter Property="Foreground" Value="{DynamicResource MutedBrush}"/></Style>
+    <Style Selector="Button.nav"><Setter Property="HorizontalAlignment" Value="Stretch"/><Setter Property="HorizontalContentAlignment" Value="Left"/><Setter Property="Background" Value="Transparent"/><Setter Property="Padding" Value="20,14"/><Setter Property="Foreground" Value="{DynamicResource MutedBrush}"/></Style>
+    <Style Selector="Button.nav.active"><Setter Property="Background" Value="{DynamicResource TintBrush}"/><Setter Property="Foreground" Value="{DynamicResource AccentBrush}"/><Setter Property="FontWeight" Value="SemiBold"/></Style>
+    <Style Selector="Button.mode"><Setter Property="HorizontalAlignment" Value="Stretch"/><Setter Property="HorizontalContentAlignment" Value="Center"/><Setter Property="Background" Value="{DynamicResource PageBrush}"/><Setter Property="Padding" Value="10,18"/></Style>
+    <Style Selector="Button.mode.active"><Setter Property="Background" Value="{DynamicResource TintBrush}"/><Setter Property="Foreground" Value="{DynamicResource AccentBrush}"/><Setter Property="BorderBrush" Value="{DynamicResource AccentBrush}"/><Setter Property="BorderThickness" Value="1"/></Style>
+    <Style Selector="ComboBox"><Setter Property="MinHeight" Value="40"/><Setter Property="CornerRadius" Value="8"/><Setter Property="HorizontalAlignment" Value="Stretch"/></Style>
+    <Style Selector="ProgressBar.battery"><Setter Property="Height" Value="5"/><Setter Property="Foreground" Value="#65BFA1"/><Setter Property="Background" Value="{DynamicResource LineBrush}"/></Style>
+  </Application.Styles>
+</Application>
