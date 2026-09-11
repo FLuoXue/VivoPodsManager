@@ -4,6 +4,10 @@
 
 ![浅色界面](docs/images/overview.png)
 
+## 下载
+
+从 [Releases](https://github.com/FLuoXue/VivoPodsManager/releases) 下载最新的 `VivoPodsManager-win-x64.zip`（ARM64 设备选 `win-arm64`），解压后运行 `VivoPodsManager.exe`。每次发布会同时附带 `SHA256SUMS.txt` 校验值。
+
 ## 使用
 
 1. 解压便携包，先在 Windows「设置 → 蓝牙和设备」中配对、连接耳机。

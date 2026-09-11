@@ -1,0 +1,91 @@
+name: Release
+
+on:
+  push:
+    tags:
+      - 'v*'
+  workflow_dispatch:
+    inputs:
+      tag:
+        description: Existing tag to build and publish
+        required: true
+        type: string
+
+permissions:
+  contents: write
+
+jobs:
+  release:
+    runs-on: windows-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: 9.0.x
+
+      - name: Resolve release tag
+        id: meta
+        shell: pwsh
+        run: |
+          if ('${{ github.event_name }}' -eq 'workflow_dispatch') {
+            $tag = '${{ github.event.inputs.tag }}'
+          } else {
+            $tag = '${{ github.ref_name }}'
+          }
+          if (-not $tag) { throw 'Release tag is required.' }
+          "tag=$tag" >> $env:GITHUB_OUTPUT
+
+      - name: Build solution
+        run: dotnet build VivoPodsManager.sln -c Release
+
+      - name: Run verification
+        run: dotnet run --project tests/VivoPods.Tests -c Release --no-build
+
+      - name: Publish win-x64 portable
+        shell: pwsh
+        run: pwsh -File scripts/publish.ps1 -Runtime win-x64
+
+      - name: Publish win-arm64 portable
+        shell: pwsh
+        run: pwsh -File scripts/publish.ps1 -Runtime win-arm64
+
+      - name: Write checksums
+        shell: pwsh
+        run: |
+          $files = Get-ChildItem -LiteralPath artifacts -Filter *.zip | Sort-Object Name
+          $lines = foreach ($file in $files) {
+            $hash = (Get-FileHash -LiteralPath $file.FullName -Algorithm SHA256).Hash
+            "$hash  $($file.Name)"
+          }
+          $lines | Set-Content -LiteralPath artifacts/SHA256SUMS.txt -Encoding utf8
+          Get-Content -LiteralPath artifacts/SHA256SUMS.txt
+
+      - name: Upload build artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: VivoPodsManager-${{ steps.meta.outputs.tag }}
+          path: |
+            artifacts/*.zip
+            artifacts/SHA256SUMS.txt
+
+      - name: Publish GitHub Release
+        shell: pwsh
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          $tag = '${{ steps.meta.outputs.tag }}'
+          $assets = @(
+            'artifacts/VivoPodsManager-win-x64.zip'
+            'artifacts/VivoPodsManager-win-arm64.zip'
+            'artifacts/SHA256SUMS.txt'
+          )
+          gh release view $tag --json tagName 2>$null | Out-Null
+          if ($LASTEXITCODE -eq 0) {
+            gh release upload $tag @assets --clobber
+          } else {
+            gh release create $tag --title "VivoPodsManager $tag" --generate-notes --verify-tag @assets
+          }
+          if ($LASTEXITCODE -ne 0) { throw 'Publishing the GitHub Release failed.' }
