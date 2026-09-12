@@ -25,6 +25,21 @@ if (args.Contains("--probe"))
         await manager.ConnectAsync(device, ct: timeout.Token);
         await Task.Delay(1500, timeout.Token);
         Console.WriteLine($"REAL STATE: {device.Name}: L={manager.State.Left.Text} R={manager.State.Right.Text} C={manager.State.Case.Text}; noise={manager.State.Noise}; fw={manager.State.Firmware}");
+        if (args.Contains("--noise-levels") && manager.Profile.SupportsAncLevels)
+        {
+            var initialMode = manager.State.Noise;
+            var initialLevel = manager.State.NoiseLevel;
+            Console.WriteLine($"NOISE INITIAL: mode={manager.State.Noise}; level={manager.State.NoiseLevel}");
+            await manager.SetNoiseAsync(NoiseMode.Anc, AncLevel.Mild);
+            Console.WriteLine($"NOISE MILD: mode={manager.State.Noise}; level={manager.State.NoiseLevel}");
+            Check(manager.State.Noise == NoiseMode.Anc && manager.State.NoiseLevel == (byte)AncLevel.Mild, "real Air3 Pro mild ANC");
+            await manager.SetNoiseAsync(NoiseMode.Anc, AncLevel.Balanced);
+            Console.WriteLine($"NOISE BALANCED: mode={manager.State.Noise}; level={manager.State.NoiseLevel}");
+            Check(manager.State.Noise == NoiseMode.Anc && manager.State.NoiseLevel == (byte)AncLevel.Balanced, "real Air3 Pro balanced ANC");
+            await manager.SetNoiseAsync(initialMode ?? NoiseMode.Off, initialLevel is null ? null : (AncLevel)initialLevel.Value);
+            Console.WriteLine($"NOISE RESTORED: mode={manager.State.Noise}; level={manager.State.NoiseLevel}");
+            Check(manager.State.Noise == initialMode, "real Air3 Pro noise mode restored");
+        }
         Check(!manager.State.Left.Stale || !manager.State.Right.Stale, "real battery response");
     }
     return 0;
@@ -36,6 +51,11 @@ var five = DeviceProfile.Resolve("vivo TWS 5");
 Hex(VivoProtocol.Handshake(), "FF040000000A0300", "captured GAIA handshake");
 Hex(VivoProtocol.Battery(), "FF040000001B0207", "battery always v4");
 Hex(VivoProtocol.Noise(air, NoiseMode.Anc), "FF030003001B0130000400", "Air3 Pro ANC captured command");
+Hex(VivoProtocol.Noise(air, NoiseMode.Anc, AncLevel.Balanced), "FF030003001B0130000400", "Air3 Pro balanced ANC captured command");
+Hex(VivoProtocol.Noise(air, NoiseMode.Anc, AncLevel.Mild), "FF030003001B0130000100", "Air3 Pro mild ANC captured command");
+Check(air.SupportsAncLevels && !three.SupportsAncLevels, "verified ANC levels are model-scoped");
+try { VivoProtocol.Noise(three, NoiseMode.Anc, AncLevel.Mild); throw new Exception("unsupported level accepted"); }
+catch (NotSupportedException) { }
 Hex(VivoProtocol.Noise(air, NoiseMode.Off), "FF030003001B0130010400", "Air3 Pro OFF byte mapping");
 Hex(VivoProtocol.Noise(three, NoiseMode.Transparency), "FF030002001B01300203", "TWS 3e transparency command");
 Hex(VivoProtocol.Noise(five, NoiseMode.Anc), "FF040003001B0130000301", "TWS 5 profile command");
@@ -73,6 +93,10 @@ state = state.Apply(new(3, 27, 0x820D, [0, 3]));
 Check(state.LeftWear == "已入盒" && state.RightWear == "已入盒", "in case bits 0 and 1");
 Check(ReferenceEquals(state, state.Apply(new(3, 10, 0x8207, [0, 1, 2, 3, 0]))), "reject foreign vendor");
 Check(ReferenceEquals(state, state.Apply(new(3, 27, 0x8230, [1, 0]))), "reject failed status");
+state = state.Apply(new(3, 27, 0x8230, [0, 0, 4, 0]));
+Check(state.Noise == NoiseMode.Anc && state.NoiseLevel == (byte)AncLevel.Balanced, "Air3 Pro report carries ANC level");
+state = state.Apply(new(3, 27, 0x8230, [0, 0, 1, 0]));
+Check(state.NoiseLevel == (byte)AncLevel.Mild, "Air3 Pro mild level byte");
 Check(state.Apply(new(3, 27, 0x8203, [0])).WearDetection == null, "registration ACK not wear switch");
 Check(state.Apply(new(3, 27, 0x821C, [0, 1, 2, 3, 4, 5, 9, 12])).Firmware == "2.5.9", "binary firmware capture");
 Check(ReferenceEquals(state, state.Apply(new(4, 27, 0x8249, [1, 1, 0, 0]))), "truncated peer table is rejected atomically");
@@ -87,6 +111,15 @@ await using (var manager = new PodManager(_ => demo = new DemoTransport()))
     Check(manager.Ready && manager.State.Left.Level == 86 && manager.State.Peers.Count == 2, "session handshake, init, battery, peer list");
     await manager.SetNoiseAsync(NoiseMode.Transparency);
     Check(manager.State.Noise == NoiseMode.Transparency, "set noise and confirmed readback");
+    demo!.NoiseStatusOnlyAck = true;
+    using (var statusCancel = new CancellationTokenSource(TimeSpan.FromMilliseconds(350)))
+    {
+        bool statusCancelled = false;
+        try { await manager.SetNoiseAsync(NoiseMode.Off, ct: statusCancel.Token); }
+        catch (OperationCanceledException) { statusCancelled = true; }
+        Check(statusCancelled && manager.State.Noise == NoiseMode.Transparency, "status-only ACK cannot confirm old noise state");
+    }
+    demo.NoiseStatusOnlyAck = false;
     await manager.ChangeAsync(VivoProtocol.Command(five, 0x0102, 0x12), VivoProtocol.Command(five, 0x0202), s => s.RightTap == 0x12);
     Check(manager.State.RightTap == 0x12 && manager.State.LeftTap == 1, "right gesture set preserves left gesture");
     await manager.ChangeAsync(VivoProtocol.Command(five, 0x0118, 2), VivoProtocol.Command(five, 0x0218), s => s.Eq == 2);
@@ -115,6 +148,19 @@ await using (var manager = new PodManager(_ => new SilentTransport()))
     catch (OperationCanceledException) { cancelled = true; }
     Check(cancelled && !manager.Ready, "cancelling a silent handshake cleans up session");
 }
+DemoTransport? airDemo = null;
+await using (var manager = new PodManager(_ => airDemo = new DemoTransport()))
+{
+    await manager.ConnectAsync(new("air-demo", "vivo TWS Air3 Pro", 2, true, TransportKind.Demo));
+    Check(manager.State.Noise == NoiseMode.Anc && manager.State.NoiseLevel == (byte)AncLevel.Balanced, "Air3 Pro initial noise report");
+    await manager.SetNoiseAsync(NoiseMode.Anc, AncLevel.Mild);
+    Check(manager.State.NoiseLevel == (byte)AncLevel.Mild, "Air3 Pro mild setting confirmed");
+    await manager.SetNoiseAsync(NoiseMode.Off);
+    Check(manager.State.Noise == NoiseMode.Off && manager.State.NoiseLevel == (byte)AncLevel.Mild, "Air3 Pro mode change preserves level");
+    await manager.SetNoiseAsync(NoiseMode.Anc);
+    Check(manager.State.NoiseLevel == (byte)AncLevel.Mild, "Air3 Pro returning to ANC preserves level");
+}
+
 await using (var manager = new PodManager(_ => new SilentTransport(reject: true)))
 {
     bool rejected = false;

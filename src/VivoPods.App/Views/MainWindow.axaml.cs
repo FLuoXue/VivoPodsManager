@@ -25,6 +25,8 @@ public partial class MainWindow : Window
     private async void Refresh(object? sender, RoutedEventArgs e) => await ViewModel.RefreshAsync();
     private void BluetoothSettings(object? sender, RoutedEventArgs e) => ViewModel.OpenBluetooth();
     private async void Noise(object? sender, RoutedEventArgs e) => await ViewModel.SetNoiseAsync(((sender as Button)?.Tag as string) switch { "anc" => NoiseMode.Anc, "trans" => NoiseMode.Transparency, _ => NoiseMode.Off });
+    private async void AncLevelClick(object? sender, RoutedEventArgs e) => await ViewModel.SetAncLevelAsync(
+        (sender as Button)?.Tag as string == "mild" ? AncLevel.Mild : AncLevel.Balanced);
     private async void ApplyEq(object? sender, RoutedEventArgs e) => await ViewModel.SetEqAsync();
     private async void ApplyTap(object? sender, RoutedEventArgs e) => await ViewModel.SetTapAsync((sender as Button)?.Tag as string == "right");
     private async void ApplyCycles(object? sender, RoutedEventArgs e) => await ViewModel.SetCyclesAsync();

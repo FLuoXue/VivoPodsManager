@@ -3,6 +3,7 @@ namespace VivoPods.Core.Models;
 [Flags]
 public enum Features { None = 0, Noise = 1, Find = 2, Wear = 4, Dual = 8, Game = 16, Spatial = 32 }
 public enum NoiseMode : byte { Anc = 0, Off = 1, Transparency = 2 }
+public enum AncLevel : byte { Mild = 1, Balanced = 4 }
 public enum TransportKind { Rfcomm, Gatt, Demo }
 
 public sealed record PodDevice(string Id, string Name, ulong Address, bool IsConnected, TransportKind Transport = TransportKind.Rfcomm)
@@ -13,7 +14,7 @@ public sealed record PodDevice(string Id, string Name, ulong Address, bool IsCon
 }
 
 public sealed record DeviceProfile(string Name, byte Version, byte[] NoiseSuffix, byte[] NoiseQuery, Features Capabilities,
-    bool RegisterNotifications, bool DualAlwaysOn = false, bool Known = true)
+    bool RegisterNotifications, bool DualAlwaysOn = false, bool Known = true, bool SupportsAncLevels = false)
 {
     public bool Has(Features feature) => Capabilities.HasFlag(feature);
     public static string Normalize(string value) => string.Concat(value.Where(char.IsLetterOrDigit)).ToLowerInvariant();
@@ -45,7 +46,8 @@ public sealed record DeviceProfile(string Name, byte Version, byte[] NoiseSuffix
         bool four = n is "vivotws4" or "vivotws4hifi";
         return new DeviceProfile(entry.Name, (byte)(air3 || threeE ? 3 : 4),
             air3 ? [4, 0] : threeE ? [3] : [3, 1], air3 || threeE ? [] : [0],
-            entry.Caps, air3 || threeE || four, threeE);
+            // Sub-level mapping verified against vivo Air3 Pro HCI and the official app.
+            entry.Caps, air3 || threeE || four, threeE, SupportsAncLevels: n == "vivotwsair3pro");
     }).ToArray();
 
     public static DeviceProfile Resolve(string name)

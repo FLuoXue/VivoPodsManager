@@ -107,7 +107,15 @@ public sealed class MainViewModel : INotifyPropertyChanged, IAsyncDisposable
     public bool NoiseOff => Manager.State.Noise == NoiseMode.Off;
     public bool NoiseAnc => Manager.State.Noise == NoiseMode.Anc;
     public bool NoiseTransparency => Manager.State.Noise == NoiseMode.Transparency;
-    public string NoiseLabel => Manager.State.Noise switch { NoiseMode.Anc => "降噪已开启", NoiseMode.Off => "降噪已关闭", NoiseMode.Transparency => "通透已开启", _ => "等待耳机同步" };
+    public bool ShowAncLevels => Manager.Profile.SupportsAncLevels && NoiseAnc;
+    public bool AncBalanced => NoiseAnc && Manager.Profile.SupportsAncLevels && Manager.State.NoiseLevel == (byte)AncLevel.Balanced;
+    public bool AncMild => NoiseAnc && Manager.Profile.SupportsAncLevels && Manager.State.NoiseLevel == (byte)AncLevel.Mild;
+    public string AncLevelLabel => Manager.State.NoiseLevel switch
+    {
+        (byte)AncLevel.Balanced => "均衡降噪", (byte)AncLevel.Mild => "轻度降噪",
+        null => "档位尚未回报", var value => $"未知档位（0x{value:X2}）"
+    };
+    public string NoiseLabel => Manager.State.Noise switch { NoiseMode.Anc => Manager.Profile.SupportsAncLevels ? $"降噪已开启 · {AncLevelLabel}" : "降噪已开启", NoiseMode.Off => "降噪已关闭", NoiseMode.Transparency => "通透已开启", _ => "等待耳机同步" };
     public string GameLabel => SwitchLabel(Manager.State.Gaming);
     public string SpatialLabel => SwitchLabel(Manager.State.Spatial);
     public string WearLabel => SwitchLabel(Manager.State.WearDetection);
@@ -178,6 +186,11 @@ public sealed class MainViewModel : INotifyPropertyChanged, IAsyncDisposable
     public Task DisconnectAsync() => RunAsync(async () => { _manualDisconnect = true; await Manager.DisconnectAsync(); Message = "已断开管理连接。"; });
     public Task RefreshAsync() => RunAsync(async () => { await Manager.RefreshAsync(); Message = "已请求刷新耳机状态。"; });
     public Task SetNoiseAsync(NoiseMode mode) => RunAsync(async () => { await Manager.SetNoiseAsync(mode); Message = "耳机已确认降噪模式。"; });
+    public Task SetAncLevelAsync(AncLevel level) => RunAsync(async () =>
+    {
+        await Manager.SetNoiseAsync(NoiseMode.Anc, level);
+        Message = "耳机已确认降噪档位。";
+    });
     public Task SetEqAsync() => RunAsync(async () =>
     {
         if (SelectedEq == null) return;

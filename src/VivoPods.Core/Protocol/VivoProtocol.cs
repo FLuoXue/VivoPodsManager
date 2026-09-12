@@ -12,9 +12,15 @@ public static class VivoProtocol
     public static GaiaFrame Handshake() => new(4, GaiaVendor, 0x0300, []);
     public static GaiaFrame Battery() => new(4, Vendor, 0x0207, []);
     public static GaiaFrame Command(DeviceProfile p, ushort command, params byte[] payload) => new(p.Version, Vendor, command, payload);
-    public static GaiaFrame Noise(DeviceProfile p, NoiseMode mode)
+    public static GaiaFrame Noise(DeviceProfile p, NoiseMode mode, AncLevel? level = null)
     {
         if (!Enum.IsDefined(mode)) throw new ArgumentOutOfRangeException(nameof(mode));
+        if (level is { } value)
+        {
+            if (!Enum.IsDefined(value)) throw new ArgumentOutOfRangeException(nameof(level));
+            if (!p.SupportsAncLevels) throw new NotSupportedException("该型号尚未确认降噪子档位协议。");
+            return Command(p, 0x0130, (byte)mode, (byte)value, p.NoiseSuffix[1]);
+        }
         return Command(p, 0x0130, [(byte)mode, .. p.NoiseSuffix]);
     }
     public static GaiaFrame HostTime(DeviceProfile p, DateTime time) => Command(p, 0x0509,

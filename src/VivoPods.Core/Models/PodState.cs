@@ -18,6 +18,8 @@ public sealed record PodState
     public BatteryReading Right { get; init; } = new();
     public BatteryReading Case { get; init; } = new();
     public NoiseMode? Noise { get; init; }
+    // Raw model-specific byte; only profiles with verified mappings expose named levels.
+    public byte? NoiseLevel { get; init; }
     public string LeftWear { get; init; } = "状态未知";
     public string RightWear { get; init; } = "状态未知";
     public bool? WearDetection { get; init; }
@@ -38,7 +40,7 @@ public sealed record PodState
     public PodState Disconnected() => this with
     {
         Left = Left with { Stale = true }, Right = Right with { Stale = true }, Case = Case with { Stale = true },
-        Noise = null, LeftWear = "状态未知", RightWear = "状态未知", WearDetection = null, Eq = null,
+        Noise = null, NoiseLevel = null, LeftWear = "状态未知", RightWear = "状态未知", WearDetection = null, Eq = null,
         LeftTap = null, RightTap = null, LeftCycle = null, RightCycle = null, Gaming = null, Spatial = null,
         Finding = null, MultiStatus = null, Peers = []
     };
@@ -56,7 +58,10 @@ public sealed record PodState
                 Left = Left.Update(p[1], (p[4] & 1) != 0), Right = Right.Update(p[2], (p[4] & 2) != 0),
                 Case = Case.Update(p[3], (p[4] & 4) != 0)
             },
-            0x8230 or 0x8130 when p[1] <= 2 => this with { Noise = (NoiseMode)p[1] },
+            0x8230 or 0x8130 when p[1] <= 2 => this with
+            {
+                Noise = (NoiseMode)p[1], NoiseLevel = p.Length >= 3 ? p[2] : null
+            },
             0x820D => this with { LeftWear = Wear(p[1], 1, 4), RightWear = Wear(p[1], 2, 8) },
             0x8203 or 0x8103 when p[1] <= 1 => this with { WearDetection = p[1] == 1 },
             0x8218 or 0x8118 => this with { Eq = p[1] },

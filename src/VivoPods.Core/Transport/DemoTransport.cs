@@ -12,9 +12,17 @@ public sealed class DemoTransport : IPodTransport
     public event Action<Exception?>? Disconnected;
     private byte _noise, _eq, _leftTap = 1, _rightTap = 0x13, _leftCycle = 11, _rightCycle = 11;
     private byte _wear = 1, _game, _spatial;
+    private byte[] _noiseSuffix = [3, 1];
     private bool _connected;
     public bool SuppressReplies { get; set; }
-    public Task ConnectAsync(PodDevice device, CancellationToken ct) { ct.ThrowIfCancellationRequested(); _connected = true; return Task.CompletedTask; }
+    public bool NoiseStatusOnlyAck { get; set; }
+    public Task ConnectAsync(PodDevice device, CancellationToken ct)
+    {
+        ct.ThrowIfCancellationRequested();
+        _noiseSuffix = [.. DeviceProfile.Resolve(device.Name).NoiseSuffix];
+        _connected = true;
+        return Task.CompletedTask;
+    }
     public async Task SendAsync(GaiaFrame f, CancellationToken ct)
     {
         if (!_connected) throw new IOException("演示会话未连接");
@@ -25,7 +33,8 @@ public sealed class DemoTransport : IPodTransport
         {
             0x0300 => [0], 0x0207 => [0, 86, 92, 64, 4], 0x020D => [0, 12],
             0x021C => [0, 1, 2, 3, 4, 11, 1, 12], 0x021B => [0, 192],
-            0x0230 => [0, _noise, 3, 1], 0x0130 => [0, _noise = value, 3, 1],
+            0x0230 => [0, _noise, .. _noiseSuffix],
+            0x0130 => NoiseStatusOnlyAck ? [0] : SetNoise(f.Payload),
             0x0218 => [0, _eq], 0x0118 => [0, _eq = value],
             0x0202 => [0, _leftTap, _rightTap], 0x0102 => SetTap(value),
             0x0231 => [0, 5, _leftCycle, _rightCycle], 0x0131 => SetCycle(f.Payload),
@@ -42,6 +51,11 @@ public sealed class DemoTransport : IPodTransport
             foreach (var frame in decoder.Feed(new GaiaFrame(f.Version, f.Vendor, (ushort)(f.Command | 0x8000), reply).Encode()))
                 FrameReceived?.Invoke(frame);
         }
+    }
+    private byte[] SetNoise(byte[] values)
+    {
+        _noise = values[0]; _noiseSuffix = values[1..];
+        return [0, _noise, .. _noiseSuffix];
     }
     private byte _pcState = 2, _phoneState = 1;
     private byte _dualState = 1;

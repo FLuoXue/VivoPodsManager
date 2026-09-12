@@ -114,7 +114,8 @@ public sealed class PodManager(Func<PodDevice, IPodTransport> factory) : IAsyncD
             if (frame.Command == (set.Command | 0x8000) && frame.Payload.Length > 0 && frame.Payload[0] != 0)
                 completion.TrySetException(new IOException($"耳机拒绝设置（状态码 {frame.Payload[0]}）"));
             bool relevant = frame.Command == (set.Command | 0x8000) || query != null && frame.Command == (query.Command | 0x8000);
-            if (relevant && confirmed(State)) completion.TrySetResult();
+            // A status-only ACK must not succeed by matching values left over from an older report.
+            if (relevant && confirmed(new PodState().Apply(frame))) completion.TrySetResult();
         }
         Received += OnFrame;
         try
@@ -132,8 +133,14 @@ public sealed class PodManager(Func<PodDevice, IPodTransport> factory) : IAsyncD
         finally { Received -= OnFrame; _command.Release(); }
     }
 
-    public Task SetNoiseAsync(NoiseMode mode) => ChangeAsync(VivoProtocol.Noise(Profile, mode),
-        VivoProtocol.Command(Profile, 0x0230, Profile.NoiseQuery), s => s.Noise == mode);
+    public Task SetNoiseAsync(NoiseMode mode, AncLevel? level = null, CancellationToken ct = default)
+    {
+        if (level == null && Profile.SupportsAncLevels && State.NoiseLevel is (byte)AncLevel.Mild or (byte)AncLevel.Balanced)
+            level = (AncLevel)State.NoiseLevel.Value;
+        var command = VivoProtocol.Noise(Profile, mode, level);
+        return ChangeAsync(command, VivoProtocol.Command(Profile, 0x0230, Profile.NoiseQuery),
+            s => s.Noise == mode && (!Profile.SupportsAncLevels || mode != NoiseMode.Anc || s.NoiseLevel == command.Payload[1]), ct);
+    }
 
     public async Task FindAsync(bool start)
     {

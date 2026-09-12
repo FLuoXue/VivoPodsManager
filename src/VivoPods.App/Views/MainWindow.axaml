@@ -58,6 +58,13 @@
                   <Button Grid.Column="1" Classes="mode" Classes.active="{Binding NoiseAnc}" Tag="anc" Click="Noise" Margin="6,0"><StackPanel Spacing="8"><TextBlock Text="&#xE995;" FontFamily="Segoe Fluent Icons" FontSize="20" HorizontalAlignment="Center"/><TextBlock Text="降噪"/></StackPanel></Button>
                   <Button Grid.Column="2" Classes="mode" Classes.active="{Binding NoiseTransparency}" Tag="trans" Click="Noise" Margin="6,0,0,0"><StackPanel Spacing="8"><TextBlock Text="&#xE767;" FontFamily="Segoe Fluent Icons" FontSize="20" HorizontalAlignment="Center"/><TextBlock Text="通透"/></StackPanel></Button>
                 </Grid>
+                <StackPanel Spacing="10" IsVisible="{Binding ShowAncLevels}">
+                  <TextBlock Text="降噪强度" Classes="muted"/>
+                  <Grid ColumnDefinitions="*,*" IsEnabled="{Binding CanControl}">
+                    <Button Classes="mode" Classes.active="{Binding AncBalanced}" Content="均衡降噪" Tag="balanced" Click="AncLevelClick" Margin="0,0,6,0"/>
+                    <Button Grid.Column="1" Classes="mode" Classes.active="{Binding AncMild}" Content="轻度降噪" Tag="mild" Click="AncLevelClick" Margin="6,0,0,0"/>
+                  </Grid>
+                </StackPanel>
               </StackPanel>
             </Border>
             <Border Classes="card" IsVisible="{Binding HasDevice}"><StackPanel Spacing="18"><TextBlock Text="为音乐加一点个性" Classes="section"/><Grid ColumnDefinitions="*,230,Auto" IsEnabled="{Binding CanControl}"><StackPanel Spacing="5"><TextBlock Text="音效预设"/><TextBlock Text="选择适合你的聆听风格" Classes="muted"/></StackPanel><ComboBox Grid.Column="1" ItemsSource="{Binding EqOptions}" SelectedItem="{Binding SelectedEq}" PlaceholderText="耳机尚未回报"/><Button Grid.Column="2" Content="应用" Click="ApplyEq" Margin="12,0,0,0"/></Grid></StackPanel></Border>
