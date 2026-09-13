@@ -22,6 +22,9 @@
         </ResourceDictionary>
       </ResourceDictionary.ThemeDictionaries>
       <SolidColorBrush x:Key="AccentBrush">#526BEE</SolidColorBrush>
+      <StreamGeometry x:Key="RefreshIconGeometry">M 13.5,5.5 A 6,6 0 1 0 14,10 M 13.5,1.5 V 5.5 H 9.5</StreamGeometry>
+      <StreamGeometry x:Key="OpenWindowIconGeometry">M 3,9 V 13 H 7 M 3,13 L 13,3 M 9,3 H 13 V 7</StreamGeometry>
+      <StreamGeometry x:Key="CloseIconGeometry">M 3,3 L 13,13 M 13,3 L 3,13</StreamGeometry>
     </ResourceDictionary>
   </Application.Resources>
   <Application.Styles>
@@ -29,16 +32,39 @@
     <Style Selector="Window"><Setter Property="FontFamily" Value="Microsoft YaHei UI, Segoe UI"/><Setter Property="FontSize" Value="13"/><Setter Property="Foreground" Value="{DynamicResource TextBrush}"/><Setter Property="Background" Value="{DynamicResource PageBrush}"/></Style>
     <Style Selector="TextBlock"><Setter Property="Foreground" Value="{DynamicResource TextBrush}"/></Style>
     <Style Selector="TextBlock.muted"><Setter Property="Foreground" Value="{DynamicResource MutedBrush}"/><Setter Property="FontSize" Value="12"/></Style>
-    <Style Selector="TextBlock.section"><Setter Property="FontSize" Value="17"/><Setter Property="FontWeight" Value="SemiBold"/></Style>
-    <Style Selector="Border.card"><Setter Property="Background" Value="{DynamicResource CardBrush}"/><Setter Property="BorderBrush" Value="{DynamicResource LineBrush}"/><Setter Property="BorderThickness" Value="1"/><Setter Property="CornerRadius" Value="18"/><Setter Property="Padding" Value="24"/></Style>
+    <Style Selector="TextBlock.section"><Setter Property="FontSize" Value="15"/><Setter Property="FontWeight" Value="SemiBold"/></Style>
+    <Style Selector="Border.card"><Setter Property="Background" Value="{DynamicResource CardBrush}"/><Setter Property="BorderBrush" Value="{DynamicResource LineBrush}"/><Setter Property="BorderThickness" Value="1"/><Setter Property="CornerRadius" Value="14"/><Setter Property="Padding" Value="18"/></Style>
     <Style Selector="Button"><Setter Property="CornerRadius" Value="9"/><Setter Property="Padding" Value="16,10"/><Setter Property="Cursor" Value="Hand"/><Setter Property="Background" Value="{DynamicResource TintBrush}"/><Setter Property="Foreground" Value="{DynamicResource TextBrush}"/></Style>
     <Style Selector="Button.primary"><Setter Property="Background" Value="{DynamicResource AccentBrush}"/><Setter Property="Foreground" Value="White"/></Style>
     <Style Selector="Button.quiet"><Setter Property="Background" Value="Transparent"/><Setter Property="Foreground" Value="{DynamicResource MutedBrush}"/></Style>
-    <Style Selector="Button.nav"><Setter Property="HorizontalAlignment" Value="Stretch"/><Setter Property="HorizontalContentAlignment" Value="Left"/><Setter Property="Background" Value="Transparent"/><Setter Property="Padding" Value="20,14"/><Setter Property="Foreground" Value="{DynamicResource MutedBrush}"/></Style>
+    <Style Selector="Button.nav"><Setter Property="HorizontalAlignment" Value="Stretch"/><Setter Property="HorizontalContentAlignment" Value="Left"/><Setter Property="Background" Value="Transparent"/><Setter Property="Padding" Value="14,12"/><Setter Property="Foreground" Value="{DynamicResource MutedBrush}"/></Style>
+    <Style Selector="Button.device"><Setter Property="HorizontalAlignment" Value="Stretch"/><Setter Property="HorizontalContentAlignment" Value="Stretch"/><Setter Property="Background" Value="Transparent"/><Setter Property="Padding" Value="10,9"/><Setter Property="BorderThickness" Value="0"/></Style>
+    <Style Selector="Button.device.active"><Setter Property="Background" Value="{DynamicResource TintBrush}"/></Style>
+    <Style Selector="Button.shortcut"><Setter Property="HorizontalAlignment" Value="Stretch"/><Setter Property="HorizontalContentAlignment" Value="Stretch"/><Setter Property="Background" Value="{DynamicResource CardBrush}"/><Setter Property="BorderBrush" Value="{DynamicResource LineBrush}"/><Setter Property="BorderThickness" Value="1"/><Setter Property="CornerRadius" Value="14"/><Setter Property="Padding" Value="16,14"/></Style>
+    <Style Selector="Button.icon">
+      <Setter Property="Width" Value="30"/>
+      <Setter Property="Height" Value="30"/>
+      <Setter Property="MinWidth" Value="0"/>
+      <Setter Property="MinHeight" Value="0"/>
+      <Setter Property="Padding" Value="0"/>
+      <Setter Property="FontSize" Value="13"/>
+      <Setter Property="HorizontalContentAlignment" Value="Center"/>
+      <Setter Property="VerticalContentAlignment" Value="Center"/>
+    </Style>
+    <Style Selector="Button.icon Path">
+      <Setter Property="Width" Value="14"/>
+      <Setter Property="Height" Value="14"/>
+      <Setter Property="Stretch" Value="Uniform"/>
+      <Setter Property="StrokeThickness" Value="1.25"/>
+      <Setter Property="StrokeLineCap" Value="Round"/>
+      <Setter Property="Stroke" Value="{Binding $parent[Button].Foreground}"/>
+    </Style>
+    <Style Selector="Ellipse.connection-dot"><Setter Property="Width" Value="6"/><Setter Property="Height" Value="6"/><Setter Property="Fill" Value="{DynamicResource MutedBrush}"/><Setter Property="VerticalAlignment" Value="Center"/></Style>
+    <Style Selector="Ellipse.connection-dot.connected"><Setter Property="Fill" Value="#65BFA1"/></Style>
     <Style Selector="Button.nav.active"><Setter Property="Background" Value="{DynamicResource TintBrush}"/><Setter Property="Foreground" Value="{DynamicResource AccentBrush}"/><Setter Property="FontWeight" Value="SemiBold"/></Style>
     <Style Selector="Button.mode"><Setter Property="HorizontalAlignment" Value="Stretch"/><Setter Property="HorizontalContentAlignment" Value="Center"/><Setter Property="Background" Value="{DynamicResource PageBrush}"/><Setter Property="Padding" Value="10,18"/></Style>
     <Style Selector="Button.mode.active"><Setter Property="Background" Value="{DynamicResource TintBrush}"/><Setter Property="Foreground" Value="{DynamicResource AccentBrush}"/><Setter Property="BorderBrush" Value="{DynamicResource AccentBrush}"/><Setter Property="BorderThickness" Value="1"/></Style>
-    <Style Selector="ComboBox"><Setter Property="MinHeight" Value="40"/><Setter Property="CornerRadius" Value="8"/><Setter Property="HorizontalAlignment" Value="Stretch"/></Style>
+    <Style Selector="ComboBox"><Setter Property="MinHeight" Value="36"/><Setter Property="CornerRadius" Value="8"/><Setter Property="HorizontalAlignment" Value="Stretch"/></Style>
     <Style Selector="ProgressBar.battery"><Setter Property="Height" Value="5"/><Setter Property="Foreground" Value="#65BFA1"/><Setter Property="Background" Value="{DynamicResource LineBrush}"/></Style>
   </Application.Styles>
 </Application>

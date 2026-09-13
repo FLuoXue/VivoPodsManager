@@ -11,6 +11,7 @@ public sealed class UserSettings
     public bool Notifications { get; set; } = true;
     public bool Experimental { get; set; }
     public string? LastDevice { get; set; }
+    public string? LastDeviceKey { get; set; }
     public Dictionary<string, string> Profiles { get; set; } = [];
 }
 

@@ -22,10 +22,14 @@ public sealed class MainViewModel : INotifyPropertyChanged, IAsyncDisposable
     private readonly DeviceDiscovery _discovery = new();
     private readonly SettingsStore _settings;
     private readonly DeviceArtworkProvider _artwork;
+    private readonly DeviceConnectionCoordinator _connection;
+    private readonly BluetoothDeviceWatcher _watcher = new();
     private readonly CancellationTokenSource _lifetime = new();
     private readonly DispatcherTimer _reconnect = new() { Interval = TimeSpan.FromSeconds(10) };
-    private bool _busy, _manualDisconnect, _disposed;
-    private string _message = "选择耳机，开始你的聆听。", _page = "overview";
+    private readonly DispatcherTimer _deviceChange = new() { Interval = TimeSpan.FromMilliseconds(450) };
+    private bool _busy, _disposed, _initialized, _refreshing, _refreshPending;
+    private string? _lastConnectionError;
+    private string _message = "自动识别 Windows 已连接的耳机。", _page = "overview";
     private PodDevice? _selectedDevice;
     private readonly Queue<string> _logs = new();
     private readonly object _logGate = new();
@@ -33,7 +37,7 @@ public sealed class MainViewModel : INotifyPropertyChanged, IAsyncDisposable
     public PodManager Manager { get; }
     public event PropertyChangedEventHandler? PropertyChanged;
     public event Action<string, string>? Notification;
-    public ObservableCollection<PodDevice> Devices { get; } = [];
+    public ObservableCollection<DeviceChoice> Devices { get; } = [];
     public ObservableCollection<PeerDevice> Peers { get; } = [];
     public IReadOnlyList<string> ModelOptions { get; } = ["自动识别", .. DeviceProfile.All.Select(p => p.Name)];
     public IReadOnlyList<string> Themes { get; } = ["跟随系统", "浅色", "深色"];
@@ -55,13 +59,27 @@ public sealed class MainViewModel : INotifyPropertyChanged, IAsyncDisposable
         }) { Experimental = Experimental };
         Manager.Changed += OnManagerChanged;
         Manager.Log += AddLog;
-        ApplyTheme();
-        _reconnect.Tick += async (_, _) =>
+        _connection = new(_discovery, Manager, ResolveProfile)
         {
-            if (!_busy && !_manualDisconnect && AutoReconnect && !Manager.Ready && Manager.Phase == ConnectionPhase.Disconnected && SelectedDevice != null && !IsDemo)
-                await ConnectAsync();
+            Automatic = AutoReconnect, PreferredKey = _settings.Settings.LastDeviceKey,
+            PreferredEndpointId = _settings.Settings.LastDevice
         };
-        _reconnect.Start();
+        _connection.Changed += OnConnectionChanged;
+        _connection.Log += AddLog;
+        _connection.Connected += device =>
+        {
+            SelectedDevice = device;
+            _settings.Settings.LastDevice = device.Id;
+            _settings.Settings.LastDeviceKey = DiscoveredDevice.KeyFor(device);
+            Save();
+            Message = $"已自动连接 {device.Name}，状态会持续同步。";
+            Notify("耳机已连接", $"{device.Name}  ·  左 {LeftBattery} / 右 {RightBattery} / 盒 {CaseBattery}");
+        };
+        ApplyTheme();
+        _reconnect.Tick += (_, _) => ScheduleDeviceRefresh();
+        _deviceChange.Tick += async (_, _) => { _deviceChange.Stop(); await CheckDevicesAsync(); };
+        _watcher.Changed += OnBluetoothChanged;
+        _watcher.Warning += AddLog;
         if (_settings.LoadError != null) Message = _settings.LoadError;
     }
     public PodDevice? SelectedDevice
@@ -69,17 +87,30 @@ public sealed class MainViewModel : INotifyPropertyChanged, IAsyncDisposable
         get => _selectedDevice;
         set { _selectedDevice = value; Raise(); Raise(nameof(ModelOverride)); }
     }
-    public bool Busy { get => _busy; private set { _busy = value; RaiseAll(); } }
+    public bool Busy { get => _busy || _connection.IsConnecting; private set { _busy = value; RaiseAll(); } }
     public bool Idle => !Busy;
+    public bool IsScanning => _connection.IsScanning;
+    public bool CanScan => !Busy && !IsScanning;
     public bool CanControl => Manager.Ready && !Busy;
     public bool IsDemo => Manager.Device?.Transport == TransportKind.Demo;
     public string Message { get => _message; set { _message = value; Raise(); } }
-    public string DeviceName => Manager.Device?.Name ?? "你的下一段好声音";
-    public string DeviceSubtitle => IsDemo ? "演示模式 · 所有数据均为模拟" : Manager.Device == null ? "先在 Windows 蓝牙设置中配对你的 vivo / iQOO 耳机" : $"{Manager.Profile.Name}  ·  {Manager.TransportLabel}";
+    public string DeviceName => Manager.Device?.Name ?? "等待耳机上线";
+    public string DeviceSubtitle => IsDemo ? "演示设备 · 模拟数据" : Manager.Ready ? "电量、佩戴与控制状态持续同步" : "连接 Windows 后自动识别并同步";
     public string ConnectionLabel => Manager.Phase switch
     {
-        ConnectionPhase.Ready => IsDemo ? "演示中" : "已连接", ConnectionPhase.Connecting => "正在连接", ConnectionPhase.Handshaking => "正在同步", _ => "未连接"
+        ConnectionPhase.Ready => IsDemo ? "演示中" : "已连接", ConnectionPhase.Connecting => "正在连接", ConnectionPhase.Handshaking => "正在同步",
+        _ => IsScanning ? "正在查找" : _connection.Paused && !IsDemo ? "已暂停" : "未连接"
     };
+    public bool HasDiscoveredDevices => Devices.Count > 0;
+    public bool NoDiscoveredDevices => !HasDiscoveredDevices;
+    public bool ShowConnectionHelp => !Manager.Ready;
+    public bool IsConnected => Manager.Ready;
+    public string ConnectionAction => _connection.Paused || IsDemo ? "继续连接" : "重新连接";
+    public string ConnectionHint => IsDemo ? "正在体验模拟设备，可随时切回真实耳机。" : _connection.LastError ??
+        (_connection.Paused ? "自动连接已暂停，点击继续连接即可恢复。" :
+        !AutoReconnect ? "自动连接已关闭，可点击重新连接识别在线耳机。" :
+        Manager.Ready ? "多副耳机在线时，可在左侧切换。" : "在 Windows 中配对并连接耳机，程序会自动识别，无需选择连接入口。");
+    public string DeviceListHint => IsDemo ? "演示设备 · 不连接真实蓝牙" : Devices.Count == 0 ? "等待发现耳机" : $"{Devices.Count(device => device.IsOnline)} 副在线 · {Devices.Count} 副已配对";
     public string ConnectionDetail => Manager.State.UpdatedAt is { } time && Manager.Ready ? $"最近同步 {time:HH:mm:ss}" : "等待耳机连接";
     public string Address => Manager.Device?.AddressText ?? "—";
     public string ProfileLabel => $"{Manager.Profile.Name} · GAIA v{Manager.Profile.Version}";
@@ -99,6 +130,8 @@ public sealed class MainViewModel : INotifyPropertyChanged, IAsyncDisposable
     public string CaseStatus => BatteryStatus(Manager.State.Case, "充电盒");
     private static string BatteryStatus(BatteryReading b, string status) => b.Stale ? b.Level == null ? "暂无数据" : "上次读数" : b.Charging ? "正在充电" : status;
     public bool ShowNoise => Manager.Profile.Has(Features.Noise);
+    public int QuickSettingsColumn => ShowNoise ? 1 : 0;
+    public int QuickSettingsSpan => ShowNoise ? 1 : 2;
     public bool ShowFind => Manager.Profile.Has(Features.Find);
     public bool ShowWear => Manager.Profile.Has(Features.Wear);
     public bool ShowDual => Manager.Profile.Has(Features.Dual) && !Manager.Profile.DualAlwaysOn;
@@ -136,63 +169,100 @@ public sealed class MainViewModel : INotifyPropertyChanged, IAsyncDisposable
     public bool DevicesPage => _page == "devices";
     public bool SettingsPage => _page == "settings";
     public bool AboutPage => _page == "about";
-    public string PageTitle => _page switch { "gestures" => "让操作更顺手", "devices" => "设备连接", "settings" => "按你的习惯来", "about" => "关于 Vivo Pods", _ => "耳机概览" };
-    public string PageSubtitle => _page switch { "gestures" => "自定义左右耳手势，音乐尽在指间。", "devices" => "在你的设备之间，自在切换。", "settings" => "为你的桌面，留一份舒适。", "about" => "让好声音，也属于 Windows。", _ => "好声音，从这里开始。" };
+    public string PageTitle => _page switch { "gestures" => "手势控制", "devices" => "设备连接", "settings" => "应用设置", "about" => "关于 Vivo Pods", _ => "耳机概览" };
+    public string PageSubtitle => _page switch { "gestures" => "分别设置左右耳的操作习惯", "devices" => "自动识别、切换耳机与管理多设备连接", "settings" => "外观、自动连接与桌面偏好", "about" => "让好声音，也属于 Windows", _ => "电量与常用控制，随手可达" };
     public void Navigate(string page) { _page = page; RaiseAll(); }
     public string Theme { get => _settings.Settings.Theme; set { _settings.Settings.Theme = value; ApplyTheme(); Save(); Raise(); } }
     public bool CloseToTray { get => _settings.Settings.CloseToTray; set { _settings.Settings.CloseToTray = value; Save(); Raise(); } }
-    public bool AutoReconnect { get => _settings.Settings.AutoReconnect; set { _settings.Settings.AutoReconnect = value; Save(); Raise(); } }
+    public bool AutoReconnect
+    {
+        get => _settings.Settings.AutoReconnect;
+        set
+        {
+            _settings.Settings.AutoReconnect = value; _connection.Automatic = value; Save();
+            if (!value) _connection.Pause();
+            else if (_initialized && !IsDemo) { _connection.Resume(); ScheduleDeviceRefresh(); }
+            RaiseAll();
+        }
+    }
     public bool Notifications { get => _settings.Settings.Notifications; set { _settings.Settings.Notifications = value; Save(); Raise(); } }
     public bool Experimental { get => _settings.Settings.Experimental; set { _settings.Settings.Experimental = value; Manager.Experimental = value; Save(); RaiseAll(); } }
     public bool Startup { get => SettingsStore.StartupEnabled; set { try { SettingsStore.SetStartup(value); } catch (Exception ex) { Message = ex.Message; } Raise(); } }
     public string ModelOverride
     {
-        get => SelectedDevice != null && _settings.Settings.Profiles.TryGetValue(SelectedDevice.Id, out string? name) ? name : "自动识别";
+        get => SelectedDevice != null ? ResolveProfile(SelectedDevice)?.Name ?? "自动识别" : "自动识别";
         set
         {
             if (SelectedDevice == null) return;
-            if (value == "自动识别") _settings.Settings.Profiles.Remove(SelectedDevice.Id); else _settings.Settings.Profiles[SelectedDevice.Id] = value;
+            string key = DiscoveredDevice.KeyFor(SelectedDevice);
+            if (value == "自动识别") { _settings.Settings.Profiles.Remove(key); _settings.Settings.Profiles.Remove(SelectedDevice.Id); }
+            else _settings.Settings.Profiles[key] = value;
             Save(); Message = "型号设置已保存，重新连接后生效。"; Raise();
         }
     }
     public string SettingsPath => _settings.DirectoryPath;
+    private DeviceProfile? ResolveProfile(PodDevice device)
+    {
+        if (_settings.Settings.Profiles.TryGetValue(DiscoveredDevice.KeyFor(device), out string? name) ||
+            _settings.Settings.Profiles.TryGetValue(device.Id, out name)) return DeviceProfile.Resolve(name);
+        return null;
+    }
     private void Save() { try { _settings.Save(); } catch (Exception ex) { Message = $"保存设置失败：{ex.Message}"; } }
     private void ApplyTheme() { if (Application.Current != null) Application.Current.RequestedThemeVariant = Theme switch { "深色" => ThemeVariant.Dark, "浅色" => ThemeVariant.Light, _ => ThemeVariant.Default }; }
 
     public async Task InitializeAsync(bool demo)
     {
+        if (_initialized) return;
+        _initialized = true;
         if (demo) { await DemoAsync(); return; }
-        await ScanAsync();
-        if (AutoReconnect && SelectedDevice?.IsConnected == true) await ConnectAsync();
+        _watcher.Start(); _reconnect.Start();
+        await CheckDevicesAsync();
     }
-    public Task ScanAsync() => RunAsync(async () =>
+    private void OnBluetoothChanged() => Dispatcher.UIThread.Post(ScheduleDeviceRefresh);
+    private void ScheduleDeviceRefresh()
     {
-        using var timeout = CancellationTokenSource.CreateLinkedTokenSource(_lifetime.Token);
-        timeout.CancelAfter(TimeSpan.FromSeconds(12));
-        var found = await _discovery.FindAsync(timeout.Token);
-        string? selected = SelectedDevice?.Id ?? _settings.Settings.LastDevice;
-        Devices.Clear(); foreach (var device in found) Devices.Add(device);
-        SelectedDevice = Devices.FirstOrDefault(x => x.Id == selected) ?? Devices.FirstOrDefault();
-        Message = Devices.Count == 0 ? "未发现已配对的 vivo / iQOO 耳机。请打开蓝牙设置完成配对。" : $"发现 {Devices.Count} 个耳机连接入口，选择后连接。";
-        if (_discovery.LastWarning is { } warning) AddLog(warning);
-    });
+        if (_disposed || !_initialized || IsDemo) return;
+        _refreshPending = true;
+        if (!_deviceChange.IsEnabled) _deviceChange.Start();
+    }
+    private async Task CheckDevicesAsync()
+    {
+        if (_disposed || IsDemo) return;
+        if (Busy || _refreshing) { ScheduleDeviceRefresh(); return; }
+        _refreshing = true; _refreshPending = false;
+        try
+        {
+            await _connection.RefreshAsync(_lifetime.Token);
+            if (_discovery.LastWarning is { } warning) AddLog(warning);
+        }
+        catch (OperationCanceledException) when (_lifetime.IsCancellationRequested) { }
+        catch (Exception ex) { Message = "暂时无法检查蓝牙设备。"; AddLog(ex.ToString()); }
+        finally { _refreshing = false; if (_refreshPending) ScheduleDeviceRefresh(); }
+    }
+    public Task ScanAsync() => CheckDevicesAsync();
     public Task ConnectAsync() => RunAsync(async () =>
     {
-        if (SelectedDevice == null) { Message = "请先选择耳机"; return; }
-        _manualDisconnect = false;
-        var profile = ModelOverride == "自动识别" ? null : DeviceProfile.Resolve(ModelOverride);
-        await Manager.ConnectAsync(SelectedDevice, profile, _lifetime.Token);
-        _settings.Settings.LastDevice = SelectedDevice.Id; Save();
-        Message = "耳机已连接，状态会自动同步。";
-        Notify("耳机已连接", $"{DeviceName}  ·  左 {LeftBattery} / 右 {RightBattery} / 盒 {CaseBattery}");
+        if (IsDemo) await _connection.DisconnectAsync(_lifetime.Token);
+        _watcher.Start(); _reconnect.Start();
+        await _connection.RetryAsync(_lifetime.Token);
+        if (!Manager.Ready) Message = ConnectionHint;
+    });
+    public Task SelectDeviceAsync(DeviceChoice choice) => RunAsync(async () =>
+    {
+        if (choice.IsDemo) { Navigate("overview"); return; }
+        if (!choice.IsOnline) { Message = "请先在 Windows 蓝牙设置中连接这副耳机。"; return; }
+        _watcher.Start(); _reconnect.Start();
+        await _connection.SelectAsync(choice.Key, _lifetime.Token);
+        Navigate("overview");
+        if (!Manager.Ready) Message = ConnectionHint;
     });
     public Task DemoAsync() => RunAsync(async () =>
     {
-        _manualDisconnect = true;
-        await Manager.ConnectAsync(new("demo", "vivo TWS 5", 0, true, TransportKind.Demo), DeviceProfile.Resolve("vivo TWS 5"), _lifetime.Token);
+        _reconnect.Stop(); _deviceChange.Stop();
+        await _connection.DemoAsync(ct: _lifetime.Token);
         Message = "正在预览演示设备，所有操作只作用于模拟数据。";
     });
-    public Task DisconnectAsync() => RunAsync(async () => { _manualDisconnect = true; await Manager.DisconnectAsync(); Message = "已断开管理连接。"; });
+    public Task DisconnectAsync() => RunAsync(async () => { await _connection.DisconnectAsync(_lifetime.Token); Message = "已暂停自动连接，耳机在 Windows 中的音频连接不受影响。"; });
     public Task RefreshAsync() => RunAsync(async () => { await Manager.RefreshAsync(); Message = "已请求刷新耳机状态。"; });
     public Task SetNoiseAsync(NoiseMode mode) => RunAsync(async () => { await Manager.SetNoiseAsync(mode); Message = "耳机已确认降噪模式。"; });
     public Task SetAncLevelAsync(AncLevel level) => RunAsync(async () =>
@@ -259,13 +329,33 @@ public sealed class MainViewModel : INotifyPropertyChanged, IAsyncDisposable
         try { await action(); }
         catch (OperationCanceledException) { Message = "操作已取消或连接超时，请检查耳机连接。"; }
         catch (Exception ex) { Message = ex.Message; AddLog($"ERROR {ex}"); }
-        finally { Busy = false; UpdateState(true); }
+        finally { Busy = false; UpdateState(true); if (_refreshPending) ScheduleDeviceRefresh(); }
+    }
+    private void OnConnectionChanged() => Dispatcher.UIThread.Post(() =>
+    {
+        if (_disposed) return;
+        UpdateDeviceChoices();
+        if (_connection.LastError is { } error && error != _lastConnectionError) Message = error;
+        _lastConnectionError = _connection.LastError;
+        RaiseAll();
+    });
+    private void UpdateDeviceChoices()
+    {
+        string? active = Manager.Device is { } device ? DiscoveredDevice.KeyFor(device) : null;
+        var discovered = IsDemo && Manager.Device is { } demo ? [new DiscoveredDevice(DiscoveredDevice.KeyFor(demo), [demo])] : _connection.Devices;
+        var choices = discovered.Select(device => new DeviceChoice(device, device.Key == active && Manager.Ready,
+            device.Key == active && Manager.Phase is ConnectionPhase.Connecting or ConnectionPhase.Handshaking, _artwork.Get(device.Name)?.Case)).ToArray();
+        if (!Devices.Select(device => (device.Key, device.Name, device.IsOnline, device.IsActive, device.IsConnecting))
+            .SequenceEqual(choices.Select(device => (device.Key, device.Name, device.IsOnline, device.IsActive, device.IsConnecting))))
+        { Devices.Clear(); foreach (var choice in choices) Devices.Add(choice); }
     }
     private void OnManagerChanged() => Dispatcher.UIThread.Post(() => UpdateState());
     private int _lastLowBucket = 100;
     private void UpdateState(bool resetSelections = false)
     {
         if (_disposed) return;
+        if (Manager.Device is { } device && device != SelectedDevice) SelectedDevice = device;
+        UpdateDeviceChoices();
         var state = Manager.State;
         if (resetSelections || state.Eq != _displayedState.Eq) SelectedEq = EqOptions.FirstOrDefault(x => x.Value == state.Eq);
         if (resetSelections || state.LeftTap != _displayedState.LeftTap) SelectedLeftTap = TapOptions.FirstOrDefault(x => x.Value == state.LeftTap);
@@ -294,7 +384,9 @@ public sealed class MainViewModel : INotifyPropertyChanged, IAsyncDisposable
     private void RaiseAll() => PropertyChanged?.Invoke(this, new(null));
     public async ValueTask DisposeAsync()
     {
-        _disposed = true; _reconnect.Stop(); _lifetime.Cancel();
+        _disposed = true; _reconnect.Stop(); _deviceChange.Stop(); _watcher.Dispose(); _lifetime.Cancel();
+        _connection.Changed -= OnConnectionChanged;
+        await _connection.DisposeAsync();
         Manager.Changed -= OnManagerChanged;
         await Manager.DisposeAsync();
         _artwork.Dispose();

@@ -14,6 +14,29 @@ void Hex(GaiaFrame frame, string expected, string name) => Check(Convert.ToHexSt
 if (args.Contains("--probe"))
 {
     using var timeout = new CancellationTokenSource(TimeSpan.FromSeconds(60));
+    if (args.Contains("--auto-connect"))
+    {
+        using var watcher = new BluetoothDeviceWatcher();
+        int changes = 0;
+        watcher.Changed += () => Interlocked.Increment(ref changes);
+        watcher.Warning += Console.WriteLine;
+        watcher.Start();
+        await using var automaticManager = new PodManager(device => device.Transport == TransportKind.Gatt ? new GattTransport() : new RfcommTransport());
+        await using var connection = new DeviceConnectionCoordinator(new DeviceDiscovery(), automaticManager);
+        connection.Log += Console.WriteLine;
+        await connection.RefreshAsync(timeout.Token);
+        await Task.Delay(1000, timeout.Token);
+        foreach (var group in connection.Devices)
+            Console.WriteLine($"DEVICE: {group.Name}; online={group.IsConnected}; endpoints={group.Endpoints.Count}");
+        Console.WriteLine($"Bluetooth watcher events: {Volatile.Read(ref changes)}");
+        if (!automaticManager.Ready)
+        {
+            Console.WriteLine(connection.LastError ?? "NO_CONNECTED_DEVICE: 等待 Windows 耳机连接。");
+            return connection.Devices.Any(device => device.IsConnected) ? 3 : 2;
+        }
+        Console.WriteLine($"AUTO CONNECTED: {automaticManager.Device!.Name}; {automaticManager.TransportLabel}; L={automaticManager.State.Left.Text} R={automaticManager.State.Right.Text} C={automaticManager.State.Case.Text}");
+        return 0;
+    }
     var devices = await new DeviceDiscovery().FindAsync(timeout.Token);
     foreach (var device in devices) Console.WriteLine($"{device.Name} | {device.AddressText} | {device.Transport} | connected={device.IsConnected}");
     if (args.Contains("--connect"))
@@ -168,6 +191,7 @@ await using (var manager = new PodManager(_ => new SilentTransport(reject: true)
     catch (IOException) { rejected = true; }
     Check(rejected && !manager.Ready, "rejected handshake never claims connected");
 }
+await ConnectionChecks.RunAsync(Check);
 Console.WriteLine($"\n{passed} checks passed.");
 return 0;
 

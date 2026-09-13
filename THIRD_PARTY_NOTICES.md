@@ -9,7 +9,7 @@
 - **OppoPodsManager** — https://github.com/Zhaoyi-ya/OppoPodsManager
   - Copyright (C) 2026 Zhaoyi-ya；GPL-3.0-or-later（源仓库 LICENSE）。
   - 参考版本 `f272e9e95bb20bfb8e317af06be776c26f1eb077`。
-  - 参考其 UI 功能布局、Models / Protocol / Transport / Services 分层及 Windows 蓝牙发现方式。
+  - 参考其侧栏设备列表、紧凑卡片、自动识别在线耳机、托盘单击小窗 / 双击主窗口，以及 Models / Protocol / Transport / Services 分层和 Windows 蓝牙发现方式。
   - 未复制源仓库耳机图片、MiSans 字体或应用图标；通用耳机示意图以 Avalonia 原生矢量控件绘制。
 - **vivo / iQOO TWS 官方图片** — vivo 耳机 App（`com.android.vivo.tws.vivotws`）及官方机型资源包，整理日期：2026-09-13。
   - 已覆盖 27 个 vivo TWS 型号和 12 个 iQOO TWS 型号。型号与资源复用关系来自官方 `tws_config`，详见 [图片覆盖说明](docs/DEVICE_ART.md)。

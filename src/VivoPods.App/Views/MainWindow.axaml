@@ -1,135 +1,166 @@
 <Window xmlns="https://github.com/avaloniaui" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:views="using:VivoPods.App.Views"
-        x:Class="VivoPods.App.Views.MainWindow" Title="Vivo Pods Manager" Width="1160" Height="850" MinWidth="960" MinHeight="700" WindowStartupLocation="CenterScreen">
-  <Grid ColumnDefinitions="210,*">
+        x:Class="VivoPods.App.Views.MainWindow" Title="Vivo Pods Manager" Width="1000" Height="760" MinWidth="900" MinHeight="660" WindowStartupLocation="CenterScreen">
+  <Grid ColumnDefinitions="204,*">
     <Border Background="{DynamicResource SideBrush}" BorderBrush="{DynamicResource LineBrush}" BorderThickness="0,0,1,0">
-      <Grid RowDefinitions="Auto,Auto,*,Auto" Margin="16,28,16,20">
-        <StackPanel Orientation="Horizontal" Spacing="10" Margin="13,0,0,34">
-          <Border Width="35" Height="35" Background="{DynamicResource AccentBrush}" CornerRadius="11"><TextBlock Text="v" Foreground="White" FontSize="28" FontWeight="SemiBold" HorizontalAlignment="Center" Margin="0,-4,0,0"/></Border>
-          <StackPanel><TextBlock Text="Vivo Pods" FontSize="20" FontWeight="SemiBold"/><TextBlock Text="为每一次聆听" Classes="muted" FontSize="10"/></StackPanel>
+      <Grid RowDefinitions="Auto,Auto,*,Auto" Margin="14,24,14,18">
+        <StackPanel Orientation="Horizontal" Spacing="10" Margin="12,0,0,24">
+          <Border Width="33" Height="33" Background="{DynamicResource AccentBrush}" CornerRadius="10"><TextBlock Text="v" Foreground="White" FontSize="26" FontWeight="SemiBold" HorizontalAlignment="Center" Margin="0,-4,0,0"/></Border>
+          <StackPanel><TextBlock Text="Vivo Pods" FontSize="18" FontWeight="SemiBold"/><TextBlock Text="你的耳机，随时掌控" Classes="muted" FontSize="10"/></StackPanel>
         </StackPanel>
-        <StackPanel Grid.Row="1" Spacing="8">
-          <TextBlock Text="我的空间" Classes="muted" Margin="20,0,0,8" FontSize="11"/>
+        <StackPanel Grid.Row="1" Spacing="9" Margin="0,0,0,20">
+          <Grid ColumnDefinitions="*,Auto" Margin="12,0,6,0"><TextBlock Text="我的耳机" Classes="muted" FontSize="11" VerticalAlignment="Center"/><Button Grid.Column="1" Classes="quiet icon" ToolTip.Tip="刷新耳机列表" AutomationProperties.Name="刷新耳机列表" Click="Scan" IsEnabled="{Binding CanScan}"><Path Data="{StaticResource RefreshIconGeometry}"/></Button></Grid>
+          <ScrollViewer MaxHeight="200" HorizontalScrollBarVisibility="Disabled" VerticalScrollBarVisibility="Auto">
+            <ItemsControl ItemsSource="{Binding Devices}" IsEnabled="{Binding Idle}">
+              <ItemsControl.ItemTemplate><DataTemplate>
+                <Button Classes="device" Classes.active="{Binding IsActive}" Click="SelectDevice" IsEnabled="{Binding IsOnline}" Margin="0,2">
+                  <Grid ColumnDefinitions="32,*" ColumnSpacing="9">
+                    <Panel Width="32" VerticalAlignment="Center"><Image Source="{Binding Thumbnail}" Height="28" Stretch="Uniform" IsVisible="{Binding ShowThumbnail}"/><TextBlock Text="&#xE7F6;" FontFamily="Segoe Fluent Icons" FontSize="22" IsVisible="{Binding ShowPlaceholder}"/></Panel>
+                    <StackPanel Grid.Column="1" Spacing="4"><TextBlock Text="{Binding Name}" FontSize="11" TextWrapping="Wrap"/><TextBlock Text="{Binding Status}" Classes="muted" FontSize="10"/></StackPanel>
+                  </Grid>
+                </Button>
+              </DataTemplate></ItemsControl.ItemTemplate>
+            </ItemsControl>
+          </ScrollViewer>
+          <TextBlock Text="连接 Windows 后自动显示" Classes="muted" FontSize="10" TextWrapping="Wrap" Margin="12,0" IsVisible="{Binding NoDiscoveredDevices}"/>
+          <ProgressBar IsVisible="{Binding IsScanning}" IsIndeterminate="True" Height="2" Margin="12,0"/>
+        </StackPanel>
+        <StackPanel Grid.Row="2" Spacing="5">
           <Button Classes="nav" Classes.active="{Binding OverviewPage}" Tag="overview" Click="Navigate"><StackPanel Orientation="Horizontal" Spacing="12"><TextBlock Text="&#xE7F6;" FontFamily="Segoe Fluent Icons"/><TextBlock Text="耳机概览"/></StackPanel></Button>
           <Button Classes="nav" Classes.active="{Binding GesturesPage}" Tag="gestures" Click="Navigate"><StackPanel Orientation="Horizontal" Spacing="12"><TextBlock Text="&#xE815;" FontFamily="Segoe Fluent Icons"/><TextBlock Text="手势控制"/></StackPanel></Button>
           <Button Classes="nav" Classes.active="{Binding DevicesPage}" Tag="devices" Click="Navigate"><StackPanel Orientation="Horizontal" Spacing="12"><TextBlock Text="&#xE772;" FontFamily="Segoe Fluent Icons"/><TextBlock Text="设备连接"/></StackPanel></Button>
         </StackPanel>
-        <StackPanel Grid.Row="3" Spacing="6">
+        <StackPanel Grid.Row="3" Spacing="5">
           <Button Classes="nav" Classes.active="{Binding SettingsPage}" Tag="settings" Click="Navigate"><StackPanel Orientation="Horizontal" Spacing="12"><TextBlock Text="&#xE713;" FontFamily="Segoe Fluent Icons"/><TextBlock Text="应用设置"/></StackPanel></Button>
           <Button Classes="nav" Classes.active="{Binding AboutPage}" Tag="about" Click="Navigate"><StackPanel Orientation="Horizontal" Spacing="12"><TextBlock Text="&#xE946;" FontFamily="Segoe Fluent Icons"/><TextBlock Text="关于"/></StackPanel></Button>
-          <Border Height="1" Background="{DynamicResource LineBrush}" Margin="10,14"/>
-          <StackPanel Orientation="Horizontal" Spacing="8" Margin="20,0"><Ellipse Width="6" Height="6" Fill="#65BFA1"/><TextBlock Text="Windows 桌面伴侣" Classes="muted" FontSize="10"/></StackPanel>
+          <Border Height="1" Background="{DynamicResource LineBrush}" Margin="10,10"/>
+          <TextBlock Text="单击托盘 · 随手查看电量" Classes="muted" FontSize="10" Margin="12,0"/>
         </StackPanel>
       </Grid>
     </Border>
-    <Grid Grid.Column="1" RowDefinitions="Auto,Auto,*,Auto" Margin="32,28,32,0">
-      <Grid ColumnDefinitions="*,Auto" Margin="0,0,0,22">
-        <StackPanel Spacing="5"><TextBlock Text="{Binding PageTitle}" FontSize="27" FontWeight="SemiBold"/><TextBlock Text="{Binding PageSubtitle}" Classes="muted"/></StackPanel>
-        <Border Grid.Column="1" VerticalAlignment="Center" CornerRadius="15" Padding="12,7" Background="{DynamicResource TintBrush}"><StackPanel Orientation="Horizontal" Spacing="7"><TextBlock Text="●" Foreground="{DynamicResource AccentBrush}" FontSize="10" VerticalAlignment="Center"/><TextBlock Text="{Binding ConnectionLabel}" Foreground="{DynamicResource AccentBrush}" FontSize="12"/></StackPanel></Border>
+    <Grid Grid.Column="1" RowDefinitions="Auto,*,Auto" Margin="22,23,22,0">
+      <Grid ColumnDefinitions="*,Auto" Margin="0,0,0,18">
+        <StackPanel Spacing="4"><TextBlock Text="{Binding PageTitle}" FontSize="24" FontWeight="SemiBold"/><TextBlock Text="{Binding PageSubtitle}" Classes="muted" FontSize="11"/></StackPanel>
+        <Button Grid.Column="1" Classes="quiet" Content="快捷小窗 ↗" Click="OpenQuickWindow" VerticalAlignment="Center" Padding="10,8" FontSize="12"/>
       </Grid>
-      <Grid Grid.Row="1" ColumnDefinitions="*,Auto,Auto" Margin="0,0,0,18" IsEnabled="{Binding Idle}">
-        <ComboBox ItemsSource="{Binding Devices}" SelectedItem="{Binding SelectedDevice}" PlaceholderText="选择已配对的 vivo / iQOO 耳机" MinWidth="260" Margin="0,0,10,0"/>
-        <Button Grid.Column="1" Content="刷新设备" Click="Scan" Margin="0,0,8,0"/>
-        <Button Grid.Column="2" Content="连接耳机" Classes="primary" Click="Connect"/>
-      </Grid>
-      <ScrollViewer Grid.Row="2" HorizontalScrollBarVisibility="Disabled" VerticalScrollBarVisibility="Auto">
-        <Grid Margin="0,0,2,24">
-          <StackPanel Spacing="18" IsVisible="{Binding OverviewPage}">
-            <Border IsVisible="{Binding IsDemo}" Background="#FFF2D5" Padding="14,10" CornerRadius="10"><TextBlock Text="演示模式 · 当前电量与功能状态均为模拟数据" Foreground="#896417" FontSize="12"/></Border>
-            <Border Classes="card">
-              <Grid RowDefinitions="Auto,Auto">
-                <Grid ColumnDefinitions="*,Auto">
-                  <StackPanel Spacing="6"><TextBlock Text="{Binding DeviceName}" FontSize="23" FontWeight="SemiBold"/><TextBlock Text="{Binding DeviceSubtitle}" Classes="muted" TextWrapping="Wrap"/></StackPanel>
-                  <Button Grid.Column="1" Classes="quiet" Content="同步状态" Click="Refresh" IsEnabled="{Binding CanControl}" VerticalAlignment="Top"/>
-                </Grid>
-                <Grid Grid.Row="1" ColumnDefinitions="*,*,*" Margin="0,24,0,0">
-                  <StackPanel Spacing="6" Margin="0,0,8,0" Opacity="{Binding LeftOpacity}">
-                    <Border Height="176" Background="{DynamicResource PageBrush}" CornerRadius="14" Margin="0,0,0,10">
-                      <Panel Margin="12">
-                        <views:EarbudsArt Part="Left" Height="144" MaxWidth="140" IsVisible="{Binding ShowGenericDeviceArt}"/>
-                        <Image Source="{Binding LeftImage}" Height="144" MaxWidth="140" Stretch="Uniform" IsVisible="{Binding ShowOfficialDeviceArt}"/>
-                      </Panel>
-                    </Border>
-                    <TextBlock Text="左耳" Classes="muted" HorizontalAlignment="Center"/>
-                    <TextBlock Text="{Binding LeftBattery}" FontSize="27" FontWeight="SemiBold" HorizontalAlignment="Center"/>
-                    <ProgressBar Classes="battery" Value="{Binding LeftLevel}" Maximum="100" Width="86"/>
-                    <TextBlock Text="{Binding LeftStatus}" Classes="muted" HorizontalAlignment="Center"/>
-                  </StackPanel>
-                  <StackPanel Grid.Column="1" Spacing="6" Margin="8,0" Opacity="{Binding CaseOpacity}">
-                    <Border Height="176" Background="{DynamicResource PageBrush}" CornerRadius="14" Margin="0,0,0,10">
-                      <Panel Margin="12">
-                        <views:EarbudsArt Part="Case" Height="152" MaxWidth="220" IsVisible="{Binding ShowGenericDeviceArt}"/>
-                        <Image Source="{Binding CaseImage}" Height="152" MaxWidth="220" Stretch="Uniform" IsVisible="{Binding ShowOfficialDeviceArt}"/>
-                      </Panel>
-                    </Border>
-                    <TextBlock Text="充电盒" Classes="muted" HorizontalAlignment="Center"/>
-                    <TextBlock Text="{Binding CaseBattery}" FontSize="27" FontWeight="SemiBold" HorizontalAlignment="Center"/>
-                    <ProgressBar Classes="battery" Value="{Binding CaseLevel}" Maximum="100" Width="86"/>
-                    <TextBlock Text="{Binding CaseStatus}" Classes="muted" HorizontalAlignment="Center"/>
-                  </StackPanel>
-                  <StackPanel Grid.Column="2" Spacing="6" Margin="8,0,0,0" Opacity="{Binding RightOpacity}">
-                    <Border Height="176" Background="{DynamicResource PageBrush}" CornerRadius="14" Margin="0,0,0,10">
-                      <Panel Margin="12">
-                        <views:EarbudsArt Part="Right" Height="144" MaxWidth="140" IsVisible="{Binding ShowGenericDeviceArt}"/>
-                        <Image Source="{Binding RightImage}" Height="144" MaxWidth="140" Stretch="Uniform" IsVisible="{Binding ShowOfficialDeviceArt}"/>
-                      </Panel>
-                    </Border>
-                    <TextBlock Text="右耳" Classes="muted" HorizontalAlignment="Center"/>
-                    <TextBlock Text="{Binding RightBattery}" FontSize="27" FontWeight="SemiBold" HorizontalAlignment="Center"/>
-                    <ProgressBar Classes="battery" Value="{Binding RightLevel}" Maximum="100" Width="86"/>
-                    <TextBlock Text="{Binding RightStatus}" Classes="muted" HorizontalAlignment="Center"/>
-                  </StackPanel>
-                </Grid>
-              </Grid>
-            </Border>
-            <Border Classes="card" IsVisible="{Binding NoDevice}"><StackPanel Spacing="14"><TextBlock Text="从配对开始" Classes="section"/><TextBlock Text="取出耳机，在 Windows 中完成蓝牙配对，然后回到这里连接。" Classes="muted" TextWrapping="Wrap"/><StackPanel Orientation="Horizontal" Spacing="10"><Button Content="打开蓝牙设置" Classes="primary" Click="BluetoothSettings"/><Button Content="先体验演示" Click="Demo" IsEnabled="{Binding Idle}"/></StackPanel></StackPanel></Border>
-            <Border Classes="card" IsVisible="{Binding ShowNoise}">
+      <ScrollViewer Grid.Row="1" HorizontalScrollBarVisibility="Disabled" VerticalScrollBarVisibility="Auto">
+        <Grid Margin="0,0,3,18">
+          <StackPanel Spacing="14" IsVisible="{Binding OverviewPage}">
+            <Border IsVisible="{Binding IsDemo}" Background="{DynamicResource TintBrush}" Padding="12,8" CornerRadius="9"><TextBlock Text="演示模式 · 电量与功能状态均为模拟数据" Foreground="{DynamicResource AccentBrush}" FontSize="11"/></Border>
+            <Border Classes="card" IsVisible="{Binding HasDevice}">
               <StackPanel Spacing="18">
-                <Grid ColumnDefinitions="*,Auto"><TextBlock Text="噪声控制" Classes="section"/><TextBlock Grid.Column="1" Text="{Binding NoiseLabel}" Classes="muted" VerticalAlignment="Center"/></Grid>
-                <Grid ColumnDefinitions="*,*,*" IsEnabled="{Binding CanControl}">
-                  <Button Classes="mode" Classes.active="{Binding NoiseOff}" Tag="off" Click="Noise" Margin="0,0,6,0"><StackPanel Spacing="8"><TextBlock Text="&#xE711;" FontFamily="Segoe Fluent Icons" FontSize="20" HorizontalAlignment="Center"/><TextBlock Text="关闭"/></StackPanel></Button>
-                  <Button Grid.Column="1" Classes="mode" Classes.active="{Binding NoiseAnc}" Tag="anc" Click="Noise" Margin="6,0"><StackPanel Spacing="8"><TextBlock Text="&#xE995;" FontFamily="Segoe Fluent Icons" FontSize="20" HorizontalAlignment="Center"/><TextBlock Text="降噪"/></StackPanel></Button>
-                  <Button Grid.Column="2" Classes="mode" Classes.active="{Binding NoiseTransparency}" Tag="trans" Click="Noise" Margin="6,0,0,0"><StackPanel Spacing="8"><TextBlock Text="&#xE767;" FontFamily="Segoe Fluent Icons" FontSize="20" HorizontalAlignment="Center"/><TextBlock Text="通透"/></StackPanel></Button>
+                <Grid ColumnDefinitions="*,Auto">
+                  <StackPanel Spacing="5"><TextBlock Text="{Binding DeviceName}" FontSize="21" FontWeight="SemiBold" TextWrapping="Wrap"/><TextBlock Text="{Binding DeviceSubtitle}" Classes="muted" FontSize="11"/></StackPanel>
+                  <StackPanel Grid.Column="1" Orientation="Horizontal" Spacing="8" VerticalAlignment="Top">
+                    <Border Background="{DynamicResource TintBrush}" CornerRadius="11" Padding="10,6"><StackPanel Orientation="Horizontal" Spacing="6"><Ellipse Classes="connection-dot" Classes.connected="{Binding IsConnected}"/><TextBlock Text="{Binding ConnectionLabel}" FontSize="11"/></StackPanel></Border>
+                    <Button Classes="quiet icon" ToolTip.Tip="同步耳机状态" AutomationProperties.Name="同步耳机状态" Click="Refresh" IsEnabled="{Binding CanControl}"><Path Data="{StaticResource RefreshIconGeometry}"/></Button>
+                  </StackPanel>
                 </Grid>
-                <StackPanel Spacing="10" IsVisible="{Binding ShowAncLevels}">
-                  <TextBlock Text="降噪强度" Classes="muted"/>
-                  <Grid ColumnDefinitions="*,*" IsEnabled="{Binding CanControl}">
-                    <Button Classes="mode" Classes.active="{Binding AncBalanced}" Content="均衡降噪" Tag="balanced" Click="AncLevelClick" Margin="0,0,6,0"/>
-                    <Button Grid.Column="1" Classes="mode" Classes.active="{Binding AncMild}" Content="轻度降噪" Tag="mild" Click="AncLevelClick" Margin="6,0,0,0"/>
-                  </Grid>
-                </StackPanel>
+                <views:BatteryOverview/>
               </StackPanel>
             </Border>
-            <Border Classes="card" IsVisible="{Binding HasDevice}"><StackPanel Spacing="18"><TextBlock Text="为音乐加一点个性" Classes="section"/><Grid ColumnDefinitions="*,230,Auto" IsEnabled="{Binding CanControl}"><StackPanel Spacing="5"><TextBlock Text="音效预设"/><TextBlock Text="选择适合你的聆听风格" Classes="muted"/></StackPanel><ComboBox Grid.Column="1" ItemsSource="{Binding EqOptions}" SelectedItem="{Binding SelectedEq}" PlaceholderText="耳机尚未回报"/><Button Grid.Column="2" Content="应用" Click="ApplyEq" Margin="12,0,0,0"/></Grid></StackPanel></Border>
-            <Border Classes="card" IsVisible="{Binding ShowWear}"><Grid ColumnDefinitions="*,Auto"><StackPanel Spacing="5"><TextBlock Text="佩戴检测" Classes="section"/><TextBlock Text="{Binding WearLabel}" Classes="muted"/></StackPanel><Button Grid.Column="1" Content="切换" Tag="wear" Click="ToggleFeature" IsEnabled="{Binding CanControl}"/></Grid></Border>
-            <Border Classes="card" IsVisible="{Binding ShowGame}"><Grid ColumnDefinitions="*,Auto"><StackPanel Spacing="5"><TextBlock Text="低延迟游戏 · 实验功能" Classes="section"/><TextBlock Text="{Binding GameLabel}" Classes="muted"/></StackPanel><Button Grid.Column="1" Content="切换" Tag="game" Click="ToggleFeature" IsEnabled="{Binding CanControl}"/></Grid></Border>
-            <Border Classes="card" IsVisible="{Binding ShowSpatial}"><Grid ColumnDefinitions="*,Auto"><StackPanel Spacing="5"><TextBlock Text="空间音效 · 实验功能" Classes="section"/><TextBlock Text="{Binding SpatialLabel}" Classes="muted"/></StackPanel><Button Grid.Column="1" Content="切换" Tag="spatial" Click="ToggleFeature" IsEnabled="{Binding CanControl}"/></Grid></Border>
-            <Border Classes="card" IsVisible="{Binding ShowFind}"><Grid ColumnDefinitions="*,Auto,Auto"><StackPanel Spacing="5"><TextBlock Text="查找耳机" Classes="section"/><TextBlock Text="{Binding FindingLabel}" Classes="muted"/></StackPanel><Button Grid.Column="1" Content="响铃查找" Click="Find" IsEnabled="{Binding CanControl}"/><Button Grid.Column="2" Content="停止" Click="StopFind" Margin="10,0,0,0" IsEnabled="{Binding CanControl}"/></Grid></Border>
+            <Border Classes="card" IsVisible="{Binding NoDevice}">
+              <StackPanel Spacing="16" HorizontalAlignment="Center" Margin="20,12">
+                <Border Width="66" Height="66" CornerRadius="22" Background="{DynamicResource TintBrush}"><TextBlock Text="&#xE702;" FontFamily="Segoe Fluent Icons" FontSize="30" Foreground="{DynamicResource AccentBrush}" HorizontalAlignment="Center" VerticalAlignment="Center"/></Border>
+                <TextBlock Text="等待耳机连接" FontSize="20" FontWeight="SemiBold" HorizontalAlignment="Center"/>
+                <TextBlock Text="取出耳机，在 Windows 蓝牙中连接。&#10;这里会自动显示你的耳机与实时电量。" Classes="muted" TextAlignment="Center" TextWrapping="Wrap"/>
+                <StackPanel Orientation="Horizontal" Spacing="10" HorizontalAlignment="Center"><Button Content="打开蓝牙设置" Classes="primary" Click="BluetoothSettings"/><Button Content="体验演示" Click="Demo" IsEnabled="{Binding Idle}"/></StackPanel>
+              </StackPanel>
+            </Border>
+            <Border Classes="card" Padding="15,12" IsVisible="{Binding ShowConnectionHelp}">
+              <Grid ColumnDefinitions="*,Auto" ColumnSpacing="14">
+                <StackPanel Spacing="4"><TextBlock Text="{Binding ConnectionLabel}" FontWeight="SemiBold"/><TextBlock Text="{Binding ConnectionHint}" Classes="muted" FontSize="11" TextWrapping="Wrap"/></StackPanel>
+                <Button Grid.Column="1" Content="{Binding ConnectionAction}" Click="Connect" IsEnabled="{Binding CanScan}" VerticalAlignment="Center"/>
+              </Grid>
+            </Border>
+            <Grid ColumnDefinitions="*,*" ColumnSpacing="14" IsVisible="{Binding HasDevice}">
+              <Border Classes="card" IsVisible="{Binding ShowNoise}">
+                <StackPanel Spacing="13"><TextBlock Text="噪声控制" Classes="section"/><TextBlock Text="{Binding NoiseLabel}" Classes="muted" FontSize="11" TextWrapping="Wrap"/><views:NoiseControls/></StackPanel>
+              </Border>
+              <Border Grid.Column="{Binding QuickSettingsColumn}" Grid.ColumnSpan="{Binding QuickSettingsSpan}" Classes="card">
+                <StackPanel Spacing="13">
+                  <TextBlock Text="快捷设置" Classes="section"/>
+                  <TextBlock Text="音效预设" Classes="muted" FontSize="11"/>
+                  <Grid ColumnDefinitions="*,Auto" ColumnSpacing="8" IsEnabled="{Binding CanControl}"><ComboBox ItemsSource="{Binding EqOptions}" SelectedItem="{Binding SelectedEq}" PlaceholderText="等待同步" MinWidth="0" FontSize="12"/><Button Grid.Column="1" Content="应用" Click="ApplyEq" Padding="12,8"/></Grid>
+                  <Grid ColumnDefinitions="*,Auto" IsVisible="{Binding ShowWear}"><TextBlock Text="佩戴检测" FontSize="12" VerticalAlignment="Center"/><Button Grid.Column="1" Content="{Binding WearLabel}" Tag="wear" Click="ToggleFeature" IsEnabled="{Binding CanControl}" Padding="10,6" FontSize="11"/></Grid>
+                  <StackPanel Orientation="Horizontal" Spacing="8" IsVisible="{Binding ShowFind}"><Button Content="查找耳机" Click="Find" IsEnabled="{Binding CanControl}" Padding="12,8" FontSize="12"/><Button Content="停止响铃" Classes="quiet" Click="StopFind" IsEnabled="{Binding CanControl}" Padding="10,8" FontSize="12"/></StackPanel>
+                </StackPanel>
+              </Border>
+            </Grid>
+            <Border Classes="card" IsVisible="{Binding ShowGame}"><Grid ColumnDefinitions="*,Auto"><StackPanel Spacing="4"><TextBlock Text="低延迟游戏" Classes="section"/><TextBlock Text="实验功能" Classes="muted" FontSize="11"/></StackPanel><Button Grid.Column="1" Content="{Binding GameLabel}" Tag="game" Click="ToggleFeature" IsEnabled="{Binding CanControl}"/></Grid></Border>
+            <Border Classes="card" IsVisible="{Binding ShowSpatial}"><Grid ColumnDefinitions="*,Auto"><StackPanel Spacing="4"><TextBlock Text="空间音效" Classes="section"/><TextBlock Text="实验功能" Classes="muted" FontSize="11"/></StackPanel><Button Grid.Column="1" Content="{Binding SpatialLabel}" Tag="spatial" Click="ToggleFeature" IsEnabled="{Binding CanControl}"/></Grid></Border>
+            <Grid ColumnDefinitions="*,*" ColumnSpacing="14" IsVisible="{Binding HasDevice}">
+              <Button Classes="shortcut" Tag="gestures" Click="Navigate"><Grid ColumnDefinitions="*,Auto"><StackPanel Spacing="5"><TextBlock Text="手势控制" FontWeight="SemiBold"/><TextBlock Text="双击与长按，按你的习惯来" Classes="muted" FontSize="11"/></StackPanel><TextBlock Grid.Column="1" Text="›" FontSize="24" VerticalAlignment="Center"/></Grid></Button>
+              <Button Grid.Column="1" Classes="shortcut" Tag="devices" Click="Navigate"><Grid ColumnDefinitions="*,Auto"><StackPanel Spacing="5"><TextBlock Text="设备连接" FontWeight="SemiBold"/><TextBlock Text="切换耳机与查看设备信息" Classes="muted" FontSize="11"/></StackPanel><TextBlock Grid.Column="1" Text="›" FontSize="24" VerticalAlignment="Center"/></Grid></Button>
+            </Grid>
           </StackPanel>
-          <StackPanel Spacing="18" IsVisible="{Binding GesturesPage}">
-            <Border Classes="card"><StackPanel Spacing="20"><TextBlock Text="双击手势" Classes="section"/><TextBlock Text="左右耳可以设置不同操作。选择后点击应用，以耳机回报为准。" Classes="muted" TextWrapping="Wrap"/><Grid ColumnDefinitions="80,*,Auto" IsEnabled="{Binding CanControl}"><TextBlock Text="左耳双击" VerticalAlignment="Center"/><ComboBox Grid.Column="1" ItemsSource="{Binding TapOptions}" SelectedItem="{Binding SelectedLeftTap}" PlaceholderText="尚未读取"/><Button Grid.Column="2" Content="应用" Tag="left" Click="ApplyTap" Margin="14,0,0,0"/></Grid><Grid ColumnDefinitions="80,*,Auto" IsEnabled="{Binding CanControl}"><TextBlock Text="右耳双击" VerticalAlignment="Center"/><ComboBox Grid.Column="1" ItemsSource="{Binding TapOptions}" SelectedItem="{Binding SelectedRightTap}" PlaceholderText="尚未读取"/><Button Grid.Column="2" Content="应用" Tag="right" Click="ApplyTap" Margin="14,0,0,0"/></Grid></StackPanel></Border>
-            <Border Classes="card" IsVisible="{Binding ShowNoise}"><StackPanel Spacing="18"><TextBlock Text="长按噪声循环" Classes="section"/><TextBlock Text="决定长按耳机时，在哪些噪声模式之间切换。" Classes="muted"/><Grid ColumnDefinitions="80,*" IsEnabled="{Binding CanControl}"><TextBlock Text="左耳长按" VerticalAlignment="Center"/><ComboBox Grid.Column="1" ItemsSource="{Binding CycleOptions}" SelectedItem="{Binding SelectedLeftCycle}" PlaceholderText="尚未读取"/></Grid><Grid ColumnDefinitions="80,*" IsEnabled="{Binding CanControl}"><TextBlock Text="右耳长按" VerticalAlignment="Center"/><ComboBox Grid.Column="1" ItemsSource="{Binding CycleOptions}" SelectedItem="{Binding SelectedRightCycle}" PlaceholderText="尚未读取"/></Grid><Button Content="应用长按设置" Classes="primary" Click="ApplyCycles" IsEnabled="{Binding CanControl}"/></StackPanel></Border>
-            <TextBlock Text="不同型号支持的手势可能不同；语音助手和翻译等操作也取决于所连接设备。" Classes="muted" TextWrapping="Wrap" Margin="8,0"/>
+          <StackPanel Spacing="14" IsVisible="{Binding GesturesPage}">
+            <TextBlock Text="选择操作后点击应用，以耳机确认的状态为准。" Classes="muted" TextWrapping="Wrap"/>
+            <Grid ColumnDefinitions="*,*" ColumnSpacing="14" IsEnabled="{Binding CanControl}">
+              <Border Classes="card"><StackPanel Spacing="16">
+                <Panel Height="64"><Image Source="{Binding LeftImage}" Stretch="Uniform" IsVisible="{Binding ShowOfficialDeviceArt}"/><views:EarbudsArt Part="Left" IsVisible="{Binding ShowGenericDeviceArt}"/></Panel>
+                <TextBlock Text="左耳" Classes="section" HorizontalAlignment="Center"/>
+                <TextBlock Text="双击" Classes="muted"/><ComboBox ItemsSource="{Binding TapOptions}" SelectedItem="{Binding SelectedLeftTap}" PlaceholderText="等待同步"/><Button Content="应用双击设置" Tag="left" Click="ApplyTap" HorizontalAlignment="Stretch" HorizontalContentAlignment="Center"/>
+                <StackPanel Spacing="9" IsVisible="{Binding ShowNoise}"><TextBlock Text="长按噪声循环" Classes="muted"/><ComboBox ItemsSource="{Binding CycleOptions}" SelectedItem="{Binding SelectedLeftCycle}" PlaceholderText="等待同步"/></StackPanel>
+              </StackPanel></Border>
+              <Border Grid.Column="1" Classes="card"><StackPanel Spacing="16">
+                <Panel Height="64"><Image Source="{Binding RightImage}" Stretch="Uniform" IsVisible="{Binding ShowOfficialDeviceArt}"/><views:EarbudsArt Part="Right" IsVisible="{Binding ShowGenericDeviceArt}"/></Panel>
+                <TextBlock Text="右耳" Classes="section" HorizontalAlignment="Center"/>
+                <TextBlock Text="双击" Classes="muted"/><ComboBox ItemsSource="{Binding TapOptions}" SelectedItem="{Binding SelectedRightTap}" PlaceholderText="等待同步"/><Button Content="应用双击设置" Tag="right" Click="ApplyTap" HorizontalAlignment="Stretch" HorizontalContentAlignment="Center"/>
+                <StackPanel Spacing="9" IsVisible="{Binding ShowNoise}"><TextBlock Text="长按噪声循环" Classes="muted"/><ComboBox ItemsSource="{Binding CycleOptions}" SelectedItem="{Binding SelectedRightCycle}" PlaceholderText="等待同步"/></StackPanel>
+              </StackPanel></Border>
+            </Grid>
+            <Button Content="应用左右耳长按设置" Classes="primary" Click="ApplyCycles" IsEnabled="{Binding CanControl}" IsVisible="{Binding ShowNoise}"/>
+            <TextBlock Text="不同型号支持的手势可能不同；语音助手和翻译也取决于所连接设备。" Classes="muted" FontSize="11" TextWrapping="Wrap"/>
           </StackPanel>
-          <StackPanel Spacing="18" IsVisible="{Binding DevicesPage}">
-            <Border Classes="card"><StackPanel Spacing="18"><TextBlock Text="当前耳机" Classes="section"/><TextBlock Text="{Binding DeviceName}" FontSize="21"/><Grid ColumnDefinitions="120,*" RowDefinitions="Auto,Auto,Auto,Auto"><TextBlock Text="蓝牙地址" Classes="muted"/><TextBlock Grid.Column="1" Text="{Binding Address}"/><TextBlock Grid.Row="1" Text="固件版本" Classes="muted" Margin="0,12"/><TextBlock Grid.Row="1" Grid.Column="1" Text="{Binding Firmware}" Margin="0,12"/><TextBlock Grid.Row="2" Text="连接通道" Classes="muted"/><TextBlock Grid.Row="2" Grid.Column="1" Text="{Binding DeviceSubtitle}" TextWrapping="Wrap"/><TextBlock Grid.Row="3" Text="型号标识" Classes="muted" Margin="0,12,0,0"/><TextBlock Grid.Row="3" Grid.Column="1" Text="{Binding ModelId}" Margin="0,12,0,0"/></Grid><StackPanel Orientation="Horizontal" Spacing="10"><Button Content="断开管理连接" Click="Disconnect" IsEnabled="{Binding CanControl}"/><Button Content="Windows 蓝牙设置" Click="BluetoothSettings"/></StackPanel></StackPanel></Border>
-            <Border Classes="card" IsVisible="{Binding ShowForcedDual}"><StackPanel Spacing="8"><TextBlock Text="双设备连接始终开启" Classes="section"/><TextBlock Text="此型号由耳机自动管理双设备连接，不提供独立开关。" Classes="muted" TextWrapping="Wrap"/></StackPanel></Border>
-            <Border Classes="card" IsVisible="{Binding ShowDual}"><StackPanel Spacing="18"><TextBlock Text="多设备连接" Classes="section"/><TextBlock Text="{Binding DualLabel}" Classes="muted"/><ItemsControl ItemsSource="{Binding Peers}"><ItemsControl.ItemTemplate><DataTemplate><Grid ColumnDefinitions="*,Auto,Auto" Margin="0,10"><TextBlock Text="{Binding Name}" VerticalAlignment="Center"/><TextBlock Grid.Column="1" Text="{Binding StateLabel}" Classes="muted" VerticalAlignment="Center" Margin="15,0"/><Button Grid.Column="2" Content="切换到此设备" Click="SwitchPeer"/></Grid></DataTemplate></ItemsControl.ItemTemplate></ItemsControl><TextBlock Text="切换活动设备会改变耳机当前使用的音源。" Classes="muted"/></StackPanel></Border>
-            <Border Classes="card" IsVisible="{Binding ShowDual}"><Grid ColumnDefinitions="*,Auto,Auto"><StackPanel Spacing="5"><TextBlock Text="双设备连接" Classes="section"/><TextBlock Text="允许耳机同时连接两台设备" Classes="muted"/></StackPanel><Button Grid.Column="1" Content="开启" Tag="enable" Click="Dual" IsEnabled="{Binding CanControl}"/><Button Grid.Column="2" Content="关闭" Tag="disable" Click="Dual" IsEnabled="{Binding CanControl}" Margin="10,0,0,0"/></Grid></Border>
+          <StackPanel Spacing="14" IsVisible="{Binding DevicesPage}">
+            <Border Classes="card"><StackPanel Spacing="14">
+              <Grid ColumnDefinitions="*,Auto"><StackPanel Spacing="5"><TextBlock Text="已配对的耳机" Classes="section"/><TextBlock Text="{Binding DeviceListHint}" Classes="muted"/></StackPanel><Button Grid.Column="1" Content="刷新" Click="Scan" IsEnabled="{Binding CanScan}"/></Grid>
+              <ItemsControl ItemsSource="{Binding Devices}" IsEnabled="{Binding Idle}"><ItemsControl.ItemTemplate><DataTemplate>
+                <Grid ColumnDefinitions="48,*,Auto" ColumnSpacing="14" Margin="0,10">
+                  <Image Source="{Binding Thumbnail}" Width="48" Height="42" Stretch="Uniform"/>
+                  <StackPanel Grid.Column="1" Spacing="5" VerticalAlignment="Center"><TextBlock Text="{Binding Name}" FontWeight="SemiBold"/><TextBlock Text="{Binding Status}" Classes="muted" FontSize="11"/></StackPanel>
+                  <Button Grid.Column="2" Content="{Binding ActionLabel}" Click="SelectDevice" IsEnabled="{Binding IsOnline}" VerticalAlignment="Center" Padding="12,8" FontSize="11"/>
+                </Grid>
+              </DataTemplate></ItemsControl.ItemTemplate></ItemsControl>
+              <TextBlock Text="暂无配对记录。请先在 Windows 中配对你的 vivo / iQOO 耳机。" Classes="muted" TextWrapping="Wrap" IsVisible="{Binding NoDiscoveredDevices}"/>
+              <Button Content="打开 Windows 蓝牙设置" Classes="quiet" Click="BluetoothSettings"/>
+            </StackPanel></Border>
+            <Border Classes="card" IsVisible="{Binding HasDevice}"><StackPanel Spacing="16">
+              <TextBlock Text="{Binding DeviceName}" Classes="section"/>
+              <Grid ColumnDefinitions="100,*" RowDefinitions="Auto,Auto,Auto,Auto" RowSpacing="12"><TextBlock Text="蓝牙地址" Classes="muted"/><TextBlock Grid.Column="1" Text="{Binding Address}"/><TextBlock Grid.Row="1" Text="固件版本" Classes="muted"/><TextBlock Grid.Row="1" Grid.Column="1" Text="{Binding Firmware}"/><TextBlock Grid.Row="2" Text="型号配置" Classes="muted"/><TextBlock Grid.Row="2" Grid.Column="1" Text="{Binding ProfileLabel}" TextWrapping="Wrap"/><TextBlock Grid.Row="3" Text="型号标识" Classes="muted"/><TextBlock Grid.Row="3" Grid.Column="1" Text="{Binding ModelId}" TextWrapping="Wrap"/></Grid>
+              <StackPanel Orientation="Horizontal" Spacing="9"><Button Content="暂停管理连接" Click="Disconnect" IsEnabled="{Binding CanControl}"/><Button Content="{Binding ConnectionAction}" Click="Connect" IsEnabled="{Binding CanScan}"/></StackPanel>
+              <TextBlock Text="暂停管理连接后，耳机在 Windows 中的音频连接不受影响。" Classes="muted" FontSize="11" TextWrapping="Wrap"/>
+            </StackPanel></Border>
+            <Border Classes="card" IsVisible="{Binding ShowForcedDual}"><StackPanel Spacing="7"><TextBlock Text="双设备连接始终开启" Classes="section"/><TextBlock Text="此型号由耳机自动管理双设备连接。" Classes="muted"/></StackPanel></Border>
+            <Border Classes="card" IsVisible="{Binding ShowDual}"><StackPanel Spacing="14">
+              <TextBlock Text="多设备连接" Classes="section"/><TextBlock Text="{Binding DualLabel}" Classes="muted"/>
+              <ItemsControl ItemsSource="{Binding Peers}"><ItemsControl.ItemTemplate><DataTemplate><Grid ColumnDefinitions="*,Auto,Auto" Margin="0,8"><TextBlock Text="{Binding Name}" VerticalAlignment="Center"/><TextBlock Grid.Column="1" Text="{Binding StateLabel}" Classes="muted" VerticalAlignment="Center" Margin="12,0"/><Button Grid.Column="2" Content="切换音源" Click="SwitchPeer" Padding="12,8"/></Grid></DataTemplate></ItemsControl.ItemTemplate></ItemsControl>
+              <StackPanel Orientation="Horizontal" Spacing="9"><Button Content="开启双设备" Tag="enable" Click="Dual" IsEnabled="{Binding CanControl}"/><Button Content="关闭双设备" Tag="disable" Click="Dual" IsEnabled="{Binding CanControl}"/></StackPanel>
+            </StackPanel></Border>
           </StackPanel>
-          <StackPanel Spacing="18" IsVisible="{Binding SettingsPage}">
-            <Border Classes="card"><StackPanel Spacing="20"><TextBlock Text="外观与桌面" Classes="section"/><Grid ColumnDefinitions="*,230"><TextBlock Text="应用主题" VerticalAlignment="Center"/><ComboBox Grid.Column="1" ItemsSource="{Binding Themes}" SelectedItem="{Binding Theme}"/></Grid><ToggleSwitch Content="关闭窗口时保留在系统托盘" IsChecked="{Binding CloseToTray}"/><ToggleSwitch Content="耳机断开后自动重连" IsChecked="{Binding AutoReconnect}"/><ToggleSwitch Content="连接提示与低电量提醒" IsChecked="{Binding Notifications}"/><ToggleSwitch Content="登录 Windows 时启动" IsChecked="{Binding Startup}"/></StackPanel></Border>
-            <Border Classes="card"><StackPanel Spacing="16"><TextBlock Text="耳机型号" Classes="section"/><TextBlock Text="自动识别不准确时，可以为上方选中的设备指定型号。重新连接后生效。" Classes="muted" TextWrapping="Wrap"/><ComboBox ItemsSource="{Binding ModelOptions}" SelectedItem="{Binding ModelOverride}"/><TextBlock Text="{Binding ProfileLabel}" Classes="muted"/></StackPanel></Border>
-            <Border Classes="card"><StackPanel Spacing="16"><TextBlock Text="实验功能" Classes="section"/><TextBlock Text="空间音效、低延迟游戏的命令来自协议逆向，尚未在所有型号验证。开启后重新连接，只有声明支持的型号会显示相关控件。" Classes="muted" TextWrapping="Wrap"/><ToggleSwitch Content="启用实验功能" IsChecked="{Binding Experimental}"/></StackPanel></Border>
-            <Border Classes="card"><StackPanel Spacing="14"><TextBlock Text="诊断与预览" Classes="section"/><TextBlock Text="诊断日志只保存在本地内存，导出内容可能包含蓝牙设备标识。" Classes="muted" TextWrapping="Wrap"/><StackPanel Orientation="Horizontal" Spacing="10"><Button Content="导出诊断日志" Click="ExportLog"/><Button Content="打开演示设备" Click="Demo" IsEnabled="{Binding Idle}"/></StackPanel></StackPanel></Border>
+          <StackPanel Spacing="14" IsVisible="{Binding SettingsPage}">
+            <Border Classes="card"><StackPanel Spacing="17">
+              <TextBlock Text="外观与桌面" Classes="section"/><Grid ColumnDefinitions="*,200"><TextBlock Text="应用主题" VerticalAlignment="Center"/><ComboBox Grid.Column="1" ItemsSource="{Binding Themes}" SelectedItem="{Binding Theme}"/></Grid>
+              <ToggleSwitch Content="关闭主窗口后保留在托盘" IsChecked="{Binding CloseToTray}"/>
+              <TextBlock Text="单击托盘图标打开快捷小窗，双击打开主窗口；点击其他位置会收起小窗。" Classes="muted" FontSize="11" TextWrapping="Wrap"/>
+              <ToggleSwitch Content="连接提示与低电量提醒" IsChecked="{Binding Notifications}"/><ToggleSwitch Content="登录 Windows 时在托盘启动" IsChecked="{Binding Startup}"/>
+            </StackPanel></Border>
+            <Border Classes="card"><StackPanel Spacing="16">
+              <TextBlock Text="连接偏好" Classes="section"/><ToggleSwitch Content="自动识别并连接在线耳机" IsChecked="{Binding AutoReconnect}"/>
+              <TextBlock Text="自动连接 Windows 当前在线的耳机，优先使用上次连接的设备；多副耳机可在侧栏切换。" Classes="muted" FontSize="11" TextWrapping="Wrap"/>
+              <TextBlock Text="当前耳机的型号" FontWeight="SemiBold"/><ComboBox ItemsSource="{Binding ModelOptions}" SelectedItem="{Binding ModelOverride}" IsEnabled="{Binding HasDevice}"/>
+              <TextBlock Text="自动识别不准确时可手动指定型号，重新连接后生效。" Classes="muted" FontSize="11" TextWrapping="Wrap"/>
+            </StackPanel></Border>
+            <Border Classes="card"><StackPanel Spacing="14"><TextBlock Text="实验功能" Classes="section"/><TextBlock Text="空间音效、低延迟游戏尚未在所有型号验证，开启后重新连接。" Classes="muted" FontSize="11" TextWrapping="Wrap"/><ToggleSwitch Content="启用实验功能" IsChecked="{Binding Experimental}"/></StackPanel></Border>
+            <Border Classes="card"><StackPanel Spacing="14"><TextBlock Text="诊断与预览" Classes="section"/><TextBlock Text="诊断日志仅保存在本地，分享前请检查设备信息。" Classes="muted" FontSize="11" TextWrapping="Wrap"/><StackPanel Orientation="Horizontal" Spacing="9"><Button Content="导出诊断日志" Click="ExportLog"/><Button Content="演示设备" Click="Demo" IsEnabled="{Binding Idle}"/></StackPanel></StackPanel></Border>
           </StackPanel>
-          <StackPanel Spacing="18" IsVisible="{Binding AboutPage}">
-            <Border Classes="card"><StackPanel Spacing="18"><TextBlock Text="Vivo Pods Manager" FontSize="28" FontWeight="SemiBold"/><TextBlock Text="版本 0.1.0 · Windows 10 / 11" Classes="muted"/><TextBlock Text="在桌面查看电量、切换噪声模式、调整音效与手势，让耳机管理融入你的日常。" TextWrapping="Wrap"/><Border Height="1" Background="{DynamicResource LineBrush}"/><TextBlock Text="开源致谢" Classes="section"/><TextBlock Text="应用效果与分层架构参考 OppoPodsManager；vivo / iQOO 协议及型号能力参考 TWS-Pods-PC。桌面界面由 Avalonia UI 构建。" Classes="muted" TextWrapping="Wrap"/><StackPanel Orientation="Horizontal" Spacing="10"><Button Content="OppoPodsManager" Tag="https://github.com/Zhaoyi-ya/OppoPodsManager" Click="OpenLink"/><Button Content="TWS-Pods-PC" Tag="https://github.com/Zhaoyi-ya/TWS-Pods-PC" Click="OpenLink"/></StackPanel><TextBlock Text="GPL-3.0-only · 非 vivo 官方应用，无遥测和云端账户。" Classes="muted"/></StackPanel></Border>
+          <StackPanel Spacing="14" IsVisible="{Binding AboutPage}">
+            <Border Classes="card"><StackPanel Spacing="15"><TextBlock Text="Vivo Pods Manager" FontSize="25" FontWeight="SemiBold"/><TextBlock Text="让好声音，也属于 Windows。" Classes="muted"/><TextBlock Text="在桌面查看耳机电量、调节噪声控制、设置手势并管理设备连接。" TextWrapping="Wrap"/><TextBlock Text="本应用非 vivo 官方产品。vivo / iQOO 名称、商标与官方图片归原权利人所有。" Classes="muted" FontSize="11" TextWrapping="Wrap"/><StackPanel Orientation="Horizontal" Spacing="9"><Button Content="项目主页" Click="OpenLink" Tag="https://github.com/FLuoXue/VivoPodsManager"/><Button Content="OPPO 参考项目" Click="OpenLink" Tag="https://github.com/Zhaoyi-ya/OppoPodsManager"/></StackPanel></StackPanel></Border>
+            <Border Classes="card"><StackPanel Spacing="12"><TextBlock Text="开放与透明" Classes="section"/><TextBlock Text="GPL-3.0-only · C# / .NET 9 · Avalonia" Classes="muted"/><TextBlock Text="协议参考 TWS-Pods-PC；界面与桌面交互参考 OppoPodsManager。图片来源和验证记录随程序提供。" TextWrapping="Wrap"/><TextBlock Text="无账户、无遥测，应用自身不联网。" Classes="muted"/></StackPanel></Border>
           </StackPanel>
         </Grid>
       </ScrollViewer>
-      <Border Grid.Row="3" BorderBrush="{DynamicResource LineBrush}" BorderThickness="0,1,0,0" Padding="0,12">
-        <Grid ColumnDefinitions="*,Auto" RowDefinitions="Auto,Auto"><TextBlock Text="{Binding Message}" Classes="muted" TextWrapping="Wrap" MaxWidth="660" HorizontalAlignment="Left"/><TextBlock Grid.Column="1" Text="{Binding ConnectionDetail}" Classes="muted" FontSize="10" VerticalAlignment="Center" Margin="16,0,0,0"/><ProgressBar Grid.Row="1" Grid.ColumnSpan="2" IsVisible="{Binding Busy}" IsIndeterminate="True" Height="2" Margin="0,8,0,0"/></Grid>
-      </Border>
+      <Grid Grid.Row="2" ColumnDefinitions="*,Auto" ColumnSpacing="15" Margin="0,10,0,12"><TextBlock Text="{Binding Message}" Classes="muted" FontSize="10" TextTrimming="CharacterEllipsis"/><TextBlock Grid.Column="1" Text="{Binding ConnectionDetail}" Classes="muted" FontSize="10"/></Grid>
     </Grid>
   </Grid>
 </Window>

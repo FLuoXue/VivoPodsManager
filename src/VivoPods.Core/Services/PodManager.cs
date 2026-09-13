@@ -178,11 +178,19 @@ public sealed class PodManager(Func<PodDevice, IPodTransport> factory) : IAsyncD
         finally { _command.Release(); }
     }
 
-    public async Task DisconnectAsync()
+    public async Task DisconnectAsync(bool clearDevice = false)
     {
         _session?.Cancel();
         await _lifecycle.WaitAsync();
-        try { await CloseCoreAsync(); }
+        try
+        {
+            await CloseCoreAsync();
+            if (clearDevice)
+            {
+                Device = null; Profile = DeviceProfile.Resolve("未知型号"); State = new();
+                Changed?.Invoke();
+            }
+        }
         finally { _lifecycle.Release(); }
     }
     private async Task CloseCoreAsync()

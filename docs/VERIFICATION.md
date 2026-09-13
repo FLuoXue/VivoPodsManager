@@ -41,3 +41,13 @@ dotnet run --project tests/VivoPods.Tests -c Release -- --probe --connect
 - 已检查浅色、深色、最小窗口尺寸（960×700）、断开后图片和电量一起置灰，以及型号切换后图片更新和未知型号回退。
 - 27 个 vivo、12 个 iQOO TWS 型号均使用独立左右耳及闭盒图片；已查看全部图片图集。来源及裁剪区域记录在 `docs/device-art-sources.json`，原机型 ZIP 通过 SHA-256 校验。
 - 页面截图与结果：`artifacts/ui-all-models/`；便携版启动验证：`artifacts/ui-all-models-package/`。
+
+## 2026-09-13：自动连接、主界面与快捷小窗
+
+- Release 构建通过，0 警告 / 0 错误；协议、会话及自动连接校验共 84 项通过。
+- 新增覆盖：按物理地址合并 RFCOMM / BLE、跳过离线的历史设备、保持健康连接、侧栏切换、主动暂停与恢复、扫描失败保留会话、在线设备替换、通道回退与重试冷却、取消握手、退出演示后清除模拟状态并继续自动发现。
+- 桌面烟测通过普通启动和 `--minimized` 静默启动；静默启动时主窗口未显示，后台演示会话已就绪。
+- 实际验证托盘单击小窗、双击主窗口且不残留延迟单击、再次单击收起、失焦收起、小窗关闭不影响会话，以及小窗降噪操作同步到主窗口。
+- 已检查浅色 / 深色、1000×760 主窗口、900×660 最小窗口、340 像素宽小窗、断开置灰和无设备状态。
+- 真实 Windows 探测：蓝牙监听收到 8 次事件，4 个连接入口合并为 3 副耳机；检测时全部离线，未执行真机自动握手。可用 `--probe --auto-connect` 在耳机连接 Windows 后复测。
+- 开发版结果和截图：`artifacts/ui-auto-connect/`、`artifacts/ui-auto-connect-minimized/`；便携版验证：`artifacts/ui-desktop-package/`。

@@ -12,6 +12,7 @@ public partial class MainWindow : Window
 {
     public MainViewModel ViewModel => (MainViewModel)DataContext!;
     public bool AllowClose { get; set; }
+    public event Action? OpenQuickRequested;
     public MainWindow()
     {
         InitializeComponent();
@@ -20,6 +21,11 @@ public partial class MainWindow : Window
     private void Navigate(object? sender, RoutedEventArgs e) { if (sender is Button { Tag: string page }) ViewModel.Navigate(page); }
     private async void Scan(object? sender, RoutedEventArgs e) => await ViewModel.ScanAsync();
     private async void Connect(object? sender, RoutedEventArgs e) => await ViewModel.ConnectAsync();
+    private void OpenQuickWindow(object? sender, RoutedEventArgs e) => OpenQuickRequested?.Invoke();
+    private async void SelectDevice(object? sender, RoutedEventArgs e)
+    {
+        if (sender is Button { DataContext: DeviceChoice choice }) await ViewModel.SelectDeviceAsync(choice);
+    }
     private async void Demo(object? sender, RoutedEventArgs e) => await ViewModel.DemoAsync();
     private async void Disconnect(object? sender, RoutedEventArgs e) => await ViewModel.DisconnectAsync();
     private async void Refresh(object? sender, RoutedEventArgs e) => await ViewModel.RefreshAsync();

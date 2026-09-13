@@ -1,0 +1,20 @@
+<UserControl xmlns="https://github.com/avaloniaui" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             x:Class="VivoPods.App.Views.NoiseControls" x:Name="NoiseRoot">
+  <StackPanel Spacing="10" IsEnabled="{Binding CanControl}">
+    <Grid ColumnDefinitions="*,*,*" ColumnSpacing="7">
+      <Button x:Name="OffButton" Classes="mode" Classes.active="{Binding NoiseOff}" Tag="off" Click="SetNoise" Height="{Binding ModeHeight, ElementName=NoiseRoot}" Padding="4,6">
+        <StackPanel Spacing="5"><TextBlock Text="&#xE711;" FontFamily="Segoe Fluent Icons" FontSize="17" HorizontalAlignment="Center"/><TextBlock Text="关闭" FontSize="12" HorizontalAlignment="Center"/></StackPanel>
+      </Button>
+      <Button x:Name="AncButton" Grid.Column="1" Classes="mode" Classes.active="{Binding NoiseAnc}" Tag="anc" Click="SetNoise" Height="{Binding ModeHeight, ElementName=NoiseRoot}" Padding="4,6">
+        <StackPanel Spacing="5"><TextBlock Text="&#xE995;" FontFamily="Segoe Fluent Icons" FontSize="17" HorizontalAlignment="Center"/><TextBlock Text="降噪" FontSize="12" HorizontalAlignment="Center"/></StackPanel>
+      </Button>
+      <Button x:Name="TransparencyButton" Grid.Column="2" Classes="mode" Classes.active="{Binding NoiseTransparency}" Tag="trans" Click="SetNoise" Height="{Binding ModeHeight, ElementName=NoiseRoot}" Padding="4,6">
+        <StackPanel Spacing="5"><TextBlock Text="&#xE767;" FontFamily="Segoe Fluent Icons" FontSize="17" HorizontalAlignment="Center"/><TextBlock Text="通透" FontSize="12" HorizontalAlignment="Center"/></StackPanel>
+      </Button>
+    </Grid>
+    <Grid ColumnDefinitions="*,*" ColumnSpacing="7" IsVisible="{Binding ShowAncLevels}">
+      <Button Classes="mode" Classes.active="{Binding AncBalanced}" Content="均衡降噪" Tag="balanced" Click="SetAncLevel" Padding="4,8" FontSize="11"/>
+      <Button Grid.Column="1" Classes="mode" Classes.active="{Binding AncMild}" Content="轻度降噪" Tag="mild" Click="SetAncLevel" Padding="4,8" FontSize="11"/>
+    </Grid>
+  </StackPanel>
+</UserControl>
