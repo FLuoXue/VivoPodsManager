@@ -1,0 +1,2328 @@
+[
+  {
+    "name": "vivo TWS 1",
+    "model": 0,
+    "fileModel": 0,
+    "origin": {
+      "apk": "com.android.vivo.tws.vivotws",
+      "sha256": "06e27eb4170eded3d04322bd4735eb2215a5ba257316fb8183940845bb294e0b"
+    },
+    "assets": {
+      "left": {
+        "source": "extracted/apk/assets/flash_connect/0/left_1.png",
+        "sourceSha256": "e0f1638ce0b3483a2a1d4de36a990242a86d164a9c47f94e5863f4d29d04b413",
+        "target": "src/VivoPods.App/Assets/Devices/apk-0/left.png",
+        "crop": [
+          0,
+          0,
+          175,
+          360
+        ],
+        "size": [
+          175,
+          360
+        ],
+        "sha256": "c1f566c41d577cfb869458ed66c16feedecf8bd68b63a3565d83c2cddf607db6"
+      },
+      "right": {
+        "source": "extracted/apk/assets/flash_connect/0/right_1.png",
+        "sourceSha256": "3dcde9cbfcc7c1b45a2d34aec9263724a86e8693a64acec3a20d984028dca052",
+        "target": "src/VivoPods.App/Assets/Devices/apk-0/right.png",
+        "crop": [
+          0,
+          0,
+          176,
+          360
+        ],
+        "size": [
+          176,
+          360
+        ],
+        "sha256": "e508ccbfb732e057b2a2d84d1eb343ae7b6b868865476f53f25bb5082924e5f3"
+      },
+      "case": {
+        "source": "extracted/apk/assets/flash_connect/0/close_1.png",
+        "sourceSha256": "7a9340900c35b53941b8f8dbc2cc38b3abb2a9bbfdf52d4f5cf126c508ffcc64",
+        "target": "src/VivoPods.App/Assets/Devices/apk-0/case.png",
+        "crop": [
+          0,
+          0,
+          375,
+          456
+        ],
+        "size": [
+          375,
+          456
+        ],
+        "sha256": "377368ec74a809fc5583cd8397609ba69af664e3c7c2c2269f0407ebad403622"
+      }
+    }
+  },
+  {
+    "name": "vivo TWS 2",
+    "model": 28,
+    "fileModel": 32,
+    "origin": {
+      "apk": "com.android.vivo.tws.vivotws",
+      "sha256": "06e27eb4170eded3d04322bd4735eb2215a5ba257316fb8183940845bb294e0b"
+    },
+    "assets": {
+      "left": {
+        "source": "extracted/apk/assets/flash_connect/32/left_1.png",
+        "sourceSha256": "b9d6259337296fcbc8e9b184fd018519a82d77cebffcd979c14dbdb3046468c1",
+        "target": "src/VivoPods.App/Assets/Devices/apk-32/left.png",
+        "crop": [
+          0,
+          0,
+          246,
+          342
+        ],
+        "size": [
+          246,
+          342
+        ],
+        "sha256": "52c04f82daaebcd90bc4370bf2fed67e371b8327f3f8ab4abe99306905e7e0d2"
+      },
+      "right": {
+        "source": "extracted/apk/assets/flash_connect/32/right_1.png",
+        "sourceSha256": "091abdcaaacd1c04a0220b8f9291e890f42edc50174000ee6fff736703ff7d5e",
+        "target": "src/VivoPods.App/Assets/Devices/apk-32/right.png",
+        "crop": [
+          1,
+          0,
+          247,
+          342
+        ],
+        "size": [
+          246,
+          342
+        ],
+        "sha256": "057e38e6cde810d1b7d5d134f56e0e1048389bb1055a32f850ed56f35efaccb6"
+      },
+      "case": {
+        "source": "extracted/apk/assets/flash_connect/32/close_1.png",
+        "sourceSha256": "89040caebbf328cb16ad4e5be6abba96438a0d3d831ee53d82657bce4b126bf3",
+        "target": "src/VivoPods.App/Assets/Devices/apk-32/case.png",
+        "crop": [
+          0,
+          0,
+          520,
+          396
+        ],
+        "size": [
+          512,
+          390
+        ],
+        "sha256": "9c5bcc8e19c7f99445e47104e1d4b0e39674752406a205ed70e114cb7f4adff8"
+      }
+    }
+  },
+  {
+    "name": "vivo TWS 2e",
+    "model": 32,
+    "fileModel": 32,
+    "origin": {
+      "apk": "com.android.vivo.tws.vivotws",
+      "sha256": "06e27eb4170eded3d04322bd4735eb2215a5ba257316fb8183940845bb294e0b"
+    },
+    "assets": {
+      "left": {
+        "source": "extracted/apk/assets/flash_connect/32/left_1.png",
+        "sourceSha256": "b9d6259337296fcbc8e9b184fd018519a82d77cebffcd979c14dbdb3046468c1",
+        "target": "src/VivoPods.App/Assets/Devices/apk-32/left.png",
+        "crop": [
+          0,
+          0,
+          246,
+          342
+        ],
+        "size": [
+          246,
+          342
+        ],
+        "sha256": "52c04f82daaebcd90bc4370bf2fed67e371b8327f3f8ab4abe99306905e7e0d2"
+      },
+      "right": {
+        "source": "extracted/apk/assets/flash_connect/32/right_1.png",
+        "sourceSha256": "091abdcaaacd1c04a0220b8f9291e890f42edc50174000ee6fff736703ff7d5e",
+        "target": "src/VivoPods.App/Assets/Devices/apk-32/right.png",
+        "crop": [
+          1,
+          0,
+          247,
+          342
+        ],
+        "size": [
+          246,
+          342
+        ],
+        "sha256": "057e38e6cde810d1b7d5d134f56e0e1048389bb1055a32f850ed56f35efaccb6"
+      },
+      "case": {
+        "source": "extracted/apk/assets/flash_connect/32/close_1.png",
+        "sourceSha256": "89040caebbf328cb16ad4e5be6abba96438a0d3d831ee53d82657bce4b126bf3",
+        "target": "src/VivoPods.App/Assets/Devices/apk-32/case.png",
+        "crop": [
+          0,
+          0,
+          520,
+          396
+        ],
+        "size": [
+          512,
+          390
+        ],
+        "sha256": "9c5bcc8e19c7f99445e47104e1d4b0e39674752406a205ed70e114cb7f4adff8"
+      }
+    }
+  },
+  {
+    "name": "vivo TWS 3",
+    "model": 60,
+    "fileModel": 60,
+    "origin": {
+      "apk": "com.android.vivo.tws.vivotws",
+      "sha256": "06e27eb4170eded3d04322bd4735eb2215a5ba257316fb8183940845bb294e0b"
+    },
+    "assets": {
+      "left": {
+        "source": "extracted/apk/assets/flash_connect/60/left_1.png",
+        "sourceSha256": "cbdb6c2deacfce8807cced41fd3aaee7b77c39ea34fdd9b5f8bdac1bcef27373",
+        "target": "src/VivoPods.App/Assets/Devices/apk-60/left.png",
+        "crop": [
+          0,
+          2,
+          187,
+          273
+        ],
+        "size": [
+          187,
+          271
+        ],
+        "sha256": "2baf8a4cf3fe6e92e86a44378e372e32e7b31ff486c0616ea14d47db53d0bf8b"
+      },
+      "right": {
+        "source": "extracted/apk/assets/flash_connect/60/right_1.png",
+        "sourceSha256": "c6637aed37dc83897f5d73f589be60d13a90d327a0f582bad63a4df91d1d0905",
+        "target": "src/VivoPods.App/Assets/Devices/apk-60/right.png",
+        "crop": [
+          0,
+          2,
+          187,
+          273
+        ],
+        "size": [
+          187,
+          271
+        ],
+        "sha256": "33d597c2fa52339a89bc82bf16f78ea5da7cf3f4f46158bebc180661c68e2e81"
+      },
+      "case": {
+        "source": "extracted/apk/assets/flash_connect/60/close_1.png",
+        "sourceSha256": "886d4e228363af6c96c7860efb0da343afbab05c2413f64da44f9ac8344e2085",
+        "target": "src/VivoPods.App/Assets/Devices/apk-60/case.png",
+        "crop": [
+          0,
+          2,
+          390,
+          300
+        ],
+        "size": [
+          390,
+          298
+        ],
+        "sha256": "aba9a87dfa6b20f7023af43244b82bb94832a2e8e9d710fee905909e62e0acac"
+      }
+    }
+  },
+  {
+    "name": "vivo TWS 3 Pro",
+    "model": 64,
+    "fileModel": 60,
+    "origin": {
+      "apk": "com.android.vivo.tws.vivotws",
+      "sha256": "06e27eb4170eded3d04322bd4735eb2215a5ba257316fb8183940845bb294e0b"
+    },
+    "assets": {
+      "left": {
+        "source": "extracted/apk/assets/flash_connect/60/left_1.png",
+        "sourceSha256": "cbdb6c2deacfce8807cced41fd3aaee7b77c39ea34fdd9b5f8bdac1bcef27373",
+        "target": "src/VivoPods.App/Assets/Devices/apk-60/left.png",
+        "crop": [
+          0,
+          2,
+          187,
+          273
+        ],
+        "size": [
+          187,
+          271
+        ],
+        "sha256": "2baf8a4cf3fe6e92e86a44378e372e32e7b31ff486c0616ea14d47db53d0bf8b"
+      },
+      "right": {
+        "source": "extracted/apk/assets/flash_connect/60/right_1.png",
+        "sourceSha256": "c6637aed37dc83897f5d73f589be60d13a90d327a0f582bad63a4df91d1d0905",
+        "target": "src/VivoPods.App/Assets/Devices/apk-60/right.png",
+        "crop": [
+          0,
+          2,
+          187,
+          273
+        ],
+        "size": [
+          187,
+          271
+        ],
+        "sha256": "33d597c2fa52339a89bc82bf16f78ea5da7cf3f4f46158bebc180661c68e2e81"
+      },
+      "case": {
+        "source": "extracted/apk/assets/flash_connect/60/close_1.png",
+        "sourceSha256": "886d4e228363af6c96c7860efb0da343afbab05c2413f64da44f9ac8344e2085",
+        "target": "src/VivoPods.App/Assets/Devices/apk-60/case.png",
+        "crop": [
+          0,
+          2,
+          390,
+          300
+        ],
+        "size": [
+          390,
+          298
+        ],
+        "sha256": "aba9a87dfa6b20f7023af43244b82bb94832a2e8e9d710fee905909e62e0acac"
+      }
+    }
+  },
+  {
+    "name": "vivo TWS 3e",
+    "model": 112,
+    "fileModel": 112,
+    "origin": {
+      "url": "https://ptsou-wsdl.vivo.com.cn/ptsou/zip/2023092710501366826265.zip",
+      "version": "v0.0.3",
+      "sha256": "751176626db0b794619425058bedce6b17d55d4138a2143736ca40dcd240cf0a"
+    },
+    "assets": {
+      "left": {
+        "source": "downloads/model_112/extracted/left/earbud_left.png",
+        "sourceSha256": "63a6143a0987b70501cb6881e0d4863401c2bac01b773e30d7f2cf6c1abed1c2",
+        "target": "src/VivoPods.App/Assets/Devices/model-112/left.png",
+        "crop": [
+          0,
+          1,
+          122,
+          184
+        ],
+        "size": [
+          122,
+          183
+        ],
+        "sha256": "d8aa3222a0220c78357c889df77af36adef0f286cacabcaae9a3102f99ea388b"
+      },
+      "right": {
+        "source": "downloads/model_112/extracted/right/earbud_right.png",
+        "sourceSha256": "c745ccf48d09bb9485d3de1c969c4c2cb1074ea46c39328e85fcab1f01c070da",
+        "target": "src/VivoPods.App/Assets/Devices/model-112/right.png",
+        "crop": [
+          1,
+          1,
+          124,
+          184
+        ],
+        "size": [
+          123,
+          183
+        ],
+        "sha256": "bc809070d7ebb1a6456875fa2266b4cbdcab4f5b87d8af6ff8390e04ed42256c"
+      },
+      "case": {
+        "source": "downloads/model_112/extracted/after_tip_circle/291.webp",
+        "sourceSha256": "09946c335e314267964911188657f2778ff556d537187f8d4581886ff59cac6f",
+        "target": "src/VivoPods.App/Assets/Devices/model-112/case.png",
+        "crop": [
+          804,
+          136,
+          1312,
+          523
+        ],
+        "size": [
+          508,
+          387
+        ],
+        "sha256": "b5f305377c55dcc9462de61cc3f0edc6f3070f07f42e05af6efdd7a7fbfe76a5"
+      }
+    }
+  },
+  {
+    "name": "vivo TWS 3i",
+    "model": 132,
+    "fileModel": 132,
+    "origin": {
+      "url": "https://ptsou-wsdl.vivo.com.cn/ptsou/zip/2024042915460307693781.zip",
+      "version": "v0.0.2",
+      "sha256": "32158d83a19ec49865ef6728fd8dc3ce7380c92ff66f2d4d70eab11f8652f75a"
+    },
+    "assets": {
+      "left": {
+        "source": "downloads/model_132/extracted/left/earbud_left.png",
+        "sourceSha256": "63a6143a0987b70501cb6881e0d4863401c2bac01b773e30d7f2cf6c1abed1c2",
+        "target": "src/VivoPods.App/Assets/Devices/model-132/left.png",
+        "crop": [
+          0,
+          1,
+          122,
+          184
+        ],
+        "size": [
+          122,
+          183
+        ],
+        "sha256": "d8aa3222a0220c78357c889df77af36adef0f286cacabcaae9a3102f99ea388b"
+      },
+      "right": {
+        "source": "downloads/model_132/extracted/right/earbud_right.png",
+        "sourceSha256": "c745ccf48d09bb9485d3de1c969c4c2cb1074ea46c39328e85fcab1f01c070da",
+        "target": "src/VivoPods.App/Assets/Devices/model-132/right.png",
+        "crop": [
+          1,
+          1,
+          124,
+          184
+        ],
+        "size": [
+          123,
+          183
+        ],
+        "sha256": "bc809070d7ebb1a6456875fa2266b4cbdcab4f5b87d8af6ff8390e04ed42256c"
+      },
+      "case": {
+        "source": "downloads/model_132/extracted/after_tip_circle/291.webp",
+        "sourceSha256": "09946c335e314267964911188657f2778ff556d537187f8d4581886ff59cac6f",
+        "target": "src/VivoPods.App/Assets/Devices/model-132/case.png",
+        "crop": [
+          804,
+          136,
+          1312,
+          523
+        ],
+        "size": [
+          508,
+          387
+        ],
+        "sha256": "b5f305377c55dcc9462de61cc3f0edc6f3070f07f42e05af6efdd7a7fbfe76a5"
+      }
+    }
+  },
+  {
+    "name": "vivo TWS 4",
+    "model": 120,
+    "fileModel": 120,
+    "origin": {
+      "url": "https://ptsou-wsdl.vivo.com.cn/ptsou/zip/2023120811584236222836.zip",
+      "version": "v0.0.4",
+      "sha256": "4cba8cb2601ba2513d4bb24bd8b06eb0495023b1e5686b703749c16663694676"
+    },
+    "assets": {
+      "left": {
+        "source": "downloads/model_120/extracted/left/earbud_left.png",
+        "sourceSha256": "33982e1e8539eed2f055536be1254b2d0a1f9cf8cdb7adf7be060036f52fe24c",
+        "target": "src/VivoPods.App/Assets/Devices/model-120/left.png",
+        "crop": [
+          0,
+          0,
+          252,
+          364
+        ],
+        "size": [
+          252,
+          364
+        ],
+        "sha256": "91090bd9ed8775800cff78132a46c770face0ec3d4372611dbf4fa8b5f0e07bc"
+      },
+      "right": {
+        "source": "downloads/model_120/extracted/right/earbud_right.png",
+        "sourceSha256": "dc66e9801846b54b06e7a6b61105e1fc9e76eff9cb393d0f6126872c5027c567",
+        "target": "src/VivoPods.App/Assets/Devices/model-120/right.png",
+        "crop": [
+          0,
+          0,
+          252,
+          364
+        ],
+        "size": [
+          252,
+          364
+        ],
+        "sha256": "9a57132295058489a88783e22fac26a74dc6ea14a8b6c82622db11f1dab702ad"
+      },
+      "case": {
+        "source": "downloads/model_120/extracted/after_tip_circle/682.webp",
+        "sourceSha256": "d0dc062fbc70c0fa56c23c328ea23dab30ea6a98e13ee5eca415751980404fdc",
+        "target": "src/VivoPods.App/Assets/Devices/model-120/case.png",
+        "crop": [
+          810,
+          129,
+          1305,
+          509
+        ],
+        "size": [
+          495,
+          380
+        ],
+        "sha256": "e4812446181aa1bf8b261a5e602c84b23e3c4df596e351a6a162f7e0c20baaa2"
+      }
+    }
+  },
+  {
+    "name": "vivo TWS 4 HiFi",
+    "model": 128,
+    "fileModel": 128,
+    "origin": {
+      "url": "https://ptsou-wsdl.vivo.com.cn/ptsou/zip/2023120811590438610197.zip",
+      "version": "v0.0.1",
+      "sha256": "2d5379b9f5cfa0f2c68cf9bcde8c802b673653f709d62f42bbff060215bec466"
+    },
+    "assets": {
+      "left": {
+        "source": "downloads/model_128/extracted/left/earbud_left.png",
+        "sourceSha256": "a1420339e63171fd2758fb1e9001be63b8a5115ae7fb6985341c453cdf24cd27",
+        "target": "src/VivoPods.App/Assets/Devices/model-128/left.png",
+        "crop": [
+          0,
+          0,
+          250,
+          364
+        ],
+        "size": [
+          250,
+          364
+        ],
+        "sha256": "550d565c0c8bb9be10ac430d9ce6ae0d1304f93e6fb3afdf1c8cd5bf9f929bf0"
+      },
+      "right": {
+        "source": "downloads/model_128/extracted/right/earbud_right.png",
+        "sourceSha256": "c51297fc119064e6421fe1a14bca58a0c0cff2ca59cbe921ed905b077bd075a5",
+        "target": "src/VivoPods.App/Assets/Devices/model-128/right.png",
+        "crop": [
+          0,
+          0,
+          252,
+          364
+        ],
+        "size": [
+          252,
+          364
+        ],
+        "sha256": "f586f6259366b9414f62fba78d6f320fac20d5f9fd26d517f3b0a807686d4914"
+      },
+      "case": {
+        "source": "downloads/model_128/extracted/after_tip_circle/682.webp",
+        "sourceSha256": "c8a40d960f0483b0fc9c5a87ca34ebd5801886427dfee00bad45d1b0aa465725",
+        "target": "src/VivoPods.App/Assets/Devices/model-128/case.png",
+        "crop": [
+          810,
+          129,
+          1305,
+          509
+        ],
+        "size": [
+          495,
+          380
+        ],
+        "sha256": "c3923361eadad70dde29c63fca2cd6e18c308b6233d378b1ca9f95de257a3485"
+      }
+    }
+  },
+  {
+    "name": "vivo TWS 5",
+    "model": 192,
+    "fileModel": 192,
+    "origin": {
+      "url": "https://ptsou-wsdl.vivo.com.cn/ptsou/zip/2025081410045721131811.zip",
+      "version": "v0.0.5",
+      "sha256": "5741062088cea36870f1edf67e8049d8d754f45431b5bddd174dfd8b624f8b2c"
+    },
+    "assets": {
+      "left": {
+        "source": "downloads/model_192/extracted/left/earbud_left.png.png",
+        "sourceSha256": "23226391d724b42654ad246a00db35583b75fe2994e1a265cd262ca510729936",
+        "target": "src/VivoPods.App/Assets/Devices/model-192/left.png",
+        "crop": [
+          0,
+          0,
+          260,
+          364
+        ],
+        "size": [
+          260,
+          364
+        ],
+        "sha256": "7c7472370328fd95533ea46c9e3d19dedeb3083dd3f3fb3c9e29a168d76086de"
+      },
+      "right": {
+        "source": "downloads/model_192/extracted/right/earbud_right.png",
+        "sourceSha256": "f110167c6d593566a6958b5d9942046af4fe5754d595445f53506f320ff103da",
+        "target": "src/VivoPods.App/Assets/Devices/model-192/right.png",
+        "crop": [
+          0,
+          0,
+          260,
+          364
+        ],
+        "size": [
+          260,
+          364
+        ],
+        "sha256": "ce7b0ccfac2ca62470f2a9a75e1839bce60ed184704461a0e457b7121e2d725e"
+      },
+      "case": {
+        "source": "downloads/model_192/extracted/after_tip_circle/711.webp",
+        "sourceSha256": "10265d590814ee7791744a08ec4813233c07685e4301af449714636d4cc02b4a",
+        "target": "src/VivoPods.App/Assets/Devices/model-192/case.png",
+        "crop": [
+          791,
+          495,
+          1326,
+          906
+        ],
+        "size": [
+          512,
+          393
+        ],
+        "sha256": "897e9d6ad2fe2a0b595e166787023a5cedd4df59712571962aff403bbe0c1b9f"
+      }
+    }
+  },
+  {
+    "name": "vivo TWS 5 HiFi",
+    "model": 196,
+    "fileModel": 196,
+    "origin": {
+      "url": "https://ptsou-wsdl.vivo.com.cn/ptsou/zip/2025082215005977645133.zip",
+      "version": "v0.0.2",
+      "sha256": "12b461bf0db85f082be018f2269a571eac62ed2a45acfeddc3e91a1800491153"
+    },
+    "assets": {
+      "left": {
+        "source": "downloads/model_196/extracted/left/earbud_left.png.png",
+        "sourceSha256": "23226391d724b42654ad246a00db35583b75fe2994e1a265cd262ca510729936",
+        "target": "src/VivoPods.App/Assets/Devices/model-196/left.png",
+        "crop": [
+          0,
+          0,
+          260,
+          364
+        ],
+        "size": [
+          260,
+          364
+        ],
+        "sha256": "7c7472370328fd95533ea46c9e3d19dedeb3083dd3f3fb3c9e29a168d76086de"
+      },
+      "right": {
+        "source": "downloads/model_196/extracted/right/earbud_right.png",
+        "sourceSha256": "f110167c6d593566a6958b5d9942046af4fe5754d595445f53506f320ff103da",
+        "target": "src/VivoPods.App/Assets/Devices/model-196/right.png",
+        "crop": [
+          0,
+          0,
+          260,
+          364
+        ],
+        "size": [
+          260,
+          364
+        ],
+        "sha256": "ce7b0ccfac2ca62470f2a9a75e1839bce60ed184704461a0e457b7121e2d725e"
+      },
+      "case": {
+        "source": "downloads/model_196/extracted/after_tip_circle/711.webp",
+        "sourceSha256": "10265d590814ee7791744a08ec4813233c07685e4301af449714636d4cc02b4a",
+        "target": "src/VivoPods.App/Assets/Devices/model-196/case.png",
+        "crop": [
+          791,
+          495,
+          1326,
+          906
+        ],
+        "size": [
+          512,
+          393
+        ],
+        "sha256": "897e9d6ad2fe2a0b595e166787023a5cedd4df59712571962aff403bbe0c1b9f"
+      }
+    }
+  },
+  {
+    "name": "vivo TWS 5 Pro",
+    "model": 256,
+    "fileModel": 256,
+    "origin": {
+      "url": "https://ptsou-wsdl.vivo.com.cn/ptsou/zip/2026033015345904496244.zip",
+      "version": "v0.0.1",
+      "sha256": "1aa303acc60d426dafacc71b4ad29cc445516439b81bc7458183b7759284c891"
+    },
+    "assets": {
+      "left": {
+        "source": "downloads/model_256/extracted/left/earbud_left.png",
+        "sourceSha256": "4fce1235fa45dd777f73da6471941cc88725508ace22a549a7cae5313958ef56",
+        "target": "src/VivoPods.App/Assets/Devices/model-256/left.png",
+        "crop": [
+          0,
+          0,
+          260,
+          364
+        ],
+        "size": [
+          260,
+          364
+        ],
+        "sha256": "0e20a0c5a20a4ba1a06e4aea54011e08338a7ec2a5ccdfe865083f0b2d42ee6d"
+      },
+      "right": {
+        "source": "downloads/model_256/extracted/right/earbud_right.png",
+        "sourceSha256": "508202152738d1d746474f491c4b457ae227a80f06168b5ef6a91fa823413d88",
+        "target": "src/VivoPods.App/Assets/Devices/model-256/right.png",
+        "crop": [
+          0,
+          0,
+          260,
+          364
+        ],
+        "size": [
+          260,
+          364
+        ],
+        "sha256": "82f43baa77dc2ed1a91ba8e21a4366aadc23f5bad0f87337f197cf54f017265d"
+      },
+      "case": {
+        "source": "downloads/model_256/extracted/after_tip_circle/711.webp",
+        "sourceSha256": "d304e5d52dd12b93ec95b79e1631d28e94877e163976ab889f28f10ee46e214d",
+        "target": "src/VivoPods.App/Assets/Devices/model-256/case.png",
+        "crop": [
+          803,
+          504,
+          1312,
+          895
+        ],
+        "size": [
+          509,
+          391
+        ],
+        "sha256": "6c090b05e3f4255a10198b73009a70ecc99f163723a171e302b141dceece2422"
+      }
+    }
+  },
+  {
+    "name": "vivo TWS 5e",
+    "model": 220,
+    "fileModel": 220,
+    "origin": {
+      "url": "https://ptsou-wsdl.vivo.com.cn/ptsou/zip/2026020520123510595379.zip",
+      "version": "v0.0.1",
+      "sha256": "ea09343c078311da2e89b25ed2ab1f97b94e6c1dc0f47e8e35ccadd322dd56f2"
+    },
+    "assets": {
+      "left": {
+        "source": "downloads/model_220/extracted/left/earbud_left.png",
+        "sourceSha256": "b6a15369a2773991514577708c16fe94e87800eb5933c0d73f02bc1b69a2893d",
+        "target": "src/VivoPods.App/Assets/Devices/model-220/left.png",
+        "crop": [
+          0,
+          0,
+          260,
+          364
+        ],
+        "size": [
+          260,
+          364
+        ],
+        "sha256": "0c22b2051fa6b26914601a072421a091a76a68b3264089bc66e20c38577211f7"
+      },
+      "right": {
+        "source": "downloads/model_220/extracted/right/earbud_right.png",
+        "sourceSha256": "fefe9b500998b9d4375adc685006d93cc5782954c0895a8e47e1dba192d01442",
+        "target": "src/VivoPods.App/Assets/Devices/model-220/right.png",
+        "crop": [
+          0,
+          0,
+          260,
+          364
+        ],
+        "size": [
+          260,
+          364
+        ],
+        "sha256": "ab3807a6471ab32f3db0778d9c11b847c3485215c8b1783ee56e49116be30b92"
+      },
+      "case": {
+        "source": "downloads/model_220/extracted/after_tip_circle/345.webp",
+        "sourceSha256": "e30ec8780402fa8d270aa8c162d2b9f491ac983947e2f639f2cbf8593adecb19",
+        "target": "src/VivoPods.App/Assets/Devices/model-220/case.png",
+        "crop": [
+          790,
+          455,
+          1324,
+          860
+        ],
+        "size": [
+          512,
+          388
+        ],
+        "sha256": "0177617f3d9b08021fd8a3a87ae6ccad6897e60f29c4d5db78c19da2414bc66c"
+      }
+    }
+  },
+  {
+    "name": "vivo TWS 5i",
+    "model": 204,
+    "fileModel": 204,
+    "origin": {
+      "url": "https://ptsou-wsdl.vivo.com.cn/ptsou/zip/2026012719520923649015.zip",
+      "version": "v0.0.1",
+      "sha256": "47dd58a192e14ebf802d50ae24831eb7b4b9e684733dac4cd26b63542acae4da"
+    },
+    "assets": {
+      "left": {
+        "source": "downloads/model_204/extracted/left/earbud_left.png",
+        "sourceSha256": "ca6dcae174cc485658caf8ce795534f92e53b396d131ebfcbb434eb0775ec1db",
+        "target": "src/VivoPods.App/Assets/Devices/model-204/left.png",
+        "crop": [
+          0,
+          0,
+          252,
+          364
+        ],
+        "size": [
+          252,
+          364
+        ],
+        "sha256": "31e8958982c70a1e4d2cbc69b2b3e16228088f09c2ed4aa452b25a47f613f1c5"
+      },
+      "right": {
+        "source": "downloads/model_204/extracted/right/earbud_right.png",
+        "sourceSha256": "0937a7985f1feebacb3629e6dc0aaa37376f5621c75c2b333c22c71894b661f1",
+        "target": "src/VivoPods.App/Assets/Devices/model-204/right.png",
+        "crop": [
+          0,
+          0,
+          252,
+          364
+        ],
+        "size": [
+          252,
+          364
+        ],
+        "sha256": "7506987ccbc0bc9d1962874af75df094cb31bf61bb067dbc8440ad33401b3973"
+      },
+      "case": {
+        "source": "downloads/model_204/extracted/after_tip_circle/345.webp",
+        "sourceSha256": "df78326f69b1034097ebecc1c58c60a2d355ba6d4c416c00d196191c7424f50a",
+        "target": "src/VivoPods.App/Assets/Devices/model-204/case.png",
+        "crop": [
+          791,
+          455,
+          1324,
+          860
+        ],
+        "size": [
+          512,
+          389
+        ],
+        "sha256": "4d805b81d0ed1ba02a990bb9836bfaec622e1a658e747f1d7b6dd2f64b00d763"
+      }
+    }
+  },
+  {
+    "name": "vivo TWS Air",
+    "model": 48,
+    "fileModel": 48,
+    "origin": {
+      "apk": "com.android.vivo.tws.vivotws",
+      "sha256": "06e27eb4170eded3d04322bd4735eb2215a5ba257316fb8183940845bb294e0b"
+    },
+    "assets": {
+      "left": {
+        "source": "extracted/apk/assets/flash_connect/48/left_1.png",
+        "sourceSha256": "f33431d1484fbe5c1ceae1792c77548b883d4aa08ae7ea3031abe681b5233bde",
+        "target": "src/VivoPods.App/Assets/Devices/apk-48/left.png",
+        "crop": [
+          3,
+          3,
+          212,
+          372
+        ],
+        "size": [
+          209,
+          369
+        ],
+        "sha256": "b0530a2d7638828fa3e1de604060bacfcbfc462e4563012ea1d1f93c180c69be"
+      },
+      "right": {
+        "source": "extracted/apk/assets/flash_connect/48/right_1.png",
+        "sourceSha256": "b337a1755455d62356d0f9a73034c68de1de7537ca7d587fe80714d170269ed5",
+        "target": "src/VivoPods.App/Assets/Devices/apk-48/right.png",
+        "crop": [
+          3,
+          3,
+          212,
+          372
+        ],
+        "size": [
+          209,
+          369
+        ],
+        "sha256": "0b8113396ea696bd5ddfa558c9383ef7d394ce3dd84b1e81d5fadcd6eb8d2d5e"
+      },
+      "case": {
+        "source": "extracted/apk/assets/flash_connect/48/close_1.png",
+        "sourceSha256": "e327f59ebd62aedfa1625315db0ab77f41a9a72d4708527a827a2cc5c9792a01",
+        "target": "src/VivoPods.App/Assets/Devices/apk-48/case.png",
+        "crop": [
+          2,
+          1,
+          427,
+          458
+        ],
+        "size": [
+          425,
+          457
+        ],
+        "sha256": "2bf51421b1e1af5c2fcd527a0fd4350728efd3717c2ee29195dc9d2d9ea03e0f"
+      }
+    }
+  },
+  {
+    "name": "vivo TWS Air Pro",
+    "model": 72,
+    "fileModel": 72,
+    "origin": {
+      "apk": "com.android.vivo.tws.vivotws",
+      "sha256": "06e27eb4170eded3d04322bd4735eb2215a5ba257316fb8183940845bb294e0b"
+    },
+    "assets": {
+      "left": {
+        "source": "extracted/apk/assets/flash_connect/72/left_1.png",
+        "sourceSha256": "2f623f4aa250386dac0ce75431fa80c43433da0c6b1ba37bfb383930279e0b3f",
+        "target": "src/VivoPods.App/Assets/Devices/apk-72/left.png",
+        "crop": [
+          3,
+          1,
+          211,
+          370
+        ],
+        "size": [
+          208,
+          369
+        ],
+        "sha256": "bf89ab82a2a050ad41fdb46c5e61074dd77b4c9e86f8dea05971397c62502ee5"
+      },
+      "right": {
+        "source": "extracted/apk/assets/flash_connect/72/right_1.png",
+        "sourceSha256": "7a285060c658268834baee311bab6f9376112f01ede50027b7eabb5c217b3657",
+        "target": "src/VivoPods.App/Assets/Devices/apk-72/right.png",
+        "crop": [
+          1,
+          1,
+          210,
+          370
+        ],
+        "size": [
+          209,
+          369
+        ],
+        "sha256": "241401d5c87fb2a2803c5ebfe399ef2316b398f60a030c9c0e7c7f7f767b4906"
+      },
+      "case": {
+        "source": "extracted/apk/assets/flash_connect/72/close_1.png",
+        "sourceSha256": "4b3e611a6e2953c9ff9238d6e532b279703f03f8271108deba9e97e3223f00e2",
+        "target": "src/VivoPods.App/Assets/Devices/apk-72/case.png",
+        "crop": [
+          2,
+          3,
+          426,
+          460
+        ],
+        "size": [
+          424,
+          457
+        ],
+        "sha256": "24ad508035cf770de277df79c842cc2437be9257cd782904d40f63f25b535893"
+      }
+    }
+  },
+  {
+    "name": "vivo TWS Air2",
+    "model": 100,
+    "fileModel": 100,
+    "origin": {
+      "url": "https://ptsou-wsdl.vivo.com.cn/ptsou/zip/2023083014293549253377.zip",
+      "version": "v1.1.0",
+      "sha256": "d648f83d4ebca9da740ce6d850a1592fe9915cbd7c97e6ddd4e1873c4361f453"
+    },
+    "assets": {
+      "left": {
+        "source": "downloads/model_100/extracted/left/earbud_left.png",
+        "sourceSha256": "0fb164c09f886e61bd8217c31c0d07c404e402c3209e2604fa22b3894e530e64",
+        "target": "src/VivoPods.App/Assets/Devices/model-100/left.png",
+        "crop": [
+          3,
+          3,
+          203,
+          372
+        ],
+        "size": [
+          200,
+          369
+        ],
+        "sha256": "d696ffb321193644a91ee0ff624f8e6ea37f2e6e39aa549d559763fc7ea41e67"
+      },
+      "right": {
+        "source": "downloads/model_100/extracted/right/earbud_right.png",
+        "sourceSha256": "d81e86cd81195c8192a706c60d04e647dcd89692c7b51335e3422c7c20501e4d",
+        "target": "src/VivoPods.App/Assets/Devices/model-100/right.png",
+        "crop": [
+          1,
+          3,
+          201,
+          372
+        ],
+        "size": [
+          200,
+          369
+        ],
+        "sha256": "8d89ab3259af4158ee618d5003a2abc8cbd13be35caae332407f3e4158ac44ea"
+      },
+      "case": {
+        "source": "downloads/model_100/extracted/after_tip_circle/292.webp",
+        "sourceSha256": "1930c3c548d48e5f3176203a8f7a2774f3199c229a618c0c303f1841e8f8fd26",
+        "target": "src/VivoPods.App/Assets/Devices/model-100/case.png",
+        "crop": [
+          853,
+          117,
+          1267,
+          562
+        ],
+        "size": [
+          414,
+          445
+        ],
+        "sha256": "7719048fbbb5e95612608fcea63e343b8722e0ccc6a4fd4a64cf9d029ba833f0"
+      }
+    }
+  },
+  {
+    "name": "vivo TWS Air3",
+    "model": 156,
+    "fileModel": 156,
+    "origin": {
+      "url": "https://ptsou-wsdl.vivo.com.cn/ptsou/zip/2025032116584411416163.zip",
+      "version": "v0.0.10",
+      "sha256": "c02a35aa748375c89739ecd06885773b1007ac4d02a5f5dd09e15c0eec17cd8e"
+    },
+    "assets": {
+      "left": {
+        "source": "downloads/model_156/extracted/left/earbud_left.png",
+        "sourceSha256": "93b463ba1d68832dc5accf920041eb52db91e607edb46de1f9ebb3e554ca5465",
+        "target": "src/VivoPods.App/Assets/Devices/model-156/left.png",
+        "crop": [
+          0,
+          0,
+          216,
+          364
+        ],
+        "size": [
+          216,
+          364
+        ],
+        "sha256": "c97867a8dbcdbf181ba5bbf6b668ddb860b085f246ad89af746c6a184b1f2eca"
+      },
+      "right": {
+        "source": "downloads/model_156/extracted/right/earbud_right.png",
+        "sourceSha256": "6b40c91360ff8e98ca15398c422d27ad34254d073eefb033640483ad832471ce",
+        "target": "src/VivoPods.App/Assets/Devices/model-156/right.png",
+        "crop": [
+          0,
+          0,
+          216,
+          364
+        ],
+        "size": [
+          216,
+          364
+        ],
+        "sha256": "f5f2db0947e4265ee54ba009b9468cee7622f011db7545ff7ef35651f96e2293"
+      },
+      "case": {
+        "source": "downloads/model_156/extracted/after_tip_circle/292.webp",
+        "sourceSha256": "9c61b5c8a12db65b28e36404a023e85b9131bd0a7e465e1eee7ee51394353313",
+        "target": "src/VivoPods.App/Assets/Devices/model-156/case.png",
+        "crop": [
+          779,
+          394,
+          1334,
+          867
+        ],
+        "size": [
+          512,
+          436
+        ],
+        "sha256": "9968a434050f12c51f40175af5e5ae44cc1af50290cf781e3ad55770f5c6b288"
+      }
+    }
+  },
+  {
+    "name": "vivo TWS Air3 Pro",
+    "model": 169,
+    "fileModel": 169,
+    "origin": {
+      "url": "https://ptsou-wsdl.vivo.com.cn/ptsou/zip/2025032420165604042371.zip",
+      "version": "v0.0.2",
+      "sha256": "5a822319f5ce74d04962bf0386752aece2456257ad25f913059f984b3f80a7c7"
+    },
+    "assets": {
+      "left": {
+        "source": "downloads/model_169/extracted/left/earbud_left.png",
+        "sourceSha256": "1d9dbdb3a5628daeefc766979344fb85942b4ed2fb5d58c50c9b991f724e5c2d",
+        "target": "src/VivoPods.App/Assets/Devices/model-169/left.png",
+        "crop": [
+          0,
+          0,
+          220,
+          364
+        ],
+        "size": [
+          220,
+          364
+        ],
+        "sha256": "b1aed93a28f0394ac83db78dffc68b7d72719a4d86369634a72209c3f2021bcd"
+      },
+      "right": {
+        "source": "downloads/model_169/extracted/right/earbud_right.png",
+        "sourceSha256": "9e8c1325d9ea01432878f6ded86850907267e729c08a089cb25bb807df1d90be",
+        "target": "src/VivoPods.App/Assets/Devices/model-169/right.png",
+        "crop": [
+          0,
+          0,
+          220,
+          364
+        ],
+        "size": [
+          220,
+          364
+        ],
+        "sha256": "6d39c40cb6db9367f0af93874c98a312286b5627333c86e6ae88eb83ea107cb6"
+      },
+      "case": {
+        "source": "downloads/model_169/extracted/after_tip_circle/292.webp",
+        "sourceSha256": "d2a0adf42870967b684a071e21e8309e321d18aa21cbe63fbe20609f3c5e0d2b",
+        "target": "src/VivoPods.App/Assets/Devices/model-169/case.png",
+        "crop": [
+          776,
+          392,
+          1335,
+          871
+        ],
+        "size": [
+          512,
+          439
+        ],
+        "sha256": "c7cef21dddedb663c03bce982af45b46a57f8752208a7e494356fa4cde794eb8"
+      }
+    }
+  },
+  {
+    "name": "vivo TWS Neo",
+    "model": 16,
+    "fileModel": 16,
+    "origin": {
+      "apk": "com.android.vivo.tws.vivotws",
+      "sha256": "06e27eb4170eded3d04322bd4735eb2215a5ba257316fb8183940845bb294e0b"
+    },
+    "assets": {
+      "left": {
+        "source": "extracted/apk/assets/flash_connect/16/left_1.webp",
+        "sourceSha256": "92f90c54266bdd0a97e749387e942fd55c9a16ef771b7b82ea148158d2bfc7e6",
+        "target": "src/VivoPods.App/Assets/Devices/apk-16/left.png",
+        "crop": [
+          0,
+          0,
+          172,
+          360
+        ],
+        "size": [
+          172,
+          360
+        ],
+        "sha256": "d2255083f7ecdb20bd618b4085bab9d36ed32b305d4438da3130de719228f14d"
+      },
+      "right": {
+        "source": "extracted/apk/assets/flash_connect/16/right_1.webp",
+        "sourceSha256": "91dc40e0556dc9108685b0196d62b6c1db6e1757aaef8bb1010ec5eaafadbb12",
+        "target": "src/VivoPods.App/Assets/Devices/apk-16/right.png",
+        "crop": [
+          0,
+          0,
+          171,
+          360
+        ],
+        "size": [
+          171,
+          360
+        ],
+        "sha256": "5bf6ee4e0de04e5a03ab9e0eaca6e93511f8d943c0c00f000d37524062a3c059"
+      },
+      "case": {
+        "source": "extracted/apk/assets/flash_connect/16/close_1.webp",
+        "sourceSha256": "4b9d0a9363a0f7b3308e3a0cf362a9860553c302170bbf30ada4d895749764e8",
+        "target": "src/VivoPods.App/Assets/Devices/apk-16/case.png",
+        "crop": [
+          0,
+          0,
+          404,
+          456
+        ],
+        "size": [
+          404,
+          456
+        ],
+        "sha256": "12cfa533693ae118bec3045ffd1ac686aed75b8e943d8e3d2286dc07696d9da7"
+      }
+    }
+  },
+  {
+    "name": "vivo TWS X1",
+    "model": 88,
+    "fileModel": 88,
+    "origin": {
+      "apk": "com.android.vivo.tws.vivotws",
+      "sha256": "06e27eb4170eded3d04322bd4735eb2215a5ba257316fb8183940845bb294e0b"
+    },
+    "assets": {
+      "left": {
+        "source": "extracted/apk/assets/flash_connect/88/left_1.png",
+        "sourceSha256": "5af5b6ac7293c0d2b8a9a1d9a3dcc8b83d23b306a47eb6b73e7931d6ca3a0173",
+        "target": "src/VivoPods.App/Assets/Devices/apk-88/left.png",
+        "crop": [
+          1,
+          2,
+          186,
+          275
+        ],
+        "size": [
+          185,
+          273
+        ],
+        "sha256": "6e3b4ef6aca9411146cb7075e865ed6601da68b6be931c07acde85edc0008698"
+      },
+      "right": {
+        "source": "extracted/apk/assets/flash_connect/88/right_1.png",
+        "sourceSha256": "8172c7ab16939d4560df50bc631b7fa77ef668410d038cc6dc8c2920083e0e05",
+        "target": "src/VivoPods.App/Assets/Devices/apk-88/right.png",
+        "crop": [
+          5,
+          2,
+          189,
+          275
+        ],
+        "size": [
+          184,
+          273
+        ],
+        "sha256": "6dfd79647942f02d3b82721146e9459543e0110d9886a8d35ef663467ed6cad0"
+      },
+      "case": {
+        "source": "extracted/apk/assets/flash_connect/88/close_1.png",
+        "sourceSha256": "08ac4a24a53726785e05701ef9548f4e824fd6fdc3c9e6ab0875263869a9fd8b",
+        "target": "src/VivoPods.App/Assets/Devices/apk-88/case.png",
+        "crop": [
+          1,
+          2,
+          392,
+          298
+        ],
+        "size": [
+          391,
+          296
+        ],
+        "sha256": "fb929d646ffa914aff6e95336725e3fb12073dda80a3bb4bdca7a97d2ef821f1"
+      }
+    }
+  },
+  {
+    "name": "vivo TWS A1",
+    "model": 80,
+    "fileModel": 80,
+    "origin": {
+      "apk": "com.android.vivo.tws.vivotws",
+      "sha256": "06e27eb4170eded3d04322bd4735eb2215a5ba257316fb8183940845bb294e0b"
+    },
+    "assets": {
+      "left": {
+        "source": "extracted/apk/assets/flash_connect/80/left_1.png",
+        "sourceSha256": "c87bf4c903d17979b19fb75aea3be3d5860bb3a85f3bef8086ac42b5e4fcd163",
+        "target": "src/VivoPods.App/Assets/Devices/apk-80/left.png",
+        "crop": [
+          0,
+          0,
+          208,
+          369
+        ],
+        "size": [
+          208,
+          369
+        ],
+        "sha256": "aad283d46e3ab8e949967acb8d7e5e2685b94c756084eff82e1ee757f1e7f6b3"
+      },
+      "right": {
+        "source": "extracted/apk/assets/flash_connect/80/right_1.png",
+        "sourceSha256": "ed764b364b6617d94730bb558f80bc6d48f9503c280e21e5afd5b96ffb263393",
+        "target": "src/VivoPods.App/Assets/Devices/apk-80/right.png",
+        "crop": [
+          0,
+          0,
+          208,
+          369
+        ],
+        "size": [
+          208,
+          369
+        ],
+        "sha256": "fdaf3d058fe0ff6527e4d0ed67268598680ac57f87043aa331f916f6ef1abc25"
+      },
+      "case": {
+        "source": "extracted/apk/assets/flash_connect/80/close_1.png",
+        "sourceSha256": "6fd5c1b8541820bafcde488fe4ca02fdf53cb7df25ac08d736bcd22d4dd3271d",
+        "target": "src/VivoPods.App/Assets/Devices/apk-80/case.png",
+        "crop": [
+          2,
+          0,
+          427,
+          457
+        ],
+        "size": [
+          425,
+          457
+        ],
+        "sha256": "a2a08ba00611b93ce9b485535cb32a1ad5ddbb7f5d3fa0a62512bf898d3f3e40"
+      }
+    }
+  },
+  {
+    "name": "vivo TWS A1 Pro",
+    "model": 76,
+    "fileModel": 76,
+    "origin": {
+      "apk": "com.android.vivo.tws.vivotws",
+      "sha256": "06e27eb4170eded3d04322bd4735eb2215a5ba257316fb8183940845bb294e0b"
+    },
+    "assets": {
+      "left": {
+        "source": "extracted/apk/assets/flash_connect/76/left_1.png",
+        "sourceSha256": "0d7bf6df3b61005d07feb3da8171c9f25d824b449161ecea2d73323b8973cdf5",
+        "target": "src/VivoPods.App/Assets/Devices/apk-76/left.png",
+        "crop": [
+          3,
+          3,
+          212,
+          371
+        ],
+        "size": [
+          209,
+          368
+        ],
+        "sha256": "36ede8ae2f2fe8083298b2b83678a9d2f7971c3a6ebc5fc63ef3644cd592b2cd"
+      },
+      "right": {
+        "source": "extracted/apk/assets/flash_connect/76/right_1.png",
+        "sourceSha256": "b8c35f55fa7f61bd49b7b36e913d22e1576c4489d8ee5ab5cfa2e06dc8638a48",
+        "target": "src/VivoPods.App/Assets/Devices/apk-76/right.png",
+        "crop": [
+          3,
+          3,
+          212,
+          372
+        ],
+        "size": [
+          209,
+          369
+        ],
+        "sha256": "ef430cbd9aa72376054758821358cce2b472db430aa0899deda135b9f2f06d6b"
+      },
+      "case": {
+        "source": "extracted/apk/assets/flash_connect/76/close_1.png",
+        "sourceSha256": "963630bad5b9b2e1c1fee442bdd394c1ea6d862ad8d6f55bdaa52fbecf611058",
+        "target": "src/VivoPods.App/Assets/Devices/apk-76/case.png",
+        "crop": [
+          3,
+          3,
+          428,
+          461
+        ],
+        "size": [
+          425,
+          458
+        ],
+        "sha256": "27211045492d743d97a34f1884410ba4f287e1702c30b23c14662fa34531364a"
+      }
+    }
+  },
+  {
+    "name": "vivo TWS A2",
+    "model": 104,
+    "fileModel": 104,
+    "origin": {
+      "url": "https://ptsou-wsdl.vivo.com.cn/ptsou/zip/202310171509056454565.zip",
+      "version": "v1.1.1",
+      "sha256": "99f50f235031a27a0581043cfe0f5480de26f4c630b4dbbe8de9e07abd5a94a2"
+    },
+    "assets": {
+      "left": {
+        "source": "downloads/model_104/extracted/left/earbud_left.png",
+        "sourceSha256": "0fb164c09f886e61bd8217c31c0d07c404e402c3209e2604fa22b3894e530e64",
+        "target": "src/VivoPods.App/Assets/Devices/model-104/left.png",
+        "crop": [
+          3,
+          3,
+          203,
+          372
+        ],
+        "size": [
+          200,
+          369
+        ],
+        "sha256": "d696ffb321193644a91ee0ff624f8e6ea37f2e6e39aa549d559763fc7ea41e67"
+      },
+      "right": {
+        "source": "downloads/model_104/extracted/right/earbud_right.png",
+        "sourceSha256": "d81e86cd81195c8192a706c60d04e647dcd89692c7b51335e3422c7c20501e4d",
+        "target": "src/VivoPods.App/Assets/Devices/model-104/right.png",
+        "crop": [
+          1,
+          3,
+          201,
+          372
+        ],
+        "size": [
+          200,
+          369
+        ],
+        "sha256": "8d89ab3259af4158ee618d5003a2abc8cbd13be35caae332407f3e4158ac44ea"
+      },
+      "case": {
+        "source": "downloads/model_104/extracted/after_tip_circle/292.webp",
+        "sourceSha256": "1930c3c548d48e5f3176203a8f7a2774f3199c229a618c0c303f1841e8f8fd26",
+        "target": "src/VivoPods.App/Assets/Devices/model-104/case.png",
+        "crop": [
+          853,
+          117,
+          1267,
+          562
+        ],
+        "size": [
+          414,
+          445
+        ],
+        "sha256": "7719048fbbb5e95612608fcea63e343b8722e0ccc6a4fd4a64cf9d029ba833f0"
+      }
+    }
+  },
+  {
+    "name": "vivo TWS A3",
+    "model": 140,
+    "fileModel": 140,
+    "origin": {
+      "url": "https://ptsou-wsdl.vivo.com.cn/ptsou/zip/2024042915454743044116.zip",
+      "version": "v0.0.2",
+      "sha256": "cafc7c7bab31badaca978b615caa8f512dd86aaa2862ffbb2f0cc4af75493c5f"
+    },
+    "assets": {
+      "left": {
+        "source": "downloads/model_140/extracted/left/earbud_left.png",
+        "sourceSha256": "63a6143a0987b70501cb6881e0d4863401c2bac01b773e30d7f2cf6c1abed1c2",
+        "target": "src/VivoPods.App/Assets/Devices/model-140/left.png",
+        "crop": [
+          0,
+          1,
+          122,
+          184
+        ],
+        "size": [
+          122,
+          183
+        ],
+        "sha256": "d8aa3222a0220c78357c889df77af36adef0f286cacabcaae9a3102f99ea388b"
+      },
+      "right": {
+        "source": "downloads/model_140/extracted/right/earbud_right.png",
+        "sourceSha256": "c745ccf48d09bb9485d3de1c969c4c2cb1074ea46c39328e85fcab1f01c070da",
+        "target": "src/VivoPods.App/Assets/Devices/model-140/right.png",
+        "crop": [
+          1,
+          1,
+          124,
+          184
+        ],
+        "size": [
+          123,
+          183
+        ],
+        "sha256": "bc809070d7ebb1a6456875fa2266b4cbdcab4f5b87d8af6ff8390e04ed42256c"
+      },
+      "case": {
+        "source": "downloads/model_140/extracted/after_tip_circle/291.webp",
+        "sourceSha256": "09946c335e314267964911188657f2778ff556d537187f8d4581886ff59cac6f",
+        "target": "src/VivoPods.App/Assets/Devices/model-140/case.png",
+        "crop": [
+          804,
+          136,
+          1312,
+          523
+        ],
+        "size": [
+          508,
+          387
+        ],
+        "sha256": "b5f305377c55dcc9462de61cc3f0edc6f3070f07f42e05af6efdd7a7fbfe76a5"
+      }
+    }
+  },
+  {
+    "name": "vivo TWS A4",
+    "model": 164,
+    "fileModel": 164,
+    "origin": {
+      "url": "https://ptsou-wsdl.vivo.com.cn/ptsou/zip/2025032117001142351689.zip",
+      "version": "v0.1.0",
+      "sha256": "810c3b225400bd251497fa313c2615f15aa01c3894a35ba7c96ee9ac8f152853"
+    },
+    "assets": {
+      "left": {
+        "source": "downloads/model_164/extracted/left/earbud_left.png",
+        "sourceSha256": "93b463ba1d68832dc5accf920041eb52db91e607edb46de1f9ebb3e554ca5465",
+        "target": "src/VivoPods.App/Assets/Devices/model-164/left.png",
+        "crop": [
+          0,
+          0,
+          216,
+          364
+        ],
+        "size": [
+          216,
+          364
+        ],
+        "sha256": "c97867a8dbcdbf181ba5bbf6b668ddb860b085f246ad89af746c6a184b1f2eca"
+      },
+      "right": {
+        "source": "downloads/model_164/extracted/right/earbud_right.png",
+        "sourceSha256": "6b40c91360ff8e98ca15398c422d27ad34254d073eefb033640483ad832471ce",
+        "target": "src/VivoPods.App/Assets/Devices/model-164/right.png",
+        "crop": [
+          0,
+          0,
+          216,
+          364
+        ],
+        "size": [
+          216,
+          364
+        ],
+        "sha256": "f5f2db0947e4265ee54ba009b9468cee7622f011db7545ff7ef35651f96e2293"
+      },
+      "case": {
+        "source": "downloads/model_164/extracted/after_tip_circle/292.webp",
+        "sourceSha256": "9c61b5c8a12db65b28e36404a023e85b9131bd0a7e465e1eee7ee51394353313",
+        "target": "src/VivoPods.App/Assets/Devices/model-164/case.png",
+        "crop": [
+          779,
+          394,
+          1334,
+          867
+        ],
+        "size": [
+          512,
+          436
+        ],
+        "sha256": "9968a434050f12c51f40175af5e5ae44cc1af50290cf781e3ad55770f5c6b288"
+      }
+    }
+  },
+  {
+    "name": "vivo TWS A5",
+    "model": 208,
+    "fileModel": 208,
+    "origin": {
+      "url": "https://ptsou-wsdl.vivo.com.cn/ptsou/zip/2026012719543071111962.zip",
+      "version": "v0.0.1",
+      "sha256": "6aae7e85256687d57bd3b12dcb29aa0d69b74e4d78cbe8ffa72fb77ee72b1293"
+    },
+    "assets": {
+      "left": {
+        "source": "downloads/model_208/extracted/left/earbud_left.png",
+        "sourceSha256": "ca6dcae174cc485658caf8ce795534f92e53b396d131ebfcbb434eb0775ec1db",
+        "target": "src/VivoPods.App/Assets/Devices/model-208/left.png",
+        "crop": [
+          0,
+          0,
+          252,
+          364
+        ],
+        "size": [
+          252,
+          364
+        ],
+        "sha256": "31e8958982c70a1e4d2cbc69b2b3e16228088f09c2ed4aa452b25a47f613f1c5"
+      },
+      "right": {
+        "source": "downloads/model_208/extracted/right/earbud_right.png",
+        "sourceSha256": "0937a7985f1feebacb3629e6dc0aaa37376f5621c75c2b333c22c71894b661f1",
+        "target": "src/VivoPods.App/Assets/Devices/model-208/right.png",
+        "crop": [
+          0,
+          0,
+          252,
+          364
+        ],
+        "size": [
+          252,
+          364
+        ],
+        "sha256": "7506987ccbc0bc9d1962874af75df094cb31bf61bb067dbc8440ad33401b3973"
+      },
+      "case": {
+        "source": "downloads/model_208/extracted/after_tip_circle/345.webp",
+        "sourceSha256": "df78326f69b1034097ebecc1c58c60a2d355ba6d4c416c00d196191c7424f50a",
+        "target": "src/VivoPods.App/Assets/Devices/model-208/case.png",
+        "crop": [
+          791,
+          455,
+          1324,
+          860
+        ],
+        "size": [
+          512,
+          389
+        ],
+        "sha256": "4d805b81d0ed1ba02a990bb9836bfaec622e1a658e747f1d7b6dd2f64b00d763"
+      }
+    }
+  },
+  {
+    "name": "iQOO TWS 1",
+    "model": 96,
+    "fileModel": 96,
+    "origin": {
+      "apk": "com.android.vivo.tws.vivotws",
+      "sha256": "06e27eb4170eded3d04322bd4735eb2215a5ba257316fb8183940845bb294e0b"
+    },
+    "assets": {
+      "left": {
+        "source": "extracted/apk/assets/flash_connect/96/left_1.png",
+        "sourceSha256": "6a4fe3e7c9c4ac075b501a649ac85704d6f1abebaca3e83592921c5198c98dc5",
+        "target": "src/VivoPods.App/Assets/Devices/apk-96/left.png",
+        "crop": [
+          2,
+          2,
+          186,
+          275
+        ],
+        "size": [
+          184,
+          273
+        ],
+        "sha256": "ae40d17b2cbb8229eca444375cd92658a489081f9ca12d1906c778ebecae91bd"
+      },
+      "right": {
+        "source": "extracted/apk/assets/flash_connect/96/right_1.png",
+        "sourceSha256": "515c75b93d0ffd7e5f4fef78aa88411c5e65671eb7b8008048abad307276249c",
+        "target": "src/VivoPods.App/Assets/Devices/apk-96/right.png",
+        "crop": [
+          4,
+          2,
+          187,
+          274
+        ],
+        "size": [
+          183,
+          272
+        ],
+        "sha256": "984769cc5385dd5259c0045eedc25664fab4b341648955b861d1c6e1adacaf1e"
+      },
+      "case": {
+        "source": "extracted/apk/assets/flash_connect/96/close_1.png",
+        "sourceSha256": "e7ef4ad4eeb6551989d0eab7412c0f26e9425432692df2d3035cd48148e1575f",
+        "target": "src/VivoPods.App/Assets/Devices/apk-96/case.png",
+        "crop": [
+          1,
+          0,
+          392,
+          296
+        ],
+        "size": [
+          391,
+          296
+        ],
+        "sha256": "f819bb0263c94ca52daa9e0e8d2566a483ce5be5585556f9a0b916a0c38c850f"
+      }
+    }
+  },
+  {
+    "name": "iQOO TWS 1e",
+    "model": 116,
+    "fileModel": 116,
+    "origin": {
+      "url": "https://ptsou-wsdl.vivo.com.cn/ptsou/zip/2023092710503801756820.zip",
+      "version": "v0.0.1",
+      "sha256": "cd5b9db95b5e446126fba11479c6d0689a85f53689026acd45545097ab29ee76"
+    },
+    "assets": {
+      "left": {
+        "source": "downloads/model_116/extracted/left/earbud_left.png",
+        "sourceSha256": "c0795ff4c0396fe23a356f76064398d913bc7cdfa2bd9295af7610094a0477e6",
+        "target": "src/VivoPods.App/Assets/Devices/model-116/left.png",
+        "crop": [
+          0,
+          1,
+          122,
+          183
+        ],
+        "size": [
+          122,
+          182
+        ],
+        "sha256": "4ec8b71059c524cd71e548dfcdc1e0cda522f63cf0188e2c1e74787dab56b7f0"
+      },
+      "right": {
+        "source": "downloads/model_116/extracted/right/earbud_right.png",
+        "sourceSha256": "c8ea52e7c01098310c07c12139e67c76d4cbb6b790af1da2bf355b8b07aed74f",
+        "target": "src/VivoPods.App/Assets/Devices/model-116/right.png",
+        "crop": [
+          1,
+          1,
+          124,
+          183
+        ],
+        "size": [
+          123,
+          182
+        ],
+        "sha256": "d3e090a3e00fa51c79c4502484f5f7a5a6f23b54c782406d545239bb4cfd6f9f"
+      },
+      "case": {
+        "source": "downloads/model_116/extracted/after_tip_circle/291.webp",
+        "sourceSha256": "6fa87f41cfb7c1881b8edd69aa7fadb79d9efca764bc277ff168f80ea55747de",
+        "target": "src/VivoPods.App/Assets/Devices/model-116/case.png",
+        "crop": [
+          804,
+          136,
+          1312,
+          523
+        ],
+        "size": [
+          508,
+          387
+        ],
+        "sha256": "f06cf93b21a73f602e5ec5043b94d895f0daa0df8be7cc52629ebb15e07857bd"
+      }
+    }
+  },
+  {
+    "name": "iQOO TWS 1i",
+    "model": 136,
+    "fileModel": 136,
+    "origin": {
+      "url": "https://ptsou-wsdl.vivo.com.cn/ptsou/zip/2024042915455501781769.zip",
+      "version": "v0.0.1",
+      "sha256": "d41f23c964e5b9a798bfa860596a1901ba65fbf1f0407c37455066a53a7967d4"
+    },
+    "assets": {
+      "left": {
+        "source": "downloads/model_136/extracted/left/earbud_left.png",
+        "sourceSha256": "c0795ff4c0396fe23a356f76064398d913bc7cdfa2bd9295af7610094a0477e6",
+        "target": "src/VivoPods.App/Assets/Devices/model-136/left.png",
+        "crop": [
+          0,
+          1,
+          122,
+          183
+        ],
+        "size": [
+          122,
+          182
+        ],
+        "sha256": "4ec8b71059c524cd71e548dfcdc1e0cda522f63cf0188e2c1e74787dab56b7f0"
+      },
+      "right": {
+        "source": "downloads/model_136/extracted/right/earbud_right.png",
+        "sourceSha256": "c8ea52e7c01098310c07c12139e67c76d4cbb6b790af1da2bf355b8b07aed74f",
+        "target": "src/VivoPods.App/Assets/Devices/model-136/right.png",
+        "crop": [
+          1,
+          1,
+          124,
+          183
+        ],
+        "size": [
+          123,
+          182
+        ],
+        "sha256": "d3e090a3e00fa51c79c4502484f5f7a5a6f23b54c782406d545239bb4cfd6f9f"
+      },
+      "case": {
+        "source": "downloads/model_136/extracted/after_tip_circle/291.webp",
+        "sourceSha256": "6fa87f41cfb7c1881b8edd69aa7fadb79d9efca764bc277ff168f80ea55747de",
+        "target": "src/VivoPods.App/Assets/Devices/model-136/case.png",
+        "crop": [
+          804,
+          136,
+          1312,
+          523
+        ],
+        "size": [
+          508,
+          387
+        ],
+        "sha256": "f06cf93b21a73f602e5ec5043b94d895f0daa0df8be7cc52629ebb15e07857bd"
+      }
+    }
+  },
+  {
+    "name": "iQOO TWS 2",
+    "model": 124,
+    "fileModel": 124,
+    "origin": {
+      "url": "https://ptsou-wsdl.vivo.com.cn/ptsou/zip/2023120812000028864434.zip",
+      "version": "v0.0.1",
+      "sha256": "404f00bd976298a4c30658a30db786da3365e30af984a0a8a6ef6a7401c68385"
+    },
+    "assets": {
+      "left": {
+        "source": "downloads/model_124/extracted/left/earbud_left.png",
+        "sourceSha256": "33982e1e8539eed2f055536be1254b2d0a1f9cf8cdb7adf7be060036f52fe24c",
+        "target": "src/VivoPods.App/Assets/Devices/model-124/left.png",
+        "crop": [
+          0,
+          0,
+          252,
+          364
+        ],
+        "size": [
+          252,
+          364
+        ],
+        "sha256": "91090bd9ed8775800cff78132a46c770face0ec3d4372611dbf4fa8b5f0e07bc"
+      },
+      "right": {
+        "source": "downloads/model_124/extracted/right/earbud_right.png",
+        "sourceSha256": "dc66e9801846b54b06e7a6b61105e1fc9e76eff9cb393d0f6126872c5027c567",
+        "target": "src/VivoPods.App/Assets/Devices/model-124/right.png",
+        "crop": [
+          0,
+          0,
+          252,
+          364
+        ],
+        "size": [
+          252,
+          364
+        ],
+        "sha256": "9a57132295058489a88783e22fac26a74dc6ea14a8b6c82622db11f1dab702ad"
+      },
+      "case": {
+        "source": "downloads/model_124/extracted/after_tip_circle/682.webp",
+        "sourceSha256": "7f117d7fb738f4e89118549e9666054515b80a10e9bba09230b3ef30906bf287",
+        "target": "src/VivoPods.App/Assets/Devices/model-124/case.png",
+        "crop": [
+          810,
+          129,
+          1305,
+          509
+        ],
+        "size": [
+          495,
+          380
+        ],
+        "sha256": "ae2da76f17cf550c78c080353e49777eb297bf137994ca872b9db257726ea29d"
+      }
+    }
+  },
+  {
+    "name": "iQOO TWS 5",
+    "model": 200,
+    "fileModel": 200,
+    "origin": {
+      "url": "https://ptsou-wsdl.vivo.com.cn/ptsou/zip/2025081410095969488822.zip",
+      "version": "v0.0.5",
+      "sha256": "b271752583e670f28781201671115f9a2632a996ef24e18fe02abac7506b81ce"
+    },
+    "assets": {
+      "left": {
+        "source": "downloads/model_200/extracted/left/earbud_left.png.png",
+        "sourceSha256": "23226391d724b42654ad246a00db35583b75fe2994e1a265cd262ca510729936",
+        "target": "src/VivoPods.App/Assets/Devices/model-200/left.png",
+        "crop": [
+          0,
+          0,
+          260,
+          364
+        ],
+        "size": [
+          260,
+          364
+        ],
+        "sha256": "7c7472370328fd95533ea46c9e3d19dedeb3083dd3f3fb3c9e29a168d76086de"
+      },
+      "right": {
+        "source": "downloads/model_200/extracted/right/earbud_right.png",
+        "sourceSha256": "f110167c6d593566a6958b5d9942046af4fe5754d595445f53506f320ff103da",
+        "target": "src/VivoPods.App/Assets/Devices/model-200/right.png",
+        "crop": [
+          0,
+          0,
+          260,
+          364
+        ],
+        "size": [
+          260,
+          364
+        ],
+        "sha256": "ce7b0ccfac2ca62470f2a9a75e1839bce60ed184704461a0e457b7121e2d725e"
+      },
+      "case": {
+        "source": "downloads/model_200/extracted/after_tip_circle/贝多芬IQOO 白_00711.webp",
+        "sourceSha256": "e14b8bc7ffd6e9691ff6c508f8042d2f6848bbd9db8fe8733c945e42ade300ba",
+        "target": "src/VivoPods.App/Assets/Devices/model-200/case.png",
+        "crop": [
+          791,
+          495,
+          1326,
+          906
+        ],
+        "size": [
+          512,
+          393
+        ],
+        "sha256": "bfb717e2ca3bff7d1eebe81750663f7a946ac64201d5b41d55041f3383adee6d"
+      }
+    }
+  },
+  {
+    "name": "iQOO TWS 5e",
+    "model": 216,
+    "fileModel": 216,
+    "origin": {
+      "url": "https://ptsou-wsdl.vivo.com.cn/ptsou/zip/2026033015402447519319.zip",
+      "version": "v0.0.1",
+      "sha256": "587c6bb206b6a0f0a887b5c426029c0be1758312e28b8d9ced5193790fa1b288"
+    },
+    "assets": {
+      "left": {
+        "source": "downloads/model_216/extracted/left/earbud_left.png",
+        "sourceSha256": "211bb86ee479b1ccc83438c0308ac606a2c4e4996877caad8e8bea538b54b15a",
+        "target": "src/VivoPods.App/Assets/Devices/model-216/left.png",
+        "crop": [
+          0,
+          0,
+          260,
+          364
+        ],
+        "size": [
+          260,
+          364
+        ],
+        "sha256": "211b6d7b9c0d7a63dc73b97c374727ce887d9de120cc92d0d629fe0d6367fbd2"
+      },
+      "right": {
+        "source": "downloads/model_216/extracted/right/earbud_right.png",
+        "sourceSha256": "d4b750ccbefcdf72cc2a15e40df20551e3b771fd203dad76abb3ef6faf3c702d",
+        "target": "src/VivoPods.App/Assets/Devices/model-216/right.png",
+        "crop": [
+          0,
+          0,
+          260,
+          364
+        ],
+        "size": [
+          260,
+          364
+        ],
+        "sha256": "8278c8d3b25653f75e175d6a046717ac02aceb8918a1647ec7bab13fc077f6ba"
+      },
+      "case": {
+        "source": "downloads/model_216/extracted/after_tip_circle/345.webp",
+        "sourceSha256": "7d676e3ce2b39a48916d0bbc725eb10d2c3db7a12b5be4601648e7b6da8ee889",
+        "target": "src/VivoPods.App/Assets/Devices/model-216/case.png",
+        "crop": [
+          791,
+          455,
+          1324,
+          860
+        ],
+        "size": [
+          512,
+          389
+        ],
+        "sha256": "89de2fe996fe1f9a920152f5e9954501b92e1d8ab03bdbb2cb63b27e17610d8d"
+      }
+    }
+  },
+  {
+    "name": "iQOO TWS 5i",
+    "model": 212,
+    "fileModel": 212,
+    "origin": {
+      "url": "https://ptsou-wsdl.vivo.com.cn/ptsou/zip/2026012719545698517980.zip",
+      "version": "v1.0.0",
+      "sha256": "63c5a822e10d94c3044abcecf1ed7b8dd0274a639517402a083aad8294d728ff"
+    },
+    "assets": {
+      "left": {
+        "source": "downloads/model_212/extracted/left/earbud_left.png",
+        "sourceSha256": "ca6dcae174cc485658caf8ce795534f92e53b396d131ebfcbb434eb0775ec1db",
+        "target": "src/VivoPods.App/Assets/Devices/model-212/left.png",
+        "crop": [
+          0,
+          0,
+          252,
+          364
+        ],
+        "size": [
+          252,
+          364
+        ],
+        "sha256": "31e8958982c70a1e4d2cbc69b2b3e16228088f09c2ed4aa452b25a47f613f1c5"
+      },
+      "right": {
+        "source": "downloads/model_212/extracted/right/earbud_right.png",
+        "sourceSha256": "0937a7985f1feebacb3629e6dc0aaa37376f5621c75c2b333c22c71894b661f1",
+        "target": "src/VivoPods.App/Assets/Devices/model-212/right.png",
+        "crop": [
+          0,
+          0,
+          252,
+          364
+        ],
+        "size": [
+          252,
+          364
+        ],
+        "sha256": "7506987ccbc0bc9d1962874af75df094cb31bf61bb067dbc8440ad33401b3973"
+      },
+      "case": {
+        "source": "downloads/model_212/extracted/after_tip_circle/345.webp",
+        "sourceSha256": "41626f2aecb4070013e45bc958e01d09d4258dbc1126dbe5f65008139ad0094c",
+        "target": "src/VivoPods.App/Assets/Devices/model-212/case.png",
+        "crop": [
+          790,
+          455,
+          1324,
+          860
+        ],
+        "size": [
+          512,
+          388
+        ],
+        "sha256": "a22130dafbc38a9ecbbae5cac073fbc9307fdc50e155ac6ffc9f19779808ac75"
+      }
+    }
+  },
+  {
+    "name": "iQOO TWS Air",
+    "model": 68,
+    "fileModel": 68,
+    "origin": {
+      "apk": "com.android.vivo.tws.vivotws",
+      "sha256": "06e27eb4170eded3d04322bd4735eb2215a5ba257316fb8183940845bb294e0b"
+    },
+    "assets": {
+      "left": {
+        "source": "extracted/apk/assets/flash_connect/68/left_1.png",
+        "sourceSha256": "659ec34ea1f37a9b07f20ba3d9639c0c879ffddd816beb85780ef45297f20fc5",
+        "target": "src/VivoPods.App/Assets/Devices/apk-68/left.png",
+        "crop": [
+          0,
+          0,
+          156,
+          276
+        ],
+        "size": [
+          156,
+          276
+        ],
+        "sha256": "7ef037646bbb98b80bdc265b9477ad4737a89d05e1ad01f0ac8075195dffde58"
+      },
+      "right": {
+        "source": "extracted/apk/assets/flash_connect/68/right_1.png",
+        "sourceSha256": "60353f6b3142e04350caaa36eda39a1f0bcadd329aea837780a17e61887ffee0",
+        "target": "src/VivoPods.App/Assets/Devices/apk-68/right.png",
+        "crop": [
+          0,
+          0,
+          156,
+          276
+        ],
+        "size": [
+          156,
+          276
+        ],
+        "sha256": "6a26fa68114c32b059dced239e2b3d90bf81d3641081223eaf5d47dd49cc41cf"
+      },
+      "case": {
+        "source": "extracted/apk/assets/flash_connect/68/close_1.png",
+        "sourceSha256": "6953bb7f8c03a433784352ddbdd92143297d4da9b11401972cfb0831bfb46662",
+        "target": "src/VivoPods.App/Assets/Devices/apk-68/case.png",
+        "crop": [
+          0,
+          0,
+          318,
+          342
+        ],
+        "size": [
+          318,
+          342
+        ],
+        "sha256": "b49e2d63d3f5fccca763b38c2854d0a0f4a6a36fd6b6b25031b23e4d018e8596"
+      }
+    }
+  },
+  {
+    "name": "iQOO TWS Air Pro",
+    "model": 84,
+    "fileModel": 84,
+    "origin": {
+      "apk": "com.android.vivo.tws.vivotws",
+      "sha256": "06e27eb4170eded3d04322bd4735eb2215a5ba257316fb8183940845bb294e0b"
+    },
+    "assets": {
+      "left": {
+        "source": "extracted/apk/assets/flash_connect/84/left_1.png",
+        "sourceSha256": "787d112f156434a9d45bbe6e113121e962f809e31994d5941b2d9ec37e9e2990",
+        "target": "src/VivoPods.App/Assets/Devices/apk-84/left.png",
+        "crop": [
+          0,
+          0,
+          203,
+          368
+        ],
+        "size": [
+          203,
+          368
+        ],
+        "sha256": "7740e5849f4f8997da6b9e06dcd9cb457a5a8a2434e801c029420a0cf1757be2"
+      },
+      "right": {
+        "source": "extracted/apk/assets/flash_connect/84/right_1.png",
+        "sourceSha256": "b8e942c1c9f5bbd2173786590dbe0a66e5c0593e4b2ab5679f35d1c3b3955864",
+        "target": "src/VivoPods.App/Assets/Devices/apk-84/right.png",
+        "crop": [
+          5,
+          0,
+          208,
+          368
+        ],
+        "size": [
+          203,
+          368
+        ],
+        "sha256": "b81c7beb643046ac37bf54d4b3d6028ee55c0e79a4fee1f797c132f312654390"
+      },
+      "case": {
+        "source": "extracted/apk/assets/flash_connect/84/close_1.png",
+        "sourceSha256": "775ef772e2fc3ddae844ea0456880d9e498f1530460b27b94ae69baa44868538",
+        "target": "src/VivoPods.App/Assets/Devices/apk-84/case.png",
+        "crop": [
+          0,
+          0,
+          425,
+          456
+        ],
+        "size": [
+          425,
+          456
+        ],
+        "sha256": "348d04d3417c8654401e922ef027da8e820a783ac5a6dd29ce6e46c10ca7e696"
+      }
+    }
+  },
+  {
+    "name": "iQOO TWS Air2",
+    "model": 108,
+    "fileModel": 108,
+    "origin": {
+      "url": "https://ptsou-wsdl.vivo.com.cn/ptsou/zip/2023083014310761459842.zip",
+      "version": "v1.1.0",
+      "sha256": "f2226968d77c8f80349cdf8f423c3060e3a0517441e123db08a92bd05ba448f4"
+    },
+    "assets": {
+      "left": {
+        "source": "downloads/model_108/extracted/left/earbud_left.png",
+        "sourceSha256": "0fb164c09f886e61bd8217c31c0d07c404e402c3209e2604fa22b3894e530e64",
+        "target": "src/VivoPods.App/Assets/Devices/model-108/left.png",
+        "crop": [
+          3,
+          3,
+          203,
+          372
+        ],
+        "size": [
+          200,
+          369
+        ],
+        "sha256": "d696ffb321193644a91ee0ff624f8e6ea37f2e6e39aa549d559763fc7ea41e67"
+      },
+      "right": {
+        "source": "downloads/model_108/extracted/right/earbud_right.png",
+        "sourceSha256": "d81e86cd81195c8192a706c60d04e647dcd89692c7b51335e3422c7c20501e4d",
+        "target": "src/VivoPods.App/Assets/Devices/model-108/right.png",
+        "crop": [
+          1,
+          3,
+          201,
+          372
+        ],
+        "size": [
+          200,
+          369
+        ],
+        "sha256": "8d89ab3259af4158ee618d5003a2abc8cbd13be35caae332407f3e4158ac44ea"
+      },
+      "case": {
+        "source": "downloads/model_108/extracted/after_tip_circle/292.webp",
+        "sourceSha256": "bd8a267c54e76298da3e1230deb6ead9193819285ddd6134f15ddda2b6ac1074",
+        "target": "src/VivoPods.App/Assets/Devices/model-108/case.png",
+        "crop": [
+          853,
+          117,
+          1267,
+          562
+        ],
+        "size": [
+          414,
+          445
+        ],
+        "sha256": "90ef750405b36108bd2a9db07e893e61e82e749d802517734c0e3934d98402cb"
+      }
+    }
+  },
+  {
+    "name": "iQOO TWS Air3",
+    "model": 160,
+    "fileModel": 160,
+    "origin": {
+      "url": "https://ptsou-wsdl.vivo.com.cn/ptsou/zip/2025032116592865085091.zip",
+      "version": "v0.1.0",
+      "sha256": "bd823c7408aab671ff50a1eba71c7c07c956d6d0bc884e5b734c7d73151717e4"
+    },
+    "assets": {
+      "left": {
+        "source": "downloads/model_160/extracted/left/earbud_left.png",
+        "sourceSha256": "93b463ba1d68832dc5accf920041eb52db91e607edb46de1f9ebb3e554ca5465",
+        "target": "src/VivoPods.App/Assets/Devices/model-160/left.png",
+        "crop": [
+          0,
+          0,
+          216,
+          364
+        ],
+        "size": [
+          216,
+          364
+        ],
+        "sha256": "c97867a8dbcdbf181ba5bbf6b668ddb860b085f246ad89af746c6a184b1f2eca"
+      },
+      "right": {
+        "source": "downloads/model_160/extracted/right/earbud_right.png",
+        "sourceSha256": "6b40c91360ff8e98ca15398c422d27ad34254d073eefb033640483ad832471ce",
+        "target": "src/VivoPods.App/Assets/Devices/model-160/right.png",
+        "crop": [
+          0,
+          0,
+          216,
+          364
+        ],
+        "size": [
+          216,
+          364
+        ],
+        "sha256": "f5f2db0947e4265ee54ba009b9468cee7622f011db7545ff7ef35651f96e2293"
+      },
+      "case": {
+        "source": "downloads/model_160/extracted/after_tip_circle/292.webp",
+        "sourceSha256": "5fdc9da0bfe5be671138bdcb07a79997a5fd5b9b28bbf78aad4eaffbea1882b0",
+        "target": "src/VivoPods.App/Assets/Devices/model-160/case.png",
+        "crop": [
+          779,
+          394,
+          1334,
+          867
+        ],
+        "size": [
+          512,
+          436
+        ],
+        "sha256": "bd000d3e644372b7f9f942befb4398b3315da2d44fd2dfef0e98607a5cfb8b10"
+      }
+    }
+  },
+  {
+    "name": "iQOO TWS Air3 Pro",
+    "model": 172,
+    "fileModel": 172,
+    "origin": {
+      "url": "https://ptsou-wsdl.vivo.com.cn/ptsou/zip/202503242017181011277.zip",
+      "version": "v0.0.2",
+      "sha256": "785b5b2ab63a813144dd06a73543a14a966172d333cb97ca001959d38d68b342"
+    },
+    "assets": {
+      "left": {
+        "source": "downloads/model_172/extracted/left/earbud_left.png",
+        "sourceSha256": "7100e40de96fb220e319f27096ede30aeb7b7b88fbf1479c1a992b5b12c0dd12",
+        "target": "src/VivoPods.App/Assets/Devices/model-172/left.png",
+        "crop": [
+          0,
+          0,
+          220,
+          364
+        ],
+        "size": [
+          220,
+          364
+        ],
+        "sha256": "c94c3ce729b0e83656e51ce597e4e038317576a263278e09fa2b2fd8020417e5"
+      },
+      "right": {
+        "source": "downloads/model_172/extracted/right/earbud_right.png",
+        "sourceSha256": "5710a86f4bcb0b1fba777e869bde4892a3c9c1cbd420b43f18542745fe556d1a",
+        "target": "src/VivoPods.App/Assets/Devices/model-172/right.png",
+        "crop": [
+          0,
+          0,
+          220,
+          364
+        ],
+        "size": [
+          220,
+          364
+        ],
+        "sha256": "7e94ec9b9cdf64bc7f09c1b30e39928a7774b0f791677b6850f741be814b3cf5"
+      },
+      "case": {
+        "source": "downloads/model_172/extracted/after_tip_circle/292.webp",
+        "sourceSha256": "e636a6fc3aa0cb061d355fbf654be92792ca2afc57cacf5f04509981f1a20883",
+        "target": "src/VivoPods.App/Assets/Devices/model-172/case.png",
+        "crop": [
+          776,
+          392,
+          1335,
+          871
+        ],
+        "size": [
+          512,
+          439
+        ],
+        "sha256": "af824dd8238ff1b3cb6187d00d1bbd74832c23ec4a40eb9e2c79bc8bd112de71"
+      }
+    }
+  }
+]

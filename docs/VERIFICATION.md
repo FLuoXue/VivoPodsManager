@@ -33,3 +33,11 @@ dotnet run --project tests/VivoPods.Tests -c Release -- --probe --connect
 5. 对应型号的 EQ、手势、查找及多设备功能。
 
 演示与协议回归不能替代上述硬件验证。不同系列的实验功能也仍需分别验证。
+
+## 2026-09-13：左右耳图片对应显示
+
+- Release 构建通过，0 警告 / 0 错误；协议与会话校验器 65 项通过。
+- 桌面烟测解码项目全部 39 个 TWS 型号的内嵌图片，实际渲染 TWS 1、TWS 4 HiFi、TWS 5、Air3 Pro 及未知型号；左耳 86%、右耳 92%、充电盒 64% 分别显示在对应图片下方。
+- 已检查浅色、深色、最小窗口尺寸（960×700）、断开后图片和电量一起置灰，以及型号切换后图片更新和未知型号回退。
+- 27 个 vivo、12 个 iQOO TWS 型号均使用独立左右耳及闭盒图片；已查看全部图片图集。来源及裁剪区域记录在 `docs/device-art-sources.json`，原机型 ZIP 通过 SHA-256 校验。
+- 页面截图与结果：`artifacts/ui-all-models/`；便携版启动验证：`artifacts/ui-all-models-package/`。

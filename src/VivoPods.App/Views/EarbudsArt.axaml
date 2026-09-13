@@ -1,15 +1,17 @@
 <UserControl xmlns="https://github.com/avaloniaui" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" x:Class="VivoPods.App.Views.EarbudsArt" IsHitTestVisible="False">
-  <Viewbox Stretch="Uniform">
-    <Canvas Width="400" Height="250">
-      <Ellipse Width="270" Height="190" Fill="#EEF1FD" Canvas.Left="67" Canvas.Top="25" Opacity="0.8"/>
-      <Ellipse Width="174" Height="16" Fill="#C6CBDD" Canvas.Left="113" Canvas.Top="220" Opacity="0.35"/>
-      <Border Canvas.Left="93" Canvas.Top="120" Width="212" Height="100" CornerRadius="26,26,53,53" BorderBrush="#D9DEEC" BorderThickness="1" BoxShadow="0 8 20 0 #180E1E53">
-        <Border.Background><LinearGradientBrush StartPoint="0,0" EndPoint="0,1"><GradientStop Color="#FEFFFF" Offset="0"/><GradientStop Color="#DBE2F0" Offset="1"/></LinearGradientBrush></Border.Background>
-        <Grid><TextBlock Text="vivo" Foreground="#A8B0C4" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="24" FontWeight="Light" Margin="0,4,0,0"/><Ellipse Fill="#78C2A6" Width="4" Height="4" HorizontalAlignment="Center" VerticalAlignment="Bottom" Margin="0,0,0,15"/></Grid>
-      </Border>
-      <Border Canvas.Left="93" Canvas.Top="112" Width="212" Height="34" CornerRadius="26,26,9,9" BorderBrush="#D1D9EB" BorderThickness="1" Background="#F8FAFF"/>
-      <Canvas Canvas.Left="98" Canvas.Top="29" RenderTransformOrigin="50%,50%">
-        <Canvas.RenderTransform><RotateTransform Angle="-18"/></Canvas.RenderTransform>
+  <Panel>
+    <Viewbox x:Name="CaseArt" Stretch="Uniform" IsVisible="False">
+      <Canvas Width="250" Height="164">
+        <Ellipse Width="174" Height="12" Fill="#C6CBDD" Canvas.Left="38" Canvas.Top="149" Opacity="0.35"/>
+        <Border Canvas.Left="19" Canvas.Top="42" Width="212" Height="108" CornerRadius="26,26,53,53" BorderBrush="#D9DEEC" BorderThickness="1" BoxShadow="0 8 20 0 #180E1E53">
+          <Border.Background><LinearGradientBrush StartPoint="0,0" EndPoint="0,1"><GradientStop Color="#FEFFFF" Offset="0"/><GradientStop Color="#DBE2F0" Offset="1"/></LinearGradientBrush></Border.Background>
+          <Grid><TextBlock Text="vivo" Foreground="#A8B0C4" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="24" FontWeight="Light" Margin="0,4,0,0"/><Ellipse Fill="#78C2A6" Width="4" Height="4" HorizontalAlignment="Center" VerticalAlignment="Bottom" Margin="0,0,0,15"/></Grid>
+        </Border>
+        <Border Canvas.Left="19" Canvas.Top="32" Width="212" Height="34" CornerRadius="26,26,9,9" BorderBrush="#D1D9EB" BorderThickness="1" Background="#F8FAFF"/>
+      </Canvas>
+    </Viewbox>
+    <Viewbox x:Name="LeftArt" Stretch="Uniform" IsVisible="False">
+      <Canvas Width="72" Height="124">
         <Border Width="26" Height="88" CornerRadius="13" Canvas.Left="34" Canvas.Top="29" BorderBrush="#D4DBEB" BorderThickness="1">
           <Border.Background><LinearGradientBrush StartPoint="0,0" EndPoint="1,0"><GradientStop Color="#D9E1F0" Offset="0"/><GradientStop Color="#FFFFFF" Offset="0.65"/></LinearGradientBrush></Border.Background>
         </Border>
@@ -18,8 +20,9 @@
         <Ellipse Width="7" Height="17" Fill="#283247" Canvas.Left="12" Canvas.Top="19"/>
         <Border Width="4" Height="15" Background="#A4AFC4" CornerRadius="2" Canvas.Left="45" Canvas.Top="86"/>
       </Canvas>
-      <Canvas Canvas.Left="228" Canvas.Top="26" RenderTransformOrigin="50%,50%">
-        <Canvas.RenderTransform><RotateTransform Angle="19"/></Canvas.RenderTransform>
+    </Viewbox>
+    <Viewbox x:Name="RightArt" Stretch="Uniform" IsVisible="False">
+      <Canvas Width="72" Height="124">
         <Border Width="26" Height="88" CornerRadius="13" Canvas.Left="7" Canvas.Top="29" BorderBrush="#D4DBEB" BorderThickness="1">
           <Border.Background><LinearGradientBrush StartPoint="0,0" EndPoint="1,0"><GradientStop Color="#FFFFFF" Offset="0.3"/><GradientStop Color="#D9E1F0" Offset="1"/></LinearGradientBrush></Border.Background>
         </Border>
@@ -28,6 +31,6 @@
         <Ellipse Width="7" Height="17" Fill="#283247" Canvas.Left="48" Canvas.Top="19"/>
         <Border Width="4" Height="15" Background="#A4AFC4" CornerRadius="2" Canvas.Left="17" Canvas.Top="86"/>
       </Canvas>
-    </Canvas>
-  </Viewbox>
+    </Viewbox>
+  </Panel>
 </UserControl>

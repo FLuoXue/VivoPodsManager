@@ -3,6 +3,7 @@ using System.ComponentModel;
 using System.Diagnostics;
 using System.Runtime.CompilerServices;
 using Avalonia;
+using Avalonia.Media.Imaging;
 using Avalonia.Styling;
 using Avalonia.Threading;
 using VivoPods.App.Services;
@@ -20,6 +21,7 @@ public sealed class MainViewModel : INotifyPropertyChanged, IAsyncDisposable
 {
     private readonly DeviceDiscovery _discovery = new();
     private readonly SettingsStore _settings;
+    private readonly DeviceArtworkProvider _artwork;
     private readonly CancellationTokenSource _lifetime = new();
     private readonly DispatcherTimer _reconnect = new() { Interval = TimeSpan.FromSeconds(10) };
     private bool _busy, _manualDisconnect, _disposed;
@@ -46,6 +48,7 @@ public sealed class MainViewModel : INotifyPropertyChanged, IAsyncDisposable
     public MainViewModel(bool isolated = false)
     {
         _settings = new(isolated);
+        _artwork = new(AddLog);
         Manager = new(device => device.Transport switch
         {
             TransportKind.Demo => new DemoTransport(), TransportKind.Gatt => new GattTransport(), _ => new RfcommTransport()
@@ -103,6 +106,12 @@ public sealed class MainViewModel : INotifyPropertyChanged, IAsyncDisposable
     public bool ShowGame => Experimental && Manager.Profile.Has(Features.Game);
     public bool ShowSpatial => Experimental && Manager.Profile.Has(Features.Spatial);
     public bool HasDevice => Manager.Device != null;
+    private DeviceArtwork? Artwork => _artwork.Get(Manager.Profile.Name);
+    public Bitmap? LeftImage => Artwork?.Left;
+    public Bitmap? RightImage => Artwork?.Right;
+    public Bitmap? CaseImage => Artwork?.Case;
+    public bool ShowOfficialDeviceArt => Artwork != null;
+    public bool ShowGenericDeviceArt => !ShowOfficialDeviceArt;
     public bool NoDevice => !HasDevice;
     public bool NoiseOff => Manager.State.Noise == NoiseMode.Off;
     public bool NoiseAnc => Manager.State.Noise == NoiseMode.Anc;
@@ -288,6 +297,7 @@ public sealed class MainViewModel : INotifyPropertyChanged, IAsyncDisposable
         _disposed = true; _reconnect.Stop(); _lifetime.Cancel();
         Manager.Changed -= OnManagerChanged;
         await Manager.DisposeAsync();
+        _artwork.Dispose();
         _lifetime.Dispose();
     }
 }

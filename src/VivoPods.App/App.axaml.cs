@@ -7,6 +7,7 @@ using Avalonia.Markup.Xaml;
 using Avalonia.Media;
 using Avalonia.Media.Imaging;
 using Avalonia.Threading;
+using VivoPods.App.Services;
 using VivoPods.App.ViewModels;
 using VivoPods.App.Views;
 
@@ -106,12 +107,37 @@ public partial class App : Application
     private async Task SmokeAsync()
     {
         string output = Program.Arguments.SkipWhile(a => a != "--output").Skip(1).FirstOrDefault() ?? "artifacts/ui";
+        async Task CaptureAsync(string name)
+        {
+            await Task.Delay(160);
+            using var bitmap = new RenderTargetBitmap(new((int)_window!.Bounds.Width, (int)_window.Bounds.Height), new(96, 96));
+            bitmap.Render(_window);
+            bitmap.Save(System.IO.Path.Combine(output, name + ".png"));
+        }
+        async Task PreviewAsync(string modelName, bool officialArtwork = true)
+        {
+            await _vm!.RunAsync(() => _vm.Manager.ConnectAsync(
+                new("demo-" + modelName, modelName, 0, true, Core.Models.TransportKind.Demo),
+                Core.Models.DeviceProfile.Resolve(modelName), CancellationToken.None));
+            if (!_vm.Manager.Ready || _vm.ShowOfficialDeviceArt != officialArtwork)
+                throw new InvalidOperationException($"{modelName} 的演示设备或图片未正确切换");
+            _vm.Message = "正在预览演示设备，所有操作只作用于模拟数据。";
+        }
         try
         {
             Directory.CreateDirectory(output);
             _vm!.Theme = "浅色";
             await Task.Delay(400);
             if (_vm?.Manager.Ready != true || _vm.LeftBattery != "86%") throw new InvalidOperationException("演示初始化未同步电量");
+            using (var artwork = new DeviceArtworkProvider())
+            {
+                foreach (var profile in Core.Models.DeviceProfile.All.Where(p => p.Name.Contains(" TWS ", StringComparison.Ordinal)))
+                {
+                    var images = artwork.Get(profile.Name) ?? throw new InvalidOperationException($"缺少 {profile.Name} 的官方图片");
+                    if (images.Left.PixelSize.Width <= 0 || images.Right.PixelSize.Width <= 0 || images.Case.PixelSize.Width <= 0)
+                        throw new InvalidOperationException($"{profile.Name} 的图片解码失败");
+                }
+            }
             await _vm.SetNoiseAsync(Core.Models.NoiseMode.Transparency);
             if (!_vm.NoiseTransparency) throw new InvalidOperationException("降噪交互未同步");
             await _vm.SetNoiseAsync(Core.Models.NoiseMode.Anc);
@@ -131,14 +157,34 @@ public partial class App : Application
             if (_vm.Manager.State.Peers[1].Status != 2) throw new InvalidOperationException("多设备切换未同步");
             foreach (string page in new[] { "overview", "gestures", "devices", "settings", "about" })
             {
-                _vm.Navigate(page); await Task.Delay(160);
-                using var bitmap = new RenderTargetBitmap(new((int)_window!.Bounds.Width, (int)_window.Bounds.Height), new(96, 96));
-                bitmap.Render(_window); bitmap.Save(System.IO.Path.Combine(output, page + ".png"));
+                _vm.Navigate(page);
+                await CaptureAsync(page);
             }
-            _vm.Theme = "深色"; _vm.Navigate("overview"); await Task.Delay(160);
-            using (var bitmap = new RenderTargetBitmap(new((int)_window!.Bounds.Width, (int)_window.Bounds.Height), new(96, 96)))
-            { bitmap.Render(_window); bitmap.Save(System.IO.Path.Combine(output, "overview-dark.png")); }
-            await File.WriteAllTextAsync(System.IO.Path.Combine(output, "result.txt"), "PASS: desktop startup, demo handshake, battery, noise changes, five pages, light/dark render");
+            _vm.Theme = "深色"; _vm.Navigate("overview");
+            await CaptureAsync("overview-dark");
+
+            // Exercise the embedded model images in a simulated session, including model changes and stale readings.
+            await PreviewAsync("vivo TWS Air3 Pro");
+            if (!_vm.Manager.Ready || _vm.LeftBattery != "86%" || _vm.RightBattery != "92%" || _vm.CaseBattery != "64%")
+                throw new InvalidOperationException("Air3 Pro 演示初始化未同步左右耳及充电盒电量");
+            await CaptureAsync("overview-air3-pro-dark");
+            _vm.Theme = "浅色";
+            await CaptureAsync("overview-air3-pro");
+            double width = _window!.Width, height = _window.Height;
+            _window.Width = _window.MinWidth; _window.Height = _window.MinHeight;
+            await CaptureAsync("overview-air3-pro-compact");
+            _window.Width = width; _window.Height = height;
+            await _vm.DisconnectAsync();
+            await CaptureAsync("overview-air3-pro-disconnected");
+            await _vm.DemoAsync();
+            await CaptureAsync("overview-tws5-restored");
+            await PreviewAsync("vivo TWS 1");
+            await CaptureAsync("overview-tws1");
+            await PreviewAsync("vivo TWS 4 HiFi");
+            await CaptureAsync("overview-tws4-hifi");
+            await PreviewAsync("vivo TWS 未识别型号", officialArtwork: false);
+            await CaptureAsync("overview-generic-fallback");
+            await File.WriteAllTextAsync(System.IO.Path.Combine(output, "result.txt"), "PASS: desktop startup, demo handshake, battery, noise changes, five pages, light/dark render, all TWS artwork resources, closed cases, compact layout, disconnect, model switch, unknown model fallback");
         }
         catch (Exception ex)
         {
