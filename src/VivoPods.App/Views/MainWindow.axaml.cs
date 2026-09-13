@@ -1,5 +1,6 @@
 using System.Diagnostics;
 using Avalonia.Controls;
+using Avalonia.Input;
 using Avalonia.Interactivity;
 using Avalonia.Layout;
 using Avalonia.Platform.Storage;
@@ -17,7 +18,24 @@ public partial class MainWindow : Window
     {
         InitializeComponent();
         Closing += (_, e) => { if (!AllowClose && DataContext is MainViewModel vm && vm.CloseToTray) { e.Cancel = true; Hide(); } };
+        PropertyChanged += (_, e) =>
+        {
+            if (e.Property == WindowStateProperty) UpdateMaximizeGlyph();
+        };
+        UpdateMaximizeGlyph();
     }
+    private void BeginTitleBarDrag(object? sender, PointerPressedEventArgs e)
+    {
+        if (e.GetCurrentPoint(this).Properties.IsLeftButtonPressed) BeginMoveDrag(e);
+    }
+    private void MinimizeWindow(object? sender, RoutedEventArgs e) => WindowState = WindowState.Minimized;
+    private void ToggleMaximizeState(object? sender, RoutedEventArgs e)
+    {
+        WindowState = WindowState == WindowState.Maximized ? WindowState.Normal : WindowState.Maximized;
+        e.Handled = true;
+    }
+    private void CloseWindow(object? sender, RoutedEventArgs e) => Close();
+    private void UpdateMaximizeGlyph() => MaximizeGlyph.Text = WindowState == WindowState.Maximized ? "\uE923" : "\uE922";
     private void Navigate(object? sender, RoutedEventArgs e) { if (sender is Button { Tag: string page }) ViewModel.Navigate(page); }
     private async void Scan(object? sender, RoutedEventArgs e) => await ViewModel.ScanAsync();
     private async void Connect(object? sender, RoutedEventArgs e) => await ViewModel.ConnectAsync();

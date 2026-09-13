@@ -1,8 +1,6 @@
 using Avalonia;
 using Avalonia.Controls;
 using Avalonia.Controls.ApplicationLifetimes;
-using Avalonia.Controls.Shapes;
-using Avalonia.Layout;
 using Avalonia.Interactivity;
 using Avalonia.Input;
 using Avalonia.Markup.Xaml;
@@ -21,6 +19,7 @@ public partial class App : Application
     private TrayIcon? _tray;
     private MainViewModel? _vm;
     private MainWindow? _window;
+    private WindowIcon? _appIcon;
     private SmallWindow? _smallWindow;
     private readonly DispatcherTimer _trayClickTimer = new();
     private readonly DispatcherTimer _dismissSmallTimer = new() { Interval = TimeSpan.FromMilliseconds(180) };
@@ -37,7 +36,8 @@ public partial class App : Application
             bool smoke = Program.Arguments.Contains("--smoke");
             bool demo = smoke || Program.Arguments.Contains("--demo");
             _vm = new MainViewModel(smoke);
-            _window = new MainWindow { DataContext = _vm };
+            _appIcon = AppIcons.Create();
+            _window = new MainWindow { DataContext = _vm, Icon = _appIcon };
             if (!Program.Arguments.Contains("--minimized")) desktop.MainWindow = _window;
             desktop.ShutdownMode = ShutdownMode.OnExplicitShutdown;
             _window.Closed += async (_, _) => await ExitAsync();
@@ -64,13 +64,6 @@ public partial class App : Application
     }
     private void SetupTray()
     {
-        var canvas = new Canvas { Width = 32, Height = 32 };
-        canvas.Children.Add(new Ellipse { Width = 32, Height = 32, Fill = new SolidColorBrush(Color.Parse("#526BEE")) });
-        var mark = new TextBlock { Text = "v", FontFamily = new FontFamily("Segoe UI"), FontSize = 31, FontWeight = FontWeight.Bold, Foreground = Brushes.White };
-        Canvas.SetLeft(mark, 7); Canvas.SetTop(mark, -6); canvas.Children.Add(mark);
-        canvas.Measure(new(32, 32)); canvas.Arrange(new(0, 0, 32, 32));
-        using var bmp = new RenderTargetBitmap(new(32, 32), new(96, 96)); bmp.Render(canvas);
-        using var stream = new MemoryStream(); bmp.Save(stream); stream.Position = 0;
         var menu = new NativeMenu();
         var show = new NativeMenuItem("打开主窗口"); show.Click += (_, _) => ShowWindow(); menu.Add(show);
         var quick = new NativeMenuItem("快捷小窗"); quick.Click += (_, _) => ToggleSmallWindow(); menu.Add(quick);
@@ -78,7 +71,7 @@ public partial class App : Application
         var reconnect = new NativeMenuItem("重新识别耳机"); reconnect.Click += async (_, _) => { if (_vm?.CanScan == true) await _vm.ConnectAsync(); }; menu.Add(reconnect);
         menu.Add(new NativeMenuItemSeparator());
         var exit = new NativeMenuItem("退出"); exit.Click += async (_, _) => await ExitAsync(); menu.Add(exit);
-        _tray = new TrayIcon { Icon = new WindowIcon(stream), ToolTipText = "Vivo Pods Manager", Menu = menu, IsVisible = true };
+        _tray = new TrayIcon { Icon = _appIcon!, ToolTipText = "Vivo Pods Manager", Menu = menu, IsVisible = true };
         _trayClickTimer.Interval = DesktopInteraction.DoubleClickInterval;
         _trayClickTimer.Tick += (_, _) =>
         {
@@ -119,7 +112,7 @@ public partial class App : Application
         if (_exiting || _vm == null) return;
         if (_smallWindow == null)
         {
-            _smallWindow = new SmallWindow { DataContext = _vm };
+            _smallWindow = new SmallWindow { DataContext = _vm, Icon = _appIcon };
             _smallWindow.OpenMainRequested += ShowWindow;
             _smallWindow.Deactivated += (_, _) => { if (!_exiting) { _dismissSmallTimer.Stop(); _dismissSmallTimer.Start(); } };
             _smallWindow.PropertyChanged += (_, change) =>
@@ -176,6 +169,8 @@ public partial class App : Application
     private async Task SmokeAsync()
     {
         string output = Program.Arguments.SkipWhile(a => a != "--output").Skip(1).FirstOrDefault() ?? "artifacts/ui";
+        if (!_window!.ExtendClientAreaToDecorationsHint || _window.Icon == null || _tray?.Icon == null || !ReferenceEquals(_window.Icon, _tray.Icon))
+            throw new InvalidOperationException("主窗口未使用品牌图标或未启用自定义标题栏");
         async Task CaptureAsync(string name, Window? target = null)
         {
             await Task.Delay(160);

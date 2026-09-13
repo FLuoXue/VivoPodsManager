@@ -1,13 +1,33 @@
 <Window xmlns="https://github.com/avaloniaui" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:views="using:VivoPods.App.Views"
-        x:Class="VivoPods.App.Views.MainWindow" Title="Vivo Pods Manager" Width="1000" Height="760" MinWidth="900" MinHeight="660" WindowStartupLocation="CenterScreen">
-  <Grid ColumnDefinitions="204,*">
+        x:Class="VivoPods.App.Views.MainWindow" Title="Vivo Pods Manager" Width="1000" Height="760" MinWidth="900" MinHeight="660" WindowStartupLocation="CenterScreen"
+        ExtendClientAreaToDecorationsHint="True" ExtendClientAreaChromeHints="NoChrome" ExtendClientAreaTitleBarHeightHint="-1"
+        Background="{DynamicResource PageBrush}">
+  <Grid RowDefinitions="42,*">
+    <Grid Grid.Row="0" ColumnDefinitions="204,*">
+      <Border Background="{DynamicResource SideBrush}" BorderBrush="{DynamicResource LineBrush}" BorderThickness="0,0,1,0">
+        <Panel>
+          <Border Background="Transparent" PointerPressed="BeginTitleBarDrag" DoubleTapped="ToggleMaximizeState" />
+          <StackPanel Orientation="Horizontal" Spacing="9" Margin="16,0,0,0" VerticalAlignment="Center" IsHitTestVisible="False">
+            <Border Width="22" Height="22" Background="{DynamicResource AccentBrush}" CornerRadius="7"><TextBlock Text="v" Foreground="White" FontSize="16" FontWeight="SemiBold" HorizontalAlignment="Center" Margin="0,-2,0,0"/></Border>
+            <TextBlock Text="Vivo Pods Manager" FontSize="12" FontWeight="SemiBold" VerticalAlignment="Center" TextTrimming="CharacterEllipsis"/>
+          </StackPanel>
+        </Panel>
+      </Border>
+      <Border Grid.Column="1" Background="{DynamicResource PageBrush}">
+        <Panel>
+          <Border Background="Transparent" PointerPressed="BeginTitleBarDrag" DoubleTapped="ToggleMaximizeState" />
+          <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" VerticalAlignment="Center">
+            <Button Classes="titlebar-button" ToolTip.Tip="最小化" AutomationProperties.Name="最小化" Click="MinimizeWindow"><TextBlock Text="&#xE921;" FontFamily="Segoe Fluent Icons" FontSize="10"/></Button>
+            <Button Classes="titlebar-button" ToolTip.Tip="最大化" AutomationProperties.Name="最大化" Click="ToggleMaximizeState"><TextBlock x:Name="MaximizeGlyph" Text="&#xE922;" FontFamily="Segoe Fluent Icons" FontSize="10"/></Button>
+            <Button Classes="titlebar-button close" ToolTip.Tip="关闭" AutomationProperties.Name="关闭" Click="CloseWindow"><TextBlock Text="&#xE8BB;" FontFamily="Segoe Fluent Icons" FontSize="10"/></Button>
+          </StackPanel>
+        </Panel>
+      </Border>
+    </Grid>
+    <Grid Grid.Row="1" ColumnDefinitions="204,*">
     <Border Background="{DynamicResource SideBrush}" BorderBrush="{DynamicResource LineBrush}" BorderThickness="0,0,1,0">
-      <Grid RowDefinitions="Auto,Auto,*,Auto" Margin="14,24,14,18">
-        <StackPanel Orientation="Horizontal" Spacing="10" Margin="12,0,0,24">
-          <Border Width="33" Height="33" Background="{DynamicResource AccentBrush}" CornerRadius="10"><TextBlock Text="v" Foreground="White" FontSize="26" FontWeight="SemiBold" HorizontalAlignment="Center" Margin="0,-4,0,0"/></Border>
-          <StackPanel><TextBlock Text="Vivo Pods" FontSize="18" FontWeight="SemiBold"/><TextBlock Text="你的耳机，随时掌控" Classes="muted" FontSize="10"/></StackPanel>
-        </StackPanel>
-        <StackPanel Grid.Row="1" Spacing="9" Margin="0,0,0,20">
+      <Grid RowDefinitions="Auto,*,Auto" Margin="14,20,14,18">
+        <StackPanel Spacing="9" Margin="0,0,0,20">
           <Grid ColumnDefinitions="*,Auto" Margin="12,0,6,0"><TextBlock Text="我的耳机" Classes="muted" FontSize="11" VerticalAlignment="Center"/><Button Grid.Column="1" Classes="quiet icon" ToolTip.Tip="刷新耳机列表" AutomationProperties.Name="刷新耳机列表" Click="Scan" IsEnabled="{Binding CanScan}"><Path Data="{StaticResource RefreshIconGeometry}"/></Button></Grid>
           <ScrollViewer MaxHeight="200" HorizontalScrollBarVisibility="Disabled" VerticalScrollBarVisibility="Auto">
             <ItemsControl ItemsSource="{Binding Devices}" IsEnabled="{Binding Idle}">
@@ -24,12 +44,12 @@
           <TextBlock Text="连接 Windows 后自动显示" Classes="muted" FontSize="10" TextWrapping="Wrap" Margin="12,0" IsVisible="{Binding NoDiscoveredDevices}"/>
           <ProgressBar IsVisible="{Binding IsScanning}" IsIndeterminate="True" Height="2" Margin="12,0"/>
         </StackPanel>
-        <StackPanel Grid.Row="2" Spacing="5">
+        <StackPanel Grid.Row="1" Spacing="5">
           <Button Classes="nav" Classes.active="{Binding OverviewPage}" Tag="overview" Click="Navigate"><StackPanel Orientation="Horizontal" Spacing="12"><TextBlock Text="&#xE7F6;" FontFamily="Segoe Fluent Icons"/><TextBlock Text="耳机概览"/></StackPanel></Button>
           <Button Classes="nav" Classes.active="{Binding GesturesPage}" Tag="gestures" Click="Navigate"><StackPanel Orientation="Horizontal" Spacing="12"><TextBlock Text="&#xE815;" FontFamily="Segoe Fluent Icons"/><TextBlock Text="手势控制"/></StackPanel></Button>
           <Button Classes="nav" Classes.active="{Binding DevicesPage}" Tag="devices" Click="Navigate"><StackPanel Orientation="Horizontal" Spacing="12"><TextBlock Text="&#xE772;" FontFamily="Segoe Fluent Icons"/><TextBlock Text="设备连接"/></StackPanel></Button>
         </StackPanel>
-        <StackPanel Grid.Row="3" Spacing="5">
+        <StackPanel Grid.Row="2" Spacing="5">
           <Button Classes="nav" Classes.active="{Binding SettingsPage}" Tag="settings" Click="Navigate"><StackPanel Orientation="Horizontal" Spacing="12"><TextBlock Text="&#xE713;" FontFamily="Segoe Fluent Icons"/><TextBlock Text="应用设置"/></StackPanel></Button>
           <Button Classes="nav" Classes.active="{Binding AboutPage}" Tag="about" Click="Navigate"><StackPanel Orientation="Horizontal" Spacing="12"><TextBlock Text="&#xE946;" FontFamily="Segoe Fluent Icons"/><TextBlock Text="关于"/></StackPanel></Button>
           <Border Height="1" Background="{DynamicResource LineBrush}" Margin="10,10"/>
@@ -37,7 +57,7 @@
         </StackPanel>
       </Grid>
     </Border>
-    <Grid Grid.Column="1" RowDefinitions="Auto,*,Auto" Margin="22,23,22,0">
+    <Grid Grid.Column="1" RowDefinitions="Auto,*,Auto" Margin="22,16,22,0">
       <Grid ColumnDefinitions="*,Auto" Margin="0,0,0,18">
         <StackPanel Spacing="4"><TextBlock Text="{Binding PageTitle}" FontSize="24" FontWeight="SemiBold"/><TextBlock Text="{Binding PageSubtitle}" Classes="muted" FontSize="11"/></StackPanel>
         <Button Grid.Column="1" Classes="quiet" Content="快捷小窗 ↗" Click="OpenQuickWindow" VerticalAlignment="Center" Padding="10,8" FontSize="12"/>
@@ -162,5 +182,6 @@
       </ScrollViewer>
       <Grid Grid.Row="2" ColumnDefinitions="*,Auto" ColumnSpacing="15" Margin="0,10,0,12"><TextBlock Text="{Binding Message}" Classes="muted" FontSize="10" TextTrimming="CharacterEllipsis"/><TextBlock Grid.Column="1" Text="{Binding ConnectionDetail}" Classes="muted" FontSize="10"/></Grid>
     </Grid>
+  </Grid>
   </Grid>
 </Window>
