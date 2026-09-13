@@ -8,7 +8,7 @@
 
 ## 下载
 
-从 [Releases](https://github.com/FLuoXue/VivoPodsManager/releases) 下载最新的 `VivoPodsManager-win-x64.zip`（ARM64 设备选 `win-arm64`），解压后运行 `VivoPodsManager.exe`。每次发布会同时附带 `SHA256SUMS.txt` 校验值。
+从 [Releases](https://github.com/FLuoXue/VivoPodsManager/releases) 下载最新的 `VivoPodsManager-win-x64.zip`（ARM64 设备选 `win-arm64`），解压后运行 `VivoPodsManager.exe`。希望减少文件数量时可选择 `VivoPodsManager-win-x64-single-file.zip`，解压后只有一个自包含 `VivoPodsManager.exe`。每次发布会同时附带 `SHA256SUMS.txt` 校验值。
 
 ## 使用
 
@@ -67,6 +67,9 @@ dotnet run --project src/VivoPods.App -c Release -- --smoke --minimized --output
 
 # 创建自包含便携包
 pwsh -File scripts/publish.ps1
+
+# 创建自包含 single-file 版本
+pwsh -File scripts/publish.ps1 -SingleFile
 ```
 
 测试入口为独立控制台校验器，使用 `dotnet run`，不是 `dotnet test`。

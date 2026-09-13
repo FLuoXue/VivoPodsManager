@@ -48,9 +48,17 @@ jobs:
         shell: pwsh
         run: pwsh -File scripts/publish.ps1 -Runtime win-x64
 
+      - name: Publish win-x64 single-file
+        shell: pwsh
+        run: pwsh -File scripts/publish.ps1 -Runtime win-x64 -SingleFile
+
       - name: Publish win-arm64 portable
         shell: pwsh
         run: pwsh -File scripts/publish.ps1 -Runtime win-arm64
+
+      - name: Publish win-arm64 single-file
+        shell: pwsh
+        run: pwsh -File scripts/publish.ps1 -Runtime win-arm64 -SingleFile
 
       - name: Write checksums
         shell: pwsh
@@ -78,10 +86,12 @@ jobs:
         run: |
           $tag = '${{ steps.meta.outputs.tag }}'
           $assets = @(
-            'artifacts/VivoPodsManager-win-x64.zip'
-            'artifacts/VivoPodsManager-win-arm64.zip'
-            'artifacts/SHA256SUMS.txt'
+            Get-ChildItem -LiteralPath artifacts -File |
+              Where-Object { $_.Name -like 'VivoPodsManager-*.zip' -or $_.Name -eq 'SHA256SUMS.txt' } |
+              Sort-Object Name |
+              ForEach-Object { $_.FullName }
           )
+          if ($assets.Count -lt 5) { throw 'Expected at least five release assets.' }
           gh release view $tag --json tagName 2>$null | Out-Null
           if ($LASTEXITCODE -eq 0) {
             gh release upload $tag @assets --clobber
